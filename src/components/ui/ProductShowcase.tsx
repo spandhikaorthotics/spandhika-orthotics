@@ -1,0 +1,222 @@
+"use client";
+import Image from "next/image";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type ElementType,
+} from "react";
+
+/* ────────────────────────────────────────────────────────────
+   Reveal: scroll-reveal using the .reveal / .stagger classes
+──────────────────────────────────────────────────────────── */
+function Reveal({
+  children,
+  as: Tag = "div",
+  stagger = false,
+  className = "",
+}: {
+  children: ReactNode;
+  as?: ElementType;
+  stagger?: boolean;
+  className?: string;
+}) {
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <Tag
+      ref={ref}
+      className={`${className} ${stagger ? "stagger" : "reveal"} ${visible ? "is-visible" : ""}`}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+   Icon: tiny inline icon set
+──────────────────────────────────────────────────────────── */
+function Icon({ name }: { name: "pressure" | "gait" | "insights" }) {
+  const icons = {
+    pressure: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="1.5" strokeWidth={1.8} />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" strokeWidth={1.8} />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" strokeWidth={1.8} />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" strokeWidth={1.8} fill="currentColor" />
+      </svg>
+    ),
+    gait: (
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7z" />
+      </svg>
+    ),
+    insights: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4" />
+      </svg>
+    ),
+  };
+  return icons[name];
+}
+
+const layers = [
+  {
+    layer: "01",
+    name: "Breathable top cover",
+    desc: "Moisture-wicking, antimicrobial fabric.",
+  },
+  {
+    layer: "02",
+    name: "Pressure sensor array",
+    desc: "32 zones reading across the foot.",
+  },
+  {
+    layer: "03",
+    name: "PET piezoresistive layer",
+    desc: "Highly responsive material for accurate dynamic pressure mapping.",
+  },
+  {
+    layer: "04",
+    name: "Stiffener layer",
+    desc: "Provides structural integrity and stable support for the sensors.",
+  },
+  {
+    layer: "05",
+    name: "Anti-slip base",
+    desc: "Fits inside the shoes you already own.",
+  },
+];
+
+const features = [
+  {
+    icon: "pressure" as const,
+    title: "Pressure mapping",
+    body: "High-density sensor array captures dynamic load distribution.",
+  },
+  {
+    icon: "gait" as const,
+    title: "Real-time gait analysis",
+    body: "Monitor pronation, supination, and cadence instantly.",
+  },
+  {
+    icon: "insights" as const,
+    title: "Preventive insights",
+    body: "Predictive algorithms alert you before strain becomes pain.",
+  },
+];
+
+export default function Features() {
+  return (
+    <section
+      id="features"
+      className="scroll-mt-20 sm:scroll-mt-24 py-16 sm:py-24 lg:py-32 bg-[#092215] text-white relative overflow-hidden font-sans"
+    >
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-12 relative z-10">
+        
+        {/* ── HEADER ── */}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-16 lg:mb-20">
+          <div className="lg:col-span-6">
+            <div className="flex items-center gap-4 text-[#6ee7b7] text-xs font-bold tracking-[0.2em] uppercase mb-6">
+              <span className="h-[2px] w-8 bg-[#6ee7b7]" />
+              Flagship innovation
+            </div>
+            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight">
+              Meet SAARTHI
+            </h2>
+          </div>
+          <p className="lg:col-span-6 text-lg text-gray-400 font-light leading-relaxed max-w-lg">
+            The world's most advanced smart insole system. SAARTHI doesn't just cushion your step; it understands it.
+          </p>
+        </div>
+
+        {/* ── EXPLODED INSOLE VISUAL + LAYERS ── */}
+        {/* Using a custom 11fr / 13fr grid to achieve the exact 5.5 / 6.5 ratio */}
+        <div className="grid lg:grid-cols-[11fr_13fr] gap-10 lg:gap-16 items-center">
+          
+          {/* Layers List — LEFT (Takes up the 11fr fraction, which equals 5.5/12) */}
+          <Reveal as="ul" stagger className="flex flex-col gap-3">
+            {layers.map((l) => (
+              <li
+                key={l.layer}
+                className="group flex items-start gap-5 rounded-2xl bg-[#102d1e] p-5 border border-[#1b452e] transition-all duration-300 hover:border-[#6ee7b7]/40 hover:bg-[#153926]"
+              >
+                <span className="font-mono text-sm font-bold text-[#6ee7b7] mt-1">
+                  {l.layer}
+                </span>
+                <div>
+                  <div className="text-md font-medium text-white">
+                    {l.name}
+                  </div>
+                  <div className="text-sm text-gray-400 font-light leading-relaxed">
+                    {l.desc}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </Reveal>
+
+          {/* Image Area — RIGHT (Takes up the 13fr fraction, which equals 6.5/12) */}
+          <div className="relative flex items-center justify-center min-h-[400px] lg:min-h-[500px] group">
+            
+            {/* Soft Radial Green Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-[#6ee7b7]/15 rounded-full blur-[140px] pointer-events-none transition-opacity duration-700 group-hover:bg-[#6ee7b7]/25" />
+
+            {/* Floating Product Image */}
+            <div className="relative w-full h-full aspect-[5/4] z-10">
+              <Image
+                src="/insole_2.png"
+                alt="Exploded view of the SAARTHI smart insole"
+                fill
+                className="object-contain drop-shadow-2xl transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+
+          </div>
+        </div>
+
+        {/* ── FEATURE CARDS ── */}
+        <Reveal
+          stagger
+          className="mt-20 lg:mt-28 grid sm:grid-cols-2 md:grid-cols-3 gap-5"
+        >
+          {features.map((f) => (
+            <div
+              key={f.title}
+              className="group flex flex-col rounded-3xl bg-[#102d1e] border border-[#1b452e] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#6ee7b7]/40 hover:shadow-2xl hover:shadow-[#6ee7b7]/5"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-[#6ee7b7] text-[#051911] flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
+                <Icon name={f.icon} />
+              </div>
+              <h3 className="text-xl font-medium text-white mb-3">
+                {f.title}
+              </h3>
+              <p className="text-sm text-gray-400 font-light leading-relaxed">
+                {f.body}
+              </p>
+            </div>
+          ))}
+        </Reveal>
+      </div>
+    </section>
+  );
+}
