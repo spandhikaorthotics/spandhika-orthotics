@@ -208,9 +208,13 @@ export default function ContactUs() {
         body: JSON.stringify({ type: "sales", ...salesData }),
       });
       const data = await res.json();
+      
       if (res.ok && data.success) {
         setSalesFeedback({ type: "success", message: "Your inquiry has been sent! We'll be in touch soon." });
         setSalesData(initialSalesData);
+      } else if (res.status === 429) {
+        // Catch the rate limit specifically
+        setSalesFeedback({ type: "error", message: data.message || "Too many requests. Please try again later." });
       } else {
         setSalesFeedback({ type: "error", message: data.message || "Something went wrong. Please try again." });
       }
@@ -231,9 +235,13 @@ export default function ContactUs() {
         body: JSON.stringify({ type: "support", ...supportData }),
       });
       const data = await res.json();
+      
       if (res.ok && data.success) {
         setSupportFeedback({ type: "success", message: "Support request submitted! Our team will respond shortly." });
         setSupportData(initialSupportData);
+      } else if (res.status === 429) {
+        // Catch the rate limit specifically
+        setSupportFeedback({ type: "error", message: data.message || "Too many requests. Please try again later." });
       } else {
         setSupportFeedback({ type: "error", message: data.message || "Something went wrong. Please try again." });
       }

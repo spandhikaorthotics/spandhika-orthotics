@@ -7,12 +7,14 @@ export default function Footer() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!email || loading) return;
 
     setLoading(true);
+    setErrorMessage("");
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
@@ -20,14 +22,19 @@ export default function Footer() {
         body: JSON.stringify({ email }),
       });
 
+      const data = await res.json();
+
       if (res.ok || res.status === 409) {
         setSubmitted(true);
         setEmail("");
+      } else if (res.status === 429) {
+        // Catch the rate limit specifically here
+        setErrorMessage(data.error || "Too many requests. Please try again in a minute.");
       } else {
-        setSubmitted(true); // still show success to user
+        setErrorMessage(data.error || "Something went wrong. Please try again.");
       }
     } catch {
-      setSubmitted(true); // still show success to user
+      setErrorMessage("Network error. Please check your connection.");
     } finally {
       setLoading(false);
     }
@@ -164,7 +171,15 @@ export default function Footer() {
                     )}
                   </button>
                 </div>
-                <p
+                {/* Error Message Display */}
+                {errorMessage ? (
+                   <p
+                   className="text-[12px] px-1 text-red-400"
+                 >
+                   {errorMessage}
+                 </p>
+                ) : (
+                  <p
                   className="text-[11px] px-1"
                   style={{
                     color: "color-mix(in oklab, white 35%, transparent)",
@@ -172,6 +187,8 @@ export default function Footer() {
                 >
                   No spam. Launching 2026.
                 </p>
+                )}
+                
               </form>
             )}
 

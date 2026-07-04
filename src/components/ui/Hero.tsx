@@ -82,11 +82,14 @@ export default function Hero() {
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
-  
+  const [errorMessage, setErrorMessage] = useState("");
+
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!email || status === "loading") return;
+    
     setStatus("loading");
+    setErrorMessage(""); // Reset error message on new submission
 
     try {
       const res = await fetch("/api/waitlist", {
@@ -95,14 +98,23 @@ export default function Hero() {
         body: JSON.stringify({ email }),
       });
 
+      const data = await res.json();
+
       if (res.ok || res.status === 409) {
         setStatus("success");
         setEmail("");
-      } else {
+      } else if (res.status === 429) {
+        // Catch the rate limit error specifically
         setStatus("error");
+        setErrorMessage(data.error || "Too many requests. Please try again in a minute.");
+      } else {
+        // Catch any other backend errors (400 invalid email, 500 server error, etc.)
+        setStatus("error");
+        setErrorMessage(data.error || "Something went wrong. Please try again.");
       }
     } catch {
       setStatus("error");
+      setErrorMessage("Network error. Please check your connection.");
     }
   }
 
@@ -201,7 +213,7 @@ export default function Hero() {
             )}
             {status === "error" && (
               <p className="mt-2 text-[13px] text-red-500 px-1">
-                Something went wrong. Please try again.
+                {errorMessage}
               </p>
             )}
           </div>
