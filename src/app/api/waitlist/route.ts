@@ -65,18 +65,83 @@ export async function POST(req: NextRequest) {
       await resend.emails.send({
         from: "Spandhika Orthotics <team@spandhikaorthotics.in>",
         to: email,
-        subject: "You're on the list! Welcome to SAARTHI.",
+        subject: "You're on the SAARTHI waitlist",
         html: `
-          <div style="font-family: sans-serif; color: #022c22; max-w: 600px; margin: 0 auto;">
-            <h2 style="color: #10b981;">Your spot is confirmed! 🎉</h2>
-            <p>Hi there,</p>
-            <p>Thank you for joining the waitlist for SAARTHI by Spandhika Orthotics. We're thrilled to have you on board.</p>
-            <p>You are now officially in line to be among the first to experience our smart orthotic insoles. We are working hard preparing for our launch, and we will keep you updated on our progress, exclusive previews, and when you can claim yours.</p>
-            <p>Better movement starts from your feet, and we can't wait to share this journey with you.</p>
-            <br/>
-            <p>Best regards,</p>
-            <p><strong>The Spandhika Team</strong></p>
-          </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to SAARTHI</title>
+</head>
+<body style="margin:0; padding:0; background-color:#f4f6f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6f5; padding:32px 0;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius:8px; overflow:hidden; max-width:600px;">
+
+          <!-- Header -->
+          <tr>
+            <td style="background-color:#022c22; padding:28px 40px;">
+              <span style="color:#ffffff; font-size:18px; font-weight:600; letter-spacing:0.5px;">
+                SPANDHIKA ORTHOTICS
+              </span>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:40px 40px 24px 40px;">
+              <p style="margin:0 0 4px 0; font-size:13px; font-weight:600; letter-spacing:1px; color:#10b981; text-transform:uppercase;">
+                Waitlist confirmed
+              </p>
+              <h1 style="margin:0 0 24px 0; font-size:22px; color:#022c22; font-weight:600;">
+                You're on the list for SAARTHI
+              </h1>
+              <p style="margin:0 0 16px 0; font-size:15px; line-height:1.6; color:#374151;">
+                Hi there,
+              </p>
+              <p style="margin:0 0 16px 0; font-size:15px; line-height:1.6; color:#374151;">
+                Thank you for joining the waitlist for SAARTHI by Spandhika Orthotics. You've secured your place to be among the first to experience our smart orthotic insoles.
+              </p>
+              <p style="margin:0 0 16px 0; font-size:15px; line-height:1.6; color:#374151;">
+                We're currently finalizing preparations for launch and will keep you updated with progress notes, early previews, and instructions for claiming your pair when the time comes.
+              </p>
+              <p style="margin:0 0 24px 0; font-size:15px; line-height:1.6; color:#374151;">
+                Better movement starts from the ground up — we're glad to have you with us on this journey.
+              </p>
+              <p style="margin:0; font-size:15px; line-height:1.6; color:#374151;">
+                Best regards,<br />
+                <strong style="color:#022c22;">The Spandhika Team</strong>
+              </p>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td style="padding:0 40px;">
+              <hr style="border:none; border-top:1px solid #e5e7eb; margin:0;" />
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:24px 40px 32px 40px;">
+              <p style="margin:0; font-size:12px; line-height:1.6; color:#9ca3af;">
+                You're receiving this email because you signed up for the SAARTHI waitlist at spandhikaorthotics.in.
+              </p>
+              <p style="margin:8px 0 0 0; font-size:12px; color:#9ca3af;">
+                &copy; ${new Date().getFullYear()} Spandhika Orthotics. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
         `,
       });
     } catch (emailError) {
