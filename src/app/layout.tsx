@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import DidYouKnowBanner from "@/components/ui/DidYouKnow";
+import { Analytics } from "@vercel/analytics/next"; // 1. Added the import here
 
 // 1. Configure Manrope
 const manrope = Manrope({
@@ -81,6 +82,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans">
         <ScrollProgress />
         {children}
+        <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
