@@ -91,6 +91,30 @@ const sections = [
     ],
   },
   {
+    id: "security",
+    title: "Security & Bot Protection",
+    content: [
+      {
+        subtitle: "Cloudflare Turnstile",
+        text: (
+          <>
+            We use Cloudflare Turnstile in "invisible mode" to protect our website forms from spam and abuse. Turnstile runs in the background to verify that visitors are human without requiring intrusive puzzles. As a condition of using this service, we are required to reference the{" "}
+            <a
+              href="https://www.cloudflare.com/en-gb/turnstile-privacy-policy/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "var(--primary)", textDecoration: "underline" }}
+              className="hover:opacity-70 transition-opacity"
+            >
+              Cloudflare Turnstile Privacy Addendum
+            </a>
+            , which governs how Cloudflare processes your data during this security check.
+          </>
+        ),
+      },
+    ],
+  },
+  {
     id: "dpdp-act",
     title: "India's DPDP Act compliance",
     content: [
