@@ -8,7 +8,7 @@
 
 <br />
 
-[![Live Site](https://img.shields.io/badge/🌐%20Live%20Site-spandhikaorthotics.in-0066FF?style=for-the-badge)](https://spandhika-orthotics-blue.vercel.app/)
+[![Live Site](https://img.shields.io/badge/🌐%20Live%20Site-spandhikaorthotics.in-0066FF?style=for-the-badge)](https://spandhikaorthotics.in)
 [![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?style=for-the-badge&logo=vercel)](https://vercel.com)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
