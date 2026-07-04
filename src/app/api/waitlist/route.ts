@@ -5,6 +5,7 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import disposableDomains from "disposable-email-domains";
 import { Resend } from "resend";
+import { verifyTurnstile } from "nextjs-turnstile";
 
 // Initialize the Upstash Redis instance using your environment variables
 const redis = Redis.fromEnv();
@@ -16,16 +17,38 @@ const ratelimit = new Ratelimit({
   analytics: true,
 });
 
-// 2. Initialize Resend using your environment variable
+// Initialize Resend using your environment variable
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   try {
-    // 1. Get the IP address for rate limiting
+    const body = await req.json();
+    const { email, token } = body;
+
+    // 2. Validate Turnstile token presence
+    if (!token) {
+      return NextResponse.json(
+        { error: "Security token missing. Please refresh the page." },
+        { status: 400 }
+      );
+    }
+
+    // 3. Verify Turnstile token with Cloudflare
+    // This automatically looks for process.env.TURNSTILE_SECRET_KEY
+    const isValidToken = await verifyTurnstile(token);
+    
+    if (!isValidToken) {
+      return NextResponse.json(
+        { error: "Failed security check. Are you a bot?" },
+        { status: 403 }
+      );
+    }
+
+    // 4. Get the IP address for rate limiting
     // Vercel forwards the real IP in the 'x-forwarded-for' header
     const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
     
-    // 2. Check the rate limit
+    // 5. Check the rate limit
     const { success } = await ratelimit.limit(ip);
     if (!success) {
       return NextResponse.json(
@@ -34,14 +57,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3. Process the Waitlist Data
-    const { email } = await req.json();
-
+    // 6. Process the Waitlist Data
     if (!email || !email.includes("@")) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
 
-    // 4. Block disposable/temporary email addresses
+    // 7. Block disposable/temporary email addresses
     const domain = email.split("@")[1]?.toLowerCase();
     if (disposableDomains.includes(domain)) {
       return NextResponse.json(
@@ -50,7 +71,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 5. Save to Database
+    // 8. Save to Database
     await connectDB();
 
     const existing = await Waitlist.findOne({ email });
@@ -60,7 +81,7 @@ export async function POST(req: NextRequest) {
 
     await Waitlist.create({ email });
 
-    // 6. Send the Confirmation Email via Resend
+    // 9. Send the Confirmation Email via Resend
     try {
       await resend.emails.send({
         from: "Spandhika Orthotics <team@spandhikaorthotics.in>",

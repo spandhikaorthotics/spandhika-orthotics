@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Turnstile } from "nextjs-turnstile"; 
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -173,6 +174,9 @@ const initialSupportData = {
 
 export default function ContactUs() {
   const [tab, setTab] = useState<"sales" | "support">("sales");
+  
+  // 2. Add Turnstile token state (used for both forms)
+  const [token, setToken] = useState<string | null>(null);
 
   // --- Sales form state ---
   const [salesData, setSalesData] = useState(initialSalesData);
@@ -199,13 +203,20 @@ export default function ContactUs() {
 
   // --- Submit handlers ---
   const handleSalesSubmit = async () => {
+    // 3. Block submission if no token
+    if (!token) {
+      setSalesFeedback({ type: "error", message: "Please complete the security check." });
+      return;
+    }
+
     setSalesLoading(true);
     setSalesFeedback(null);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "sales", ...salesData }),
+        // 4. Include the token in the body
+        body: JSON.stringify({ type: "sales", token, ...salesData }),
       });
       const data = await res.json();
       
@@ -213,7 +224,6 @@ export default function ContactUs() {
         setSalesFeedback({ type: "success", message: "Your inquiry has been sent! We'll be in touch soon." });
         setSalesData(initialSalesData);
       } else if (res.status === 429) {
-        // Catch the rate limit specifically
         setSalesFeedback({ type: "error", message: data.message || "Too many requests. Please try again later." });
       } else {
         setSalesFeedback({ type: "error", message: data.message || "Something went wrong. Please try again." });
@@ -226,13 +236,20 @@ export default function ContactUs() {
   };
 
   const handleSupportSubmit = async () => {
+    // 3. Block submission if no token
+    if (!token) {
+      setSupportFeedback({ type: "error", message: "Please complete the security check." });
+      return;
+    }
+
     setSupportLoading(true);
     setSupportFeedback(null);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "support", ...supportData }),
+        // 4. Include the token in the body
+        body: JSON.stringify({ type: "support", token, ...supportData }),
       });
       const data = await res.json();
       
@@ -240,7 +257,6 @@ export default function ContactUs() {
         setSupportFeedback({ type: "success", message: "Support request submitted! Our team will respond shortly." });
         setSupportData(initialSupportData);
       } else if (res.status === 429) {
-        // Catch the rate limit specifically
         setSupportFeedback({ type: "error", message: data.message || "Too many requests. Please try again later." });
       } else {
         setSupportFeedback({ type: "error", message: data.message || "Something went wrong. Please try again." });
@@ -375,10 +391,26 @@ export default function ContactUs() {
                   <Textarea name="message" placeholder="Briefly describe what you're looking to achieve..." value={salesData.message} onChange={handleSalesChange} />
                 </div>
 
+                {/* 5. Render Turnstile Widget (Light Theme) */}
+                <div className="mt-2">
+                  <Turnstile 
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                    onSuccess={(t) => {
+                      setToken(t);
+                      if (salesFeedback?.message === "Please complete the security check.") {
+                        setSalesFeedback(null);
+                      }
+                    }}
+                    onExpire={() => setToken(null)}
+                    onError={() => setSalesFeedback({ type: "error", message: "Security verification failed. Please refresh." })}
+                    theme="light"
+                  />
+                </div>
+
                 <button
                   type="button"
                   onClick={handleSalesSubmit}
-                  disabled={salesLoading}
+                  disabled={salesLoading || !token}
                   className="w-full bg-[#0E3320] hover:bg-[#0a2316] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-bold tracking-wider uppercase rounded-lg py-3.5 flex items-center justify-center gap-2 transition-colors mt-2 shadow-lg shadow-[#051911]/10"
                 >
                   {salesLoading ? (
@@ -449,10 +481,26 @@ export default function ContactUs() {
                   <Select name="priority" placeholder="Select urgency..." options={["Low - General Question", "Normal - Impedes workflow", "High - Completely blocked"]} value={supportData.priority} onChange={handleSupportChange} />
                 </div>
 
+                {/* 5. Render Turnstile Widget (Light Theme) */}
+                <div className="mt-2">
+                  <Turnstile 
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                    onSuccess={(t) => {
+                      setToken(t);
+                      if (supportFeedback?.message === "Please complete the security check.") {
+                        setSupportFeedback(null);
+                      }
+                    }}
+                    onExpire={() => setToken(null)}
+                    onError={() => setSupportFeedback({ type: "error", message: "Security verification failed. Please refresh." })}
+                    theme="light"
+                  />
+                </div>
+
                 <button
                   type="button"
                   onClick={handleSupportSubmit}
-                  disabled={supportLoading}
+                  disabled={supportLoading || !token}
                   className="w-full bg-[#0E3320] hover:bg-[#0a2316] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-bold tracking-wider uppercase rounded-lg py-3.5 flex items-center justify-center gap-2 transition-colors mt-2 shadow-lg shadow-[#051911]/10"
                 >
                   {supportLoading ? (

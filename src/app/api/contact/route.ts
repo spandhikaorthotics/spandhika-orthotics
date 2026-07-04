@@ -5,6 +5,8 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import disposableDomains from "disposable-email-domains";
 import { Resend } from "resend";
+// 1. Import Turnstile verifier
+import { verifyTurnstile } from "nextjs-turnstile";
 
 const redis = Redis.fromEnv();
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -17,6 +19,28 @@ const ratelimit = new Ratelimit({
 
 export async function POST(req: NextRequest) {
   try {
+    const body = await req.json();
+    const { email, token } = body;
+
+    // 2. Validate Turnstile token presence
+    if (!token) {
+      return NextResponse.json(
+        { error: "Security token missing. Please refresh the page." },
+        { status: 400 }
+      );
+    }
+
+    // 3. Verify Turnstile token with Cloudflare
+    const isValidToken = await verifyTurnstile(token);
+    
+    if (!isValidToken) {
+      return NextResponse.json(
+        { error: "Failed security check. Are you a bot?" },
+        { status: 403 }
+      );
+    }
+
+    // 4. Rate Limiting Check
     const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
     const { success } = await ratelimit.limit(ip);
     
@@ -24,9 +48,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
     }
 
-    const body = await req.json();
-    const { email } = body;
-
+    // 5. Email Validation
     if (!email || !email.includes("@")) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
     }
@@ -36,10 +58,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Please use a valid, permanent email address." }, { status: 400 });
     }
 
+    // 6. Save to Database
     await connectDB();
     const inquiry = await ContactInquiry.create(body);
 
-    // 1. Send confirmation email to the USER
+    // 7. Send confirmation email to the USER
     try {
       await resend.emails.send({
         from: "Spandhika Orthotics <team@spandhikaorthotics.in>",
@@ -136,7 +159,7 @@ export async function POST(req: NextRequest) {
       console.error("User confirmation email failed:", err);
     }
 
-    // 2. Send alert email to YOUR TEAM
+    // 8. Send alert email to YOUR TEAM
     try {
       const extraFieldsRows = body.type === 'sales'
         ? `

@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState, type FormEvent } from "react";
+import { Turnstile } from "nextjs-turnstile";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -79,6 +80,7 @@ const heroStats = [
 
 export default function Hero() {
   const [email, setEmail] = useState("");
+  const [token, setToken] = useState<string | null>(null);
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
@@ -86,7 +88,15 @@ export default function Hero() {
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!email || status === "loading") return;
+    
+    // 3. Block submission if loading or missing token
+    if (!email || status === "loading" || !token) {
+      if (!token) {
+        setStatus("error");
+        setErrorMessage("Please complete the security check.");
+      }
+      return;
+    }
     
     setStatus("loading");
     setErrorMessage(""); // Reset error message on new submission
@@ -95,7 +105,7 @@ export default function Hero() {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, token }),
       });
 
       const data = await res.json();
@@ -189,26 +199,49 @@ export default function Hero() {
             ) : (
               <form
                 onSubmit={onSubmit}
-                className="flex flex-col sm:flex-row gap-2.5"
+                className="flex flex-col gap-3"
               >
-                <input
-                  id="waitlist-email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  className="flex-1 bg-white rounded-full px-5 py-3.5 text-[15px] text-[#022c22] focus:outline-none focus:ring-2 focus:ring-[#10b981]/30 placeholder:text-slate-400 shadow-sm"
-                  style={{ border: "1px solid #e2e8f0" }}
-                />
-                <button
-                  type="submit"
-                  disabled={status === "loading"}
-                  className="inline-flex items-center justify-center gap-2 bg-[#022c22] hover:bg-[#034032] text-white px-7 py-3.5 rounded-full text-[15px] font-semibold transition-colors shadow-md hover:shadow-lg shrink-0 disabled:opacity-70 cursor-pointer"
-                >
-                  {status === "loading" ? "Joining..." : "Join waitlist"}
-                  {status !== "loading" && <span aria-hidden="true">→</span>}
-                </button>
+                <div className="flex flex-col sm:flex-row gap-2.5">
+                  <input
+                    id="waitlist-email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className="flex-1 bg-white rounded-full px-5 py-3.5 text-[15px] text-[#022c22] focus:outline-none focus:ring-2 focus:ring-[#10b981]/30 placeholder:text-slate-400 shadow-sm disabled:opacity-50"
+                    style={{ border: "1px solid #e2e8f0" }}
+                    disabled={status === "loading"}
+                  />
+                  <button
+                    type="submit"
+                    // 5. Disable button if missing token
+                    disabled={status === "loading" || !token}
+                    className="inline-flex items-center justify-center gap-2 bg-[#022c22] hover:bg-[#034032] text-white px-7 py-3.5 rounded-full text-[15px] font-semibold transition-colors shadow-md hover:shadow-lg shrink-0 disabled:opacity-70 cursor-pointer"
+                  >
+                    {status === "loading" ? "Joining..." : "Join waitlist"}
+                    {status !== "loading" && <span aria-hidden="true">→</span>}
+                  </button>
+                </div>
+
+                {/* 6. Render Turnstile Widget */}
+                <div className="mt-1">
+                  <Turnstile 
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                    onSuccess={(t) => {
+                      setToken(t);
+                      if (status === "error" && errorMessage === "Please complete the security check.") {
+                        setErrorMessage("");
+                        setStatus("idle");
+                      }
+                    }}
+                    onExpire={() => setToken(null)}
+                    onError={() => {
+                      setStatus("error");
+                      setErrorMessage("Security verification failed. Please refresh.");
+                    }}
+                  />
+                </div>
               </form>
             )}
             {status === "error" && (
