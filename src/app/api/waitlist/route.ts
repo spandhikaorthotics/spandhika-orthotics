@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
                 We're currently finalizing preparations for launch and will keep you updated with progress notes, early previews, and instructions for claiming your pair when the time comes.
               </p>
               <p style="margin:0 0 24px 0; font-size:15px; line-height:1.6; color:#374151;">
-                Better movement starts from the ground up — we're glad to have you with us on this journey.
+                Better movement starts from the ground up, and we're glad to have you with us on this journey.
               </p>
               <p style="margin:0; font-size:15px; line-height:1.6; color:#374151;">
                 Best regards,<br />
