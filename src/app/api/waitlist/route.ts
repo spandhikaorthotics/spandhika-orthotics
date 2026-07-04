@@ -3,11 +3,12 @@ import { connectDB } from "@/lib/mongodb";
 import Waitlist from "@/models/Waitlist";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import disposableDomains from "disposable-email-domains";
 
 // Initialize the Upstash Redis instance using your environment variables
 const redis = Redis.fromEnv();
 
-// Create a ratelimiter that allows 3 requests per 1 minute window per IP
+// Create a ratelimiter that allows 1 request per 1 minute window per IP
 const ratelimit = new Ratelimit({
   redis: redis,
   limiter: Ratelimit.slidingWindow(1, "1 m"),
@@ -36,6 +37,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
 
+    // 4. Block disposable/temporary email addresses
+    const domain = email.split("@")[1]?.toLowerCase();
+    if (disposableDomains.includes(domain)) {
+      return NextResponse.json(
+        { error: "Please use a valid, permanent email address." },
+        { status: 400 }
+      );
+    }
+
+    // 5. Save to Database
     await connectDB();
 
     const existing = await Waitlist.findOne({ email });

@@ -3,11 +3,12 @@ import { connectDB } from "@/lib/mongodb";
 import ContactInquiry from "@/models/Contact";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import disposableDomains from "disposable-email-domains";
 
 // Initialize the Upstash Redis instance
 const redis = Redis.fromEnv();
 
-// Create a ratelimiter (currently set to 3 requests per 1 minute)
+// Create a ratelimiter (currently set to 3 requests per 1 hour)
 const ratelimit = new Ratelimit({
   redis: redis,
   limiter: Ratelimit.slidingWindow(3, "1 h"),
@@ -28,8 +29,28 @@ export async function POST(req: Request) {
       );
     }
 
-    await connectDB();
     const body = await req.json();
+    const { email } = body; // Extract the email from the form submission
+
+    // 3. Basic email format check
+    if (!email || !email.includes("@")) {
+      return NextResponse.json(
+        { success: false, message: "Invalid email format" }, 
+        { status: 400 }
+      );
+    }
+
+    // 4. Block disposable/temporary email addresses
+    const domain = email.split("@")[1]?.toLowerCase();
+    if (disposableDomains.includes(domain)) {
+      return NextResponse.json(
+        { success: false, message: "Please use a valid, permanent email address." },
+        { status: 400 }
+      );
+    }
+
+    // 5. Connect to DB and save inquiry
+    await connectDB();
     const inquiry = await ContactInquiry.create(body);
 
     return NextResponse.json(
