@@ -82,10 +82,19 @@ export async function POST(req: NextRequest) {
 
           <!-- Header -->
           <tr>
-            <td style="background-color:#022c22; padding:28px 40px;">
-              <span style="color:#ffffff; font-size:18px; font-weight:600; letter-spacing:0.5px;">
-                SPANDHIKA ORTHOTICS
-              </span>
+            <td style="background-color:#022c22; padding:24px 40px;">
+              <table role="presentation" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="vertical-align:middle; padding-right:10px;">
+                    <img src="https://spandhikaorthotics.in/SO_Logo.png" alt="Spandhika Orthotics" width="32" height="32" style="display:block; border-radius:4px;" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <span style="color:#ffffff; font-size:18px; font-weight:600; letter-spacing:0.5px;">
+                      SPANDHIKA ORTHOTICS
+                    </span>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
