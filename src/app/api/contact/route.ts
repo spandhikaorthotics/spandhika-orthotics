@@ -61,14 +61,14 @@ export async function POST(req: NextRequest) {
 
           <!-- Header -->
           <tr>
-            <td style="background-color:#022c22; padding:24px 40px;" align="center">
+            <td style="background-color:#d1fae5; padding:24px 40px;" align="center">
               <table role="presentation" cellpadding="0" cellspacing="0" align="center">
                 <tr>
                   <td style="vertical-align:middle; padding-right:10px;">
                     <img src="https://spandhikaorthotics.in/SO_Logo.png" alt="Spandhika Orthotics" width="32" height="32" style="display:block; border-radius:4px;" />
                   </td>
                   <td style="vertical-align:middle;">
-                    <span style="color:#ffffff; font-size:18px; font-weight:600; letter-spacing:0.5px;">
+                    <span style="color:#022c22; font-size:18px; font-weight:600; letter-spacing:0.5px;">
                       SPANDHIKA ORTHOTICS
                     </span>
                   </td>
@@ -195,8 +195,8 @@ export async function POST(req: NextRequest) {
 
           <!-- Header -->
           <tr>
-            <td style="background-color:#022c22; padding:20px 40px;">
-              <span style="color:#ffffff; font-size:15px; font-weight:600; letter-spacing:0.5px;">
+            <td style="background-color:#d1fae5; padding:20px 40px;">
+              <span style="color:#022c22; font-size:15px; font-weight:600; letter-spacing:0.5px;">
                 NEW ${body.type?.toUpperCase() || "GENERAL"} INQUIRY
               </span>
             </td>
