@@ -4,6 +4,7 @@ import Waitlist from "@/models/Waitlist";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import disposableDomains from "disposable-email-domains";
+import { Resend } from "resend";
 
 // Initialize the Upstash Redis instance using your environment variables
 const redis = Redis.fromEnv();
@@ -14,6 +15,9 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.slidingWindow(1, "1 m"),
   analytics: true,
 });
+
+// 2. Initialize Resend using your environment variable
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   try {
@@ -55,6 +59,32 @@ export async function POST(req: NextRequest) {
     }
 
     await Waitlist.create({ email });
+
+    // 6. Send the Confirmation Email via Resend
+    try {
+      await resend.emails.send({
+        from: "Spandhika Orthotics <team@spandhikaorthotics.in>",
+        to: email,
+        subject: "You're on the list! Welcome to SAARTHI.",
+        html: `
+          <div style="font-family: sans-serif; color: #022c22; max-w: 600px; margin: 0 auto;">
+            <h2 style="color: #10b981;">Your spot is confirmed! 🎉</h2>
+            <p>Hi there,</p>
+            <p>Thank you for joining the waitlist for SAARTHI by Spandhika Orthotics. We're thrilled to have you on board.</p>
+            <p>You are now officially in line to be among the first to experience our smart orthotic insoles. We are working hard preparing for our launch, and we will keep you updated on our progress, exclusive previews, and when you can claim yours.</p>
+            <p>Better movement starts from your feet, and we can't wait to share this journey with you.</p>
+            <br/>
+            <p>Best regards,</p>
+            <p><strong>The Spandhika Team</strong></p>
+          </div>
+        `,
+      });
+    } catch (emailError) {
+      // Catch this separately so a failed email doesn't crash the API response
+      // if the user was already successfully added to the database.
+      console.error("Failed to send welcome email:", emailError);
+    }
+
     return NextResponse.json({ success: true }, { status: 201 });
 
   } catch (error) {
