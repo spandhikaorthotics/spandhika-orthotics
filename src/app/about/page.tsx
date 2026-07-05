@@ -28,13 +28,15 @@ const sections = [
     isTeam: true, // Special flag to render the photo grid
     content: [
       {
-        subtitle: "Founder Name 1",
+        subtitle: "Abhishek",
         role: "Co-Founder",
+        image: "abhishek.png",
         text: "Abhishek holds an M.Tech in Electronics & Communication Engineering from NIT Hamirpur. The idea for IOLMS began after a friend developed severe back pain that was eventually traced to an undiagnosed flat foot, a condition that could have been detected much earlier with the right data. That experience inspired a patent, the founding of the company, and a mission to make gait health visible before it turns into a serious medical problem.",
       },
       {
-        subtitle: "Founder Name 2",
+        subtitle: "Krishna",
         role: "Co-Founder",
+        image: "krishna.png",
         text: "Krishna holds a B.Tech in Electronics & Communication Engineering from NIT Hamirpur. He leads the hardware and firmware development of IOLMS, designing everything from the sensor architecture to the embedded systems that have transformed an early hackathon prototype into a medical device ready for certification.",
       },
     ],
@@ -168,13 +170,13 @@ export default function AboutPage() {
       <div
         className="w-full"
         style={{
-          background: "linear-gradient(135deg, #ffffff 0%, #ffffff 30%, #e6f6f3 100%)",
+          background:
+            "linear-gradient(135deg, #ffffff 0%, #ffffff 30%, #e6f6f3 100%)",
         }}
       >
         {/* ── MAIN CONTENT: sidebar + body ── */}
         <div className="max-w-[1280px] mx-auto px-6 lg:px-8 py-16 lg:py-24">
           <div className="flex gap-16 lg:gap-24 items-start">
-            
             {/* ── STICKY SIDEBAR (desktop only) ── */}
             <aside className="hidden lg:block w-56 shrink-0 sticky top-12">
               <p
@@ -226,7 +228,11 @@ export default function AboutPage() {
                 <a
                   href="mailto:spandhikaorthotics@gmail.com"
                   className="inline-flex text-[12px] font-medium transition-opacity hover:opacity-70 break-all"
-                  style={{ color: "var(--primary)", borderBottom: "1px solid color-mix(in oklab, var(--primary) 30%, transparent)" }}
+                  style={{
+                    color: "var(--primary)",
+                    borderBottom:
+                      "1px solid color-mix(in oklab, var(--primary) 30%, transparent)",
+                  }}
                 >
                   spandhikaorthotics@gmail.com
                 </a>
@@ -299,29 +305,32 @@ export default function AboutPage() {
                     {section.isTeam ? (
                       <div className="grid sm:grid-cols-2 gap-x-8 gap-y-12 pl-1 sm:pl-8">
                         {section.content.map((member) => (
-                          <div key={member.subtitle} className="group flex flex-col">
-                            {/* Photo Placeholder */}
-                            <div 
-                              className="w-full aspect-square rounded-[2rem] mb-6 overflow-hidden relative transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl"
-                              style={{ 
-                                background: "color-mix(in oklab, var(--primary) 8%, transparent)",
-                                border: "1px solid color-mix(in oklab, var(--primary) 15%, transparent)"
+                          <div
+                            key={member.subtitle}
+                            className="group flex flex-col items-center text-center"
+                          >
+                            {/* Photo Container - ENLARGED */}
+                            <div
+                              className="w-full aspect-square max-w-[400px] rounded-[3.5rem] mb-10 overflow-hidden relative transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl"
+                              style={{
+                                background:
+                                  "color-mix(in oklab, var(--primary) 10%, transparent)",
+                                border:
+                                  "1px solid color-mix(in oklab, var(--primary) 20%, transparent)",
                               }}
                             >
-                              {/* 
-                                Replace this inner div with your actual Next.js <Image /> component 
-                                Example: <Image src="/founder-1.jpg" alt={member.subtitle} fill className="object-cover" />
-                              */}
-                              <div className="absolute inset-0 flex items-center justify-center">
-                                <span 
-                                  className="text-[11px] font-bold tracking-[0.2em] uppercase"
-                                  style={{ color: "color-mix(in oklab, var(--primary) 50%, transparent)" }}
-                                >
-                                  Photo 600x600
-                                </span>
-                              </div>
+                              {/* Use the member.image field for the actual image */}
+                              <img
+                                src={`/${member.image}`}
+                                alt={member.subtitle}
+                                className={`absolute inset-0 w-full h-full object-cover ${
+                                  member.subtitle === "Krishna"
+                                    ? "scale-200 object-[40%_80%]"
+                                    : "scale-150 object-[60%_50%]"
+                                }`}
+                              />
                             </div>
-                            
+
                             {/* Member Details */}
                             <h3
                               className="text-[20px] font-bold mb-1.5"
@@ -336,7 +345,7 @@ export default function AboutPage() {
                               {member.role}
                             </p>
                             <p
-                              className="text-[15px] leading-relaxed"
+                              className="text-[15px] leading-relaxed max-w-[320px]"
                               style={{ color: "var(--on-surface-variant)" }}
                             >
                               {member.text}
@@ -350,9 +359,9 @@ export default function AboutPage() {
                         {section.content.map((item) => (
                           <div key={item.subtitle} className="relative group">
                             {/* Subtle left dot for visual anchor */}
-                            <div 
-                              className="absolute left-0 top-2.5 w-1.5 h-1.5 rounded-full hidden sm:block transition-all group-hover:scale-125 group-hover:opacity-100 opacity-40" 
-                              style={{ background: "var(--primary)" }} 
+                            <div
+                              className="absolute left-0 top-2.5 w-1.5 h-1.5 rounded-full hidden sm:block transition-all group-hover:scale-125 group-hover:opacity-100 opacity-40"
+                              style={{ background: "var(--primary)" }}
                             />
                             <div className="sm:pl-6">
                               <h3
