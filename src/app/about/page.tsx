@@ -307,11 +307,11 @@ export default function AboutPage() {
                         {section.content.map((member) => (
                           <div
                             key={member.subtitle}
-                            className="group flex flex-col items-center text-center"
+                            className="flex flex-col items-center text-center"
                           >
                             {/* Photo Container - ENLARGED */}
                             <div
-                              className="w-full aspect-square max-w-[400px] rounded-[3.5rem] mb-10 overflow-hidden relative transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl"
+                              className="w-full aspect-square max-w-[400px] rounded-[3.5rem] mb-10 overflow-hidden relative"
                               style={{
                                 background:
                                   "color-mix(in oklab, var(--primary) 10%, transparent)",
@@ -325,7 +325,7 @@ export default function AboutPage() {
                                 alt={member.subtitle}
                                 className={`absolute inset-0 w-full h-full object-cover ${
                                   member.subtitle === "Krishna"
-                                    ? "scale-200 object-[40%_80%]"
+                                    ? "scale-200 object-[50%_80%]"
                                     : "scale-150 object-[60%_50%]"
                                 }`}
                               />
