@@ -37,7 +37,7 @@ export default function TargetAudience() {
     {
       title: "Everyday Seniors",
       subtitle: "Aging Feet & Daily Walks",
-      image: "/elderly.png",
+      image: "/eldery.png",
       bullets: [
         "Restore alignment",
         "Shock-absorbing support",
