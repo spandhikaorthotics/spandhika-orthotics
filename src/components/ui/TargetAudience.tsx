@@ -7,7 +7,7 @@ export default function TargetAudience() {
     {
       title: "Professionals",
       subtitle: "Nurses, Teachers & Retail",
-      image: "https://placehold.co/600x400/0d3324/34d399?text=Professionals",
+      image: "/prof.png",
       bullets: [
         "8+ hours on hard floors",
         "All-day energy support",
@@ -17,7 +17,7 @@ export default function TargetAudience() {
     {
       title: "Active Athletes",
       subtitle: "Runners & Gym Goers",
-      image: "https://placehold.co/600x400/0d3324/34d399?text=Active+Athletes",
+      image: "/sports.png",
       bullets: [
         "Optimize load balance",
         "Faster muscle recovery",
@@ -27,7 +27,7 @@ export default function TargetAudience() {
     {
       title: "Person with Disabilities",
       subtitle: "Adaptive Support & Mobility",
-      image: "https://placehold.co/600x400/0d3324/34d399?text=Adaptive+Support",
+      image: "/pwd.png",
       bullets: [
         "Tailored mobility support",
         "Enhanced daily stability",
@@ -37,7 +37,7 @@ export default function TargetAudience() {
     {
       title: "Everyday Seniors",
       subtitle: "Aging Feet & Daily Walks",
-      image: "https://placehold.co/600x400/0d3324/34d399?text=Everyday+Seniors",
+      image: "/elderly.png",
       bullets: [
         "Restore alignment",
         "Shock-absorbing support",
