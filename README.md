@@ -43,14 +43,14 @@ We work at the intersection of diabetic foot care, post-surgical rehabilitation,
 | Pressure Sensor Array | 32 FSR sensors (4×8 matrix), 0–1,000 kPa range | Full plantar surface mapping; detects high-risk pressure zones |
 | Motion Sensor (IMU) | 9-axis (accelerometer, gyroscope, magnetometer) | Derives gait parameters including dorsiflexion and foot progression angle |
 | Microcontroller | Dual-core RISC-V, BLE 5.0 + Wi-Fi | On-device processing and wireless sync |
-| Battery | 1,000 mAh LiPo | 8–10 hours of continuous runtime |
-| Form Factor | 3mm insole + IP68-rated module | Fits inside standard footwear; safe for daily, all-weather use |
-| Sampling Rate | 100 Hz pressure sensing | Clinical-grade temporal resolution |
+| Battery | >1,000 mAh LiPo | 8–10 hours of continuous runtime |
+| Form Factor | < 2mm insole + IP67-rated module | Fits inside standard footwear; safe for daily, all-weather use |
+| Sampling Rate | 25 Hz pressure sensing | Clinical-grade temporal resolution |
 | Connectivity | BLE 5.0 + companion mobile app | Real-time patient analytics and remote physician monitoring |
 
 ### Gait Parameters Tracked
 
-Step length · Stride length · Dorsiflexion · Plantarflexion · Inversion · Eversion · Foot progression angle
+Step length · Stride length · Dorsiflexion · Plantarflexion · Inversion · Eversion · Foot progression angle · And many more.
 
 ### Key Capabilities
 
@@ -84,7 +84,7 @@ SAARTHI/IOLMS is built on a peer-reviewed evidence base rather than a novel, unv
 - A randomised controlled trial (Abbott et al., *Lancet Digital Health*, 2019) found that continuous pressure monitoring with real-time feedback substantially reduced diabetic foot ulcer recurrence compared to standard care.
 - Independent research has shown that ambulatory gait monitoring detects clinically significant changes in gait and stride variability weeks before they would be caught at a scheduled clinic visit — relevant to both fall prevention in the elderly and post-surgical recovery tracking.
 
-We are working with **Dr. Vijay G. Goni**, HOD Orthopaedics at **PGIMER Chandigarh**, as a clinical partner and advisor.
+We are working with **Dr. Vijay G. Goni**, HOD of Orthopaedics at **PGIMER Chandigarh**, who serves as our clinical partner and advisor.
 
 <br />
 
@@ -144,8 +144,7 @@ The official Spandhika Orthotics website is built with **Next.js 15** (App Route
 | Legal Name | Spandhika Orthotics Private Limited |
 | Incorporated | February 2025 |
 | CIN | U32506HP2025PTC011411 |
-| Registered Office | Himachal Pradesh, India |
-| Status | Active |
+| Registered Office | Hamirpur, Himachal Pradesh, India |
 
 <br />
 
