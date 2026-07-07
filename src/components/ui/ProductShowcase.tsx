@@ -57,7 +57,7 @@ function Reveal({
 function Icon({ name }: { name: "pressure" | "gait" | "insights" }) {
   const icons = {
     pressure: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <rect x="3" y="3" width="7" height="7" rx="1.5" strokeWidth={1.8} />
         <rect x="14" y="3" width="7" height="7" rx="1.5" strokeWidth={1.8} />
         <rect x="3" y="14" width="7" height="7" rx="1.5" strokeWidth={1.8} />
@@ -65,12 +65,12 @@ function Icon({ name }: { name: "pressure" | "gait" | "insights" }) {
       </svg>
     ),
     gait: (
-      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7z" />
       </svg>
     ),
     insights: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4" />
       </svg>
@@ -150,10 +150,9 @@ export default function Features() {
         </div>
 
         {/* ── EXPLODED INSOLE VISUAL + LAYERS ── */}
-        {/* Using a custom 11fr / 13fr grid to achieve the exact 5.5 / 6.5 ratio */}
         <div className="grid lg:grid-cols-[11fr_13fr] gap-10 lg:gap-16 items-center">
           
-          {/* Layers List — LEFT (Takes up the 11fr fraction, which equals 5.5/12) */}
+          {/* Layers List */}
           <Reveal as="ul" stagger className="flex flex-col gap-3">
             {layers.map((l) => (
               <li
@@ -175,13 +174,9 @@ export default function Features() {
             ))}
           </Reveal>
 
-          {/* Image Area — RIGHT (Takes up the 13fr fraction, which equals 6.5/12) */}
+          {/* Image Area */}
           <div className="relative flex items-center justify-center min-h-[400px] lg:min-h-[500px] group">
-            
-            {/* Soft Radial Green Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-[#6ee7b7]/15 rounded-full blur-[140px] pointer-events-none transition-opacity duration-700 group-hover:bg-[#6ee7b7]/25" />
-
-            {/* Floating Product Image */}
             <div className="relative w-full h-full aspect-[5/4] z-10">
               <Image
                 src="/insole_2.png"
@@ -190,29 +185,30 @@ export default function Features() {
                 className="object-contain drop-shadow-2xl transition-transform duration-700 group-hover:scale-105"
               />
             </div>
-
           </div>
         </div>
 
-        {/* ── FEATURE CARDS ── */}
+        {/* ── REDESIGNED COMPACT FEATURE CARDS ── */}
         <Reveal
           stagger
-          className="mt-20 lg:mt-28 grid sm:grid-cols-2 md:grid-cols-3 gap-5"
+          className="mt-16 lg:mt-24 grid sm:grid-cols-2 md:grid-cols-3 gap-4 lg:gap-5"
         >
           {features.map((f) => (
             <div
               key={f.title}
-              className="group flex flex-col rounded-3xl bg-[#102d1e] border border-[#1b452e] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#6ee7b7]/40 hover:shadow-2xl hover:shadow-[#6ee7b7]/5"
+              className="group flex items-start gap-4 rounded-2xl bg-[#102d1e] border border-[#1b452e] p-5 lg:p-6 transition-all duration-300 hover:border-[#6ee7b7]/40 hover:bg-[#153926]"
             >
-              <div className="w-14 h-14 rounded-2xl bg-[#6ee7b7] text-[#051911] flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
+              <div className="w-10 h-10 shrink-0 rounded-[10px] bg-[#6ee7b7] text-[#051911] flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
                 <Icon name={f.icon} />
               </div>
-              <h3 className="text-xl font-medium text-white mb-3">
-                {f.title}
-              </h3>
-              <p className="text-sm text-gray-400 font-light leading-relaxed">
-                {f.body}
-              </p>
+              <div>
+                <h3 className="text-[15px] font-semibold text-white mb-1.5 tracking-wide">
+                  {f.title}
+                </h3>
+                <p className="text-[13px] text-gray-400 font-light leading-relaxed">
+                  {f.body}
+                </p>
+              </div>
             </div>
           ))}
         </Reveal>
