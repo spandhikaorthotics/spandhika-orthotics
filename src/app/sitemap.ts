@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: "https://spandhikaorthotics.in/waitlist",
+      url: "https://spandhikaorthotics.in/blog",
       lastModified: new Date(),
       priority: 0.8,
     },
