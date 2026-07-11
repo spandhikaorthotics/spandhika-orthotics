@@ -149,9 +149,16 @@ export default function Problem() {
   const [isHovered, setIsHovered] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Swipe States
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Minimum distance required to trigger a swipe
+  const minSwipeDistance = 50;
+
   // Auto-slide logic
   useEffect(() => {
-    if (isHovered) {
+    if (isHovered || touchStart !== null) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
@@ -163,11 +170,10 @@ export default function Problem() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isHovered]);
+  }, [isHovered, touchStart]);
 
   const handleManualNav = (index: number) => {
     setActiveIndex(index);
-    // Reset hover state briefly so timer resets cleanly if they interacted
     setIsHovered(true);
     setTimeout(() => setIsHovered(false), 100);
   };
@@ -182,6 +188,43 @@ export default function Problem() {
     setActiveIndex((prev) => (prev + 1) % signs.length);
     setIsHovered(true);
     setTimeout(() => setIsHovered(false), 100);
+  };
+
+  // --- Drag / Swipe Handlers ---
+  const onDragStart = (clientX: number) => {
+    setTouchEnd(null);
+    setTouchStart(clientX);
+    setIsHovered(true);
+  };
+
+  const onDragMove = (clientX: number) => {
+    if (touchStart !== null) {
+      setTouchEnd(clientX);
+    }
+  };
+
+  const onDragEnd = () => {
+    if (touchStart === null || touchEnd === null) {
+      setTouchStart(null);
+      setTouchEnd(null);
+      setIsHovered(false);
+      return;
+    }
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      handleNext();
+    } else if (isRightSwipe) {
+      handlePrev();
+    }
+
+    // Reset states
+    setTouchStart(null);
+    setTouchEnd(null);
+    setIsHovered(false);
   };
 
   return (
@@ -229,11 +272,20 @@ export default function Problem() {
 
             {/* Carousel Container */}
             <div 
-              className="relative w-full rounded-[1.5rem] border border-[var(--outline-variant)]/40 shadow-lg overflow-hidden bg-[var(--surface)]"
+              className="relative w-full rounded-[1.5rem] border border-[var(--outline-variant)]/40 shadow-lg overflow-hidden bg-[var(--surface)] cursor-grab active:cursor-grabbing select-none touch-pan-y"
               onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              onTouchStart={() => setIsHovered(true)}
-              onTouchEnd={() => setIsHovered(false)}
+              onMouseLeave={() => {
+                setIsHovered(false);
+                onDragEnd(); // Cancel drag if mouse leaves container
+              }}
+              // Touch Events (Mobile)
+              onTouchStart={(e) => onDragStart(e.targetTouches[0].clientX)}
+              onTouchMove={(e) => onDragMove(e.targetTouches[0].clientX)}
+              onTouchEnd={onDragEnd}
+              // Mouse Events (Desktop)
+              onMouseDown={(e) => onDragStart(e.clientX)}
+              onMouseMove={(e) => onDragMove(e.clientX)}
+              onMouseUp={onDragEnd}
             >
               {/* Sliding Track */}
               <div 
@@ -241,55 +293,56 @@ export default function Problem() {
                 style={{ transform: `translateX(-${activeIndex * 100}%)` }}
               >
                 {signs.map((sign, index) => (
-                  <div key={index} className="w-full shrink-0 flex flex-col md:flex-row">
+                  <div key={index} className="w-full shrink-0 flex flex-col md:flex-row pointer-events-none sm:pointer-events-auto">
                     
-                    {/* Left Panel (Reduced padding and min-height) */}
-                    <div className="md:w-[35%] bg-[color-mix(in_oklab,var(--secondary-container)_30%,transparent)] p-6 md:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[var(--outline-variant)]/40 min-h-[200px] md:min-h-[360px]">
+                    {/* Left Panel - Increased title size and tightened leading for visual anchor */}
+                    <div className="md:w-[38%] bg-[color-mix(in_oklab,var(--secondary-container)_30%,transparent)] p-8 md:p-10 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[var(--outline-variant)]/40 min-h-[200px] md:min-h-[400px]">
                       <div className="flex justify-center md:justify-start">
                         <div className="w-12 h-12 rounded-xl bg-[color-mix(in_oklab,var(--secondary-container)_80%,transparent)] flex items-center justify-center text-[var(--primary)] shadow-sm">
                           {icons[sign.icon]}
                         </div>
                       </div>
                       
-                      <div className="flex-1 flex items-center mt-6 md:mt-0">
-                        <h3 className="text-[22px] md:text-[28px] font-medium text-[var(--on-surface)] leading-[1.2] text-center md:text-left w-full">
+                      <div className="flex-1 flex items-center mt-8 md:mt-0">
+                        <h3 className="text-[28px] md:text-[36px] lg:text-[40px] font-medium tracking-tight text-[var(--on-surface)] leading-[1.15] text-center md:text-left w-full">
                           {sign.title}
                         </h3>
                       </div>
 
-                      <div className="mt-6 text-center md:text-left">
-                        <span className="text-[11px] tracking-[0.25em] font-semibold text-[var(--on-surface-variant)]/60">
+                      <div className="mt-8 text-center md:text-left">
+                        <span className="text-[12px] tracking-[0.25em] font-semibold text-[var(--on-surface-variant)]/50">
                           0 {index + 1}
                         </span>
                       </div>
                     </div>
 
-                    {/* Right Panel (Reduced padding) */}
-                    <div className="md:w-[65%] p-6 md:p-8 lg:p-10 flex flex-col justify-center bg-[var(--surface)]">
-                      <h4 className="text-[20px] font-medium text-[var(--on-surface)] mb-3">
+                    {/* Right Panel - Restructured typographic hierarchy */}
+                    <div className="md:w-[62%] p-8 md:p-10 lg:p-12 flex flex-col justify-center bg-[var(--surface)]">
+                      
+                      <h4 className="text-[20px] lg:text-[22px] font-medium text-[var(--on-surface)] mb-3">
                         The Signal
                       </h4>
-                      <p className="text-[15px] md:text-[16px] text-[var(--on-surface-variant)] leading-relaxed mb-6">
+                      <p className="text-[15px] lg:text-[16px] text-[var(--on-surface-variant)] leading-relaxed mb-8">
                         {sign.body}
                       </p>
 
-                      {/* Highlighted Mechanics Box */}
-                      <div className="bg-[color-mix(in_oklab,var(--surface-variant)_15%,transparent)] rounded-xl p-5 mb-8 border border-[var(--outline-variant)]/30">
-                        <p className="text-[14px] leading-relaxed text-[var(--on-surface)]">
+                      {/* Highlighted Mechanics Box - Strengthened contrast */}
+                      <div className="bg-[color-mix(in_oklab,var(--surface-variant)_15%,transparent)] rounded-2xl p-5 lg:p-6 mb-10 border border-[var(--outline-variant)]/30">
+                        <p className="text-[14px] lg:text-[15px] leading-relaxed text-[var(--on-surface)] font-medium">
                           {sign.details}
                         </p>
                       </div>
 
-                      {/* Causes & Helps Grid (Tighter gap) */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+                      {/* Causes & Helps Grid - Pronounced subheaders */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
                         <div>
-                          <h5 className="uppercase tracking-[0.15em] text-[10px] font-semibold text-[var(--on-surface-variant)] mb-3">
+                          <h5 className="uppercase tracking-[0.15em] text-[10px] md:text-[11px] font-bold text-[var(--on-surface-variant)] mb-4 opacity-80">
                             Common Causes
                           </h5>
-                          <ul className="flex flex-col gap-2.5">
+                          <ul className="flex flex-col gap-3.5">
                             {sign.causes.map((c) => (
-                              <li key={c} className="text-[14px] flex items-center gap-2.5 text-[var(--on-surface-variant)]">
-                                <span className="w-1 h-1 rounded-full bg-[var(--primary)] shrink-0" />
+                              <li key={c} className="text-[14px] md:text-[15px] flex items-center gap-3 text-[var(--on-surface-variant)]">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[var(--on-surface-variant)] shrink-0 opacity-60" />
                                 {c}
                               </li>
                             ))}
@@ -297,10 +350,10 @@ export default function Problem() {
                         </div>
 
                         <div>
-                          <h5 className="uppercase tracking-[0.15em] text-[10px] font-semibold text-[var(--on-surface-variant)] mb-3">
+                          <h5 className="uppercase tracking-[0.15em] text-[10px] md:text-[11px] font-bold text-[var(--on-surface-variant)] mb-4 opacity-80">
                             How Saarthi Helps
                           </h5>
-                          <p className="text-[14px] leading-relaxed text-[var(--on-surface-variant)]">
+                          <p className="text-[14px] md:text-[15px] leading-relaxed text-[var(--on-surface-variant)]">
                             {sign.helps}
                           </p>
                         </div>
