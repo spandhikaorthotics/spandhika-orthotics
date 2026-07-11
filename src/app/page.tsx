@@ -10,6 +10,7 @@ import Blogs from "@/components/ui/Blogs";
 import ContactUs from "@/components/ui/ContactUs";
 import Purpose from "@/components/ui/Purpose";
 import TargetAudience from "@/components/ui/TargetAudience";
+import Chatbot from "@/components/ui/Chatbot";
 
 export const metadata = {
   title: "Spandhika Orthotics | Smart Orthotic Insoles",

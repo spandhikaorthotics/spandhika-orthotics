@@ -6,7 +6,11 @@ import DidYouKnowBanner from "@/components/ui/DidYouKnow";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-// 1. Configure Manrope
+// 1. Import the Chatbot component
+// (If you saved it directly in the components folder, change this to "@/components/Chatbot")
+import Chatbot from "@/components/ui/Chatbot"; 
+
+// Configure Manrope
 const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
@@ -76,10 +80,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      // 2. Inject the Manrope variable into the HTML tag
+      // Inject the Manrope variable into the HTML tag
       className={`${manrope.variable} h-full antialiased`}
     >
-      {/* 3. Add font-sans here to make Manrope the global default */}
+      {/* Add font-sans here to make Manrope the global default */}
       <body className="min-h-full flex flex-col font-sans">
         <ScrollProgress />
         {children}
@@ -101,6 +105,7 @@ export default function RootLayout({
             }),
           }}
         />
+        <Chatbot />
       </body>
     </html>
   );
