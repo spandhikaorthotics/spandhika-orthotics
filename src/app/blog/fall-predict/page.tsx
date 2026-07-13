@@ -26,42 +26,42 @@ interface ConsequenceListProps {
 
 // --- Data Constants ---
 const CONSEQUENCE_ITEMS: string[] = [
-  "Reduced step length and stride length as mobility declines",
-  "Increased stride variability indicating balance struggles",
-  "Reduced dorsiflexion, which increases the risk of foot-drop or tripping",
-  "A wider foot progression angle as the body attempts to artificially widen its base of support",
+  "Shorter steps as moving gets harder",
+  "Uneven or unsteady stepping patterns that show balance issues",
+  "Not lifting the foot high enough, which increases the chance of tripping",
+  "Walking with toes pointing further outward to try and feel more stable",
 ];
 
 const ELDERLY_METRICS: Metric[] = [
   {
-    label: "Advance fall warning",
+    label: "Early fall warning",
     value: "6\u20138",
     unit: "wks",
-    note: "detected via continuous ambulatory monitoring",
+    note: "found by tracking daily walking habits",
   },
   {
-    label: "Critical stride variability",
+    label: "Uneven step risk",
     value: "> 4",
     unit: "%",
-    note: "threshold for elevated fall risk",
+    note: "the point where fall risk goes up",
   },
   {
-    label: "Normal elderly gait speed",
+    label: "Normal walking speed",
     value: "0.8\u20131.0",
     unit: "m/s",
-    note: "baseline speed for healthy seniors",
+    note: "average speed for healthy older adults",
   },
   {
-    label: "Normal stride length",
+    label: "Normal step size",
     value: "110\u2013130",
     unit: "cm",
-    note: "baseline length for healthy seniors",
+    note: "average step size for healthy older adults",
   },
 ];
 
 export const metadata: Metadata = {
   title: "Preventing Falls in Seniors: How Gait Tracking Detects Risks Before They Happen",
-  description: "A fall isn't just an accident—it is preceded by weeks of invisible gait deterioration. Learn how continuous monitoring detects fall risks 6-8 weeks in advance.",
+  description: "A fall isn't just an accident—it usually follows weeks of invisible changes in walking. Learn how daily tracking helps detect fall risks 6-8 weeks early.",
   openGraph: {
     images: ["/3_1.png"],
   }
@@ -90,7 +90,7 @@ export default function BlogPost() {
     },
     "datePublished": "2026-07-01T08:00:00+05:30",
     "dateModified": "2026-07-01T08:00:00+05:30",
-    "description": "A fall isn't just an accident—it is preceded by weeks of invisible gait deterioration. Learn how continuous monitoring detects fall risks 6-8 weeks in advance."
+    "description": "A fall isn't just an accident—it usually follows weeks of invisible changes in walking. Learn how daily tracking helps detect fall risks 6-8 weeks early."
   };
 
   return (
@@ -155,9 +155,9 @@ export default function BlogPost() {
         </h1>
 
         <p className="mx-auto text-lg leading-[1.6] text-[#1C2B27]/55 max-w-[600px] font-normal">
-          A fall is rarely just a sudden accident. It is often the
-          predictable outcome of weeks of invisible gait deterioration that
-          standard checkups miss.
+          A fall is rarely just a sudden accident. It is usually the result of
+          weeks of slow, invisible changes in how a person walks that standard
+          doctor checkups often miss.
         </p>
       </header>
 
@@ -179,36 +179,33 @@ export default function BlogPost() {
         <article className="text-[18px] leading-[1.8] text-[#1C2B27]/80">
 
           <p className="text-[21px] leading-[1.65] text-[#1C2B27] font-normal mb-9">
-            India&apos;s aging population is expanding rapidly, with the 60+
-            demographic currently at 153 million and projected to reach 317
-            million by 2050. Alongside this growth comes a critical
-            healthcare challenge: fall-related injuries cost an estimated
-            &#8377;6,500 crore annually.
+            India&apos;s older population is growing fast, with over 153 million
+            people aged 60 and above today, and expected to reach 317 million by 2050.
+            With this growth comes a major health challenge: injuries from falls cost
+            an estimated &#8377;6,500 crore every year.
           </p>
 
           <p className="mb-7">
-            Globally, falls are the second leading cause of accidental
-            injury death. But the most vital piece of clinical data is
-            often the most overlooked: <Stat>80%</Stat> of falls are
-            preceded by measurable gait deterioration. These micro-changes
-            in how a person walks are completely invisible to the naked eye
-            without continuous monitoring.
+            Globally, falls are the second leading cause of accidental death.
+            But one important fact is often ignored: <Stat>80%</Stat> of falls
+            happen after a measurable decline in walking ability. These tiny
+            changes in how a person walks are impossible to see with the naked
+            eye without daily tracking.
           </p>
 
           <section>
             <SectionHeading>The Metrics That Matter</SectionHeading>
             <p className="mb-7">
-              When a senior&apos;s mobility begins to decline, their body
-              naturally compensates. These compensations manifest in
-              distinct biomechanical shifts. Studies indicate that stride
-              length variability&mdash;how inconsistent each step
-              is&mdash;can predict falls up to <Stat>12 months</Stat> in
-              advance.
+              When an older adult&apos;s mobility starts to decline, their body
+              naturally tries to adjust. These adjustments show up as changes in
+              how they move. Studies show that uneven stepping&mdash;meaning how
+              inconsistent each step is&mdash;can help predict falls up to{" "}
+              <Stat>12 months</Stat> in advance.
             </p>
 
             <p className="mb-5">
-              Clinicians look for several specific red flags in a
-              patient&apos;s daily movement patterns:
+              Doctors look for several specific warning signs in a patient&apos;s
+              daily walking habits:
             </p>
 
             <ConsequenceList items={CONSEQUENCE_ITEMS} />
@@ -231,19 +228,16 @@ export default function BlogPost() {
           <section>
             <SectionHeading>The Clinic vs. The Home</SectionHeading>
             <p className="mb-7">
-              If these gait changes are so predictable, why are they
-              missed? The problem lies in how we currently assess fall
-              risk. When a senior visits a doctor&apos;s office, they are
-              typically observed walking down a hallway for just a few
-              minutes.
+              If these walking changes are so predictable, why are they missed?
+              The problem is how we currently check for fall risks. When older
+              adults visit the doctor, they are usually only watched while walking
+              down a short hallway for a few minutes.
             </p>
 
             <blockquote className="my-10 border-l-2 border-[#3D6B5C]/40 pl-6 py-1 text-[19px] leading-[1.7] text-[#1C2B27]/70 italic">
-              Clinical evidence shows that brief assessments are
-              insufficient for accurate fall risk stratification. A
-              10-minute session merely captures the patient&apos;s best
-              performance, not the fatigued state when falls actually
-              occur.
+              Medical studies show that quick checkups are not enough to accurately
+              predict falls. A 10-minute visit only shows the patient at their
+              best, not when they are tired&mdash;which is when falls usually happen.
             </blockquote>
             
             {/* --- ADDED IMAGE 2: REAL VS CLINIC --- */}
@@ -260,38 +254,34 @@ export default function BlogPost() {
             {/* ------------------------------------- */}
 
             <p className="mb-7">
-              Patients consciously try harder when they know a physician is
-              watching. This &quot;best performance&quot; illusion
-              completely masks the real-world fatigue and gait
-              deterioration that happens at home after 20 minutes of
-              continuous movement.
+              Patients naturally try harder when they know a doctor is watching.
+              This &quot;best behavior&quot; hides the real-world tiredness and
+              walking struggles that happen at home after 20 minutes of moving around.
             </p>
           </section>
 
           <section>
             <SectionHeading>The Six-Week Warning Window</SectionHeading>
             <p className="mb-7">
-              The transition from clinical observation to continuous home
-              monitoring is a game-changer for preventative care. By
-              utilizing wearable technology, healthcare providers can track
-              a patient&apos;s true biomechanics across thousands of daily
-              gait cycles.
+              Moving from quick doctor visits to daily home tracking is a
+              game-changer for senior care. By using smart wearable technology,
+              doctors can track a patient&apos;s true walking habits across thousands
+              of everyday steps.
             </p>
 
             <p className="mb-5">
-              Most importantly, continuous ambulatory monitoring can detect
-              clinically significant gait changes an average of{" "}
-              <Stat>6&ndash;8 weeks</Stat> before they are identifiable
-              during a scheduled clinic assessment.
+              Most importantly, daily tracking can spot serious walking changes an average of{" "}
+              <Stat>6&ndash;8 weeks</Stat> before a doctor would notice them
+              during a regular checkup.
             </p>
 
             <FallWarningHorizon />
 
             <p className="mt-2 mb-7">
-              This window is critical. It provides enough time for
-              proactive interventions, such as adjusting walking aids,
-              starting targeted physical therapy, or initiating home
-              modifications&mdash;stopping the fall before it ever happens.
+              This extra time is crucial. It gives families and doctors enough
+              time to help&mdash;like adjusting a cane, starting physical
+              therapy, or making the home safer&mdash;helping to stop the fall
+              before it ever happens.
             </p>
 
             <GaitMetricsGrid metrics={ELDERLY_METRICS} />
@@ -302,19 +292,17 @@ export default function BlogPost() {
           <section>
             <SectionHeading>Protecting Independence Through Data</SectionHeading>
             <p className="mb-7">
-              For seniors and their families, a fall represents more than
-              just a physical injury; it is a profound threat to
-              independence. Hip fractures, for instance, carry a severe
-              one-year mortality rate of <Stat>20&ndash;30%</Stat> in
+              For seniors and their families, a fall is more than just a physical
+              injury; it is a huge threat to living independently. Hip fractures,
+              for example, carry a very high risk of severe complications for
               patients over 70.
             </p>
 
             <p className="mb-7">
-              By embracing continuous gait monitoring, we can move away
-              from reactive emergency care and toward a future where aging
-              populations are protected by data. It is no longer about
-              responding to the fall&mdash;it is about predicting and
-              preventing it.
+              By tracking walking habits daily, we can move away from waiting for
+              emergencies to happen. Instead, we can use smart data to protect
+              older adults. It is no longer about responding to a fall&mdash;it is
+              about predicting and preventing it.
             </p>
           </section>
 
@@ -435,17 +423,17 @@ function FallWarningHorizon() {
           className="absolute -translate-x-1/2 text-center font-semibold text-[#1C2B27]/70 leading-tight"
           style={{ left: "78%" }}
         >
-          Signal crosses
+          Warning signs get
           <br />
-          alert threshold
+          dangerously high
         </span>
         <span className="absolute right-0">Week 8</span>
       </div>
 
       <p className="mt-5 pt-5 border-t border-[#1C2B27]/[0.06] text-[14.5px] leading-relaxed text-[#1C2B27]/55">
-        Each bar represents a few days of real-world gait data. The
-        deviation is small at first and grows steadily&mdash;detectable
-        weeks before it would ever surface during a routine check-in.
+        Each bar represents a few days of real-world walking data. The
+        changes start small and grow steadily&mdash;showing up weeks before they
+        would ever be noticed during a normal doctor visit.
       </p>
     </div>
   );
@@ -484,24 +472,23 @@ function ClinicalPerspective() {
           Clinical Perspective
         </span>
         <p className="text-[1.3rem] leading-[1.5] font-semibold text-[#FAFAF7] mb-5">
-          At Spandhika Orthotics, we believe in preventing falls before
+          At Spandhika Orthotics, we believe in helping prevent falls before
           they happen.
         </p>
         <p className="text-[16px] leading-[1.75] text-[#FAFAF7]/65 mb-7">
           Our Intelligent Orthotic &amp; Leg Monitoring System (IOLMS) is
-          India&apos;s first affordable, continuous home-use smart insole.
-          By packing a 32-node FSR pressure matrix and a 9-axis IMU into an
-          IP67-rated waterproof device, we can seamlessly track all 7
-          critical gait parameters&mdash;including stride length and
-          variability&mdash;every single day. This enables physicians and
-          families to monitor progressive mobility decline without relying
-          solely on brief clinic visits.
+          India&apos;s first affordable smart insole made for daily home use.
+          By packing 32 tiny pressure sensors and motion trackers into a
+          waterproof device, we can constantly track 7 key walking stats&mdash;like 
+          step size and steadiness&mdash;every single day. This helps doctors
+          and families watch for early signs of trouble without relying only on
+          short doctor visits.
         </p>
 
         <div className="grid grid-cols-3 gap-3 border-t border-[#FAFAF7]/10 pt-6">
-          <MiniStat value="32" label="FSR sensor nodes" />
-          <MiniStat value="IP67" label="Rated, daily use" />
-          <MiniStat value="7" label="Gait parameters tracked" />
+          <MiniStat value="32" label="Pressure sensors" />
+          <MiniStat value="IP67" label="Waterproof rating" />
+          <MiniStat value="7" label="Movement stats tracked" />
         </div>
       </div>
     </aside>

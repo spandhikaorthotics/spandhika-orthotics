@@ -157,15 +157,12 @@ export default function Hero() {
           <Eyebrow>Smart orthotic insoles</Eyebrow>
 
           <h1 className="text-5xl sm:text-6xl lg:text-[64px] font-bold tracking-tight text-[#022c22] leading-[1.08]">
-            Better movement <br />
-            starts from your <br />
-            <span className="text-[#10b981]">feet.</span>
+            Listen to your feet before they <br />
+            <span className="text-[#10b981]">hurt.</span>
           </h1>
 
           <p className="mt-5 text-[16px] text-slate-500 leading-relaxed max-w-[460px]">
-            Most people ignore foot problems until they affect posture, comfort,
-            and daily life. Spandhika is a smart orthotic insole that listens to
-            how you walk — and helps you move better.
+            Slip Spandhika into your everyday shoes. Our smart insoles quietly track how you walk, monitor foot pressure, and provide simple insights for better movement.
           </p>
 
           {/* ── Inline email form ── */}

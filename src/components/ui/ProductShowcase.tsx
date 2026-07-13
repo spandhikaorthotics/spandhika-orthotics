@@ -83,27 +83,27 @@ const layers = [
   {
     layer: "01",
     name: "Breathable top cover",
-    desc: "Moisture-wicking, antimicrobial fabric.",
+    desc: "Keeps your feet cool, dry, and fresh.",
   },
   {
     layer: "02",
     name: "Pressure sensor array",
-    desc: "32 zones reading across the foot.",
+    desc: "Track pressure across your foot as you walk.",
   },
   {
     layer: "03",
     name: "PET piezoresistive layer",
-    desc: "Highly responsive material for accurate dynamic pressure mapping.",
+    desc: "Captures every step with high accuracy.",
   },
   {
     layer: "04",
-    name: "Stiffener layer",
-    desc: "Provides structural integrity and stable support for the sensors.",
+    name: "Support layer",
+    desc: "Adds stability and lasting comfort.",
   },
   {
     layer: "05",
     name: "Anti-slip base",
-    desc: "Fits inside the shoes you already own.",
+    desc: "Stays securely in place inside your shoes.",
   },
 ];
 
@@ -111,17 +111,17 @@ const features = [
   {
     icon: "pressure" as const,
     title: "Pressure mapping",
-    body: "High-density sensor array captures dynamic load distribution.",
+    body: "See how pressure is spread across your feet with every step.",
   },
   {
     icon: "gait" as const,
     title: "Real-time gait analysis",
-    body: "Monitor pronation, supination, and cadence instantly.",
+    body: "Understand your walking pattern and movement in real time.",
   },
   {
     icon: "insights" as const,
     title: "Preventive insights",
-    body: "Predictive algorithms alert you before strain becomes pain.",
+    body: "Spot changes in your walking pattern before they become bigger concerns.",
   },
 ];
 
@@ -145,7 +145,7 @@ export default function Features() {
             </h2>
           </div>
           <p className="lg:col-span-6 text-lg text-gray-400 font-light leading-relaxed max-w-lg">
-            The world's most advanced smart insole system. SAARTHI doesn't just cushion your step; it understands it.
+            Smart insoles that do more than cushion your feet. SAARTHI understands how you walk to help you move with greater comfort and confidence.
           </p>
         </div>
 

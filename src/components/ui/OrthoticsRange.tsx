@@ -23,20 +23,19 @@ export default function OrthoticsRange() {
           </div>
 
           <p className="max-w-sm text-[15px] leading-relaxed text-[#1C2B27]/60 sm:text-base">
-            Condition-specific support engineered around six of the most
-            common foot complaints.
+            Support designed for the foot problems people experience every day.
           </p>
         </div>
 
         {/* Tightened grid spacing */}
         <div className="grid grid-cols-1 gap-x-4 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-16">
           {[
-            { label: "Ball of foot pain", detail: "Targeted metatarsal support", src: "/BOFP_.png" },
-            { label: "Heel pain", detail: "Deep heel cup and shock absorption", src: "/H_P.png" },
-            { label: "Diabetic foot", detail: "Maximum cushioning and care", src: "/DF_.png" },
-            { label: "Fallen arches", detail: "Firm medial arch elevation", src: "/F_A.png" },
-            { label: "Bunions", detail: "Pressure relief and alignment", src: "/BU_.png" },
-            { label: "Flat feet", detail: "Structured stability control", src: "/F_F.png" },
+            { label: "Ball of foot pain", detail: "Extra support where you need it most", src: "/BOFP_.png" },
+            { label: "Heel pain", detail: "Better cushioning for lasting comfort", src: "/H_P.png" },
+            { label: "Diabetic foot", detail: "Gentle support and all-day comfort", src: "/DF_.png" },
+            { label: "Fallen arches", detail: "Arch support for better comfort", src: "/F_A.png" },
+            { label: "Bunions", detail: "Reduces pressure for greater comfort", src: "/BU_.png" },
+            { label: "Flat feet", detail: "Better support for improved stability", src: "/F_F.png" },
           ].map((item) => (
             <div key={item.label} className="group flex flex-col items-center text-center">
               

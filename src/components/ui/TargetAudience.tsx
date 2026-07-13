@@ -9,9 +9,9 @@ export default function TargetAudience() {
       subtitle: "Nurses, Teachers & Retail",
       image: "/prof.png",
       bullets: [
-        "8+ hours on hard floors",
-        "All-day energy support",
-        "No foot fatigue by 5 PM"
+        "Comfort during long shifts",
+        "Better support all day",
+        "Helps reduce foot fatigue"
       ]
     },
     {
@@ -19,29 +19,29 @@ export default function TargetAudience() {
       subtitle: "Runners & Gym Goers",
       image: "/sports.png",
       bullets: [
-        "Optimize load balance",
-        "Faster muscle recovery",
-        "Maximize peak output"
+        "Better support while training",
+        "Added comfort during workouts",
+        "Helps you stay active"
       ]
     },
     {
-      title: "Person with Disabilities",
+      title: "People with Disabilities",
       subtitle: "Adaptive Support & Mobility",
       image: "/pwd.png",
       bullets: [
-        "Tailored mobility support",
-        "Enhanced daily stability",
-        "Zero pressure points"
+        "Comfortable everyday support",
+        "Better stability while moving",
+        "Designed for daily mobility"
       ]
     },
     {
       title: "Everyday Seniors",
-      subtitle: "Aging Feet & Daily Walks",
+      subtitle: "Comfort for Daily Walks",
       image: "/eldery.png",
       bullets: [
-        "Restore alignment",
-        "Shock-absorbing support",
-        "Stay active & mobile"
+        "Better support for walking",
+        "Shock-absorbing comfort",
+        "Stay active and mobile"
       ]
     }
   ];
@@ -60,7 +60,7 @@ export default function TargetAudience() {
             Designed for <span className="text-emerald-400">Your Life.</span>
           </h2>
           <p className="text-lg text-emerald-100/70 max-w-2xl mx-auto font-light">
-            Precision custom orthotics engineered to eliminate pain and maximize comfort, no matter how you spend your day.
+            Custom orthotics designed to provide lasting comfort and support, wherever life takes you.
           </p>
         </div>
 

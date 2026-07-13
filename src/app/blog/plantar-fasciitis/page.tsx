@@ -5,7 +5,7 @@ import React from "react";
 
 export const metadata: Metadata = {
   title: "Plantar Fasciitis Relief: Why Standard Insoles Often Fall Short",
-  description: "Learn why standard insoles often fall short for plantar fasciitis and how personalized, dynamic pressure mapping can correct the root cause of heel pain.",
+  description: "Learn why standard soft insoles often fail to fix heel pain (plantar fasciitis), and how tracking your unique foot pressure can help target the root cause.",
   openGraph: {
     images: ["/4.png"],
   }
@@ -34,7 +34,7 @@ export default function BlogPost() {
     },
     "datePublished": "2026-06-23T08:00:00+05:30",
     "dateModified": "2026-06-23T08:00:00+05:30",
-    "description": "Learn why standard insoles often fall short for plantar fasciitis and how personalized, dynamic pressure mapping can correct the root cause of heel pain."
+    "description": "Learn why standard soft insoles often fail to fix heel pain (plantar fasciitis), and how tracking your unique foot pressure can help target the root cause."
   };
 
   return (
@@ -99,9 +99,9 @@ export default function BlogPost() {
         </h1>
 
         <p className="mx-auto text-lg leading-[1.6] text-[#1C2B27]/55 max-w-[600px] font-normal">
-          Cushioning can quiet heel pain for a while. It rarely fixes the
-          uneven load pattern that caused it&mdash;and that&apos;s usually
-          where lasting relief is won or lost.
+          Soft foam can hide your heel pain for a little while. But it rarely
+          fixes the uneven pressure that caused the pain in the first
+          place&mdash;and that is usually the key to lasting relief.
         </p>
       </header>
 
@@ -123,68 +123,63 @@ export default function BlogPost() {
         <article className="text-[18px] leading-[1.8] text-[#1C2B27]/80">
 
           <p className="text-[21px] leading-[1.65] text-[#1C2B27] font-normal mb-9">
-            If you&apos;ve ever felt a sharp pain in your heel when taking
-            your first steps in the morning, you&apos;re not alone.
-            Plantar fasciitis is one of the most common causes of foot
-            pain, affecting people from healthcare workers and teachers to
-            runners and active adults.
+            If you have ever felt a sharp, stabbing pain in your heel right after
+            getting out of bed, you are not alone. This condition, called plantar
+            fasciitis, is a very common cause of foot pain. It affects everyone
+            from nurses and teachers to runners and active seniors.
           </p>
 
           <p className="mb-7">
-            Many people turn to soft insoles or cushioned shoes for
-            relief. While these products can feel comfortable initially,
-            they don&apos;t always address the underlying reason the pain
-            developed in the first place.
+            Many people buy soft insoles or extra-cushioned shoes hoping for
+            relief. While these might feel good at first, they do not usually fix
+            the real reason your heel started hurting.
           </p>
 
           <SectionHeading>Understanding the Cause of Plantar Fasciitis</SectionHeading>
 
           <p className="mb-7">
-            The plantar fascia is a strong band of tissue that runs along
-            the bottom of your foot, connecting your heel to your toes.
-            Its job is to support your arch and help absorb the forces
-            created when you walk, run, or stand for long periods.
+            The plantar fascia is a thick, strong band of tissue running along
+            the bottom of your foot. It connects your heel to your toes. Think
+            of it like a bowstring that holds up your arch and absorbs the shock
+            every time you take a step.
           </p>
 
           <ArticleFigure
             src="/plantar_fascia.png"
             alt="Diagram showing the plantar fascia band connecting the heel bone to the toes"
-            caption="The plantar fascia acts like a shock-absorbing bowstring, supporting the arch of your foot."
+            caption="The plantar fascia acts like a shock-absorbing bowstring that supports your arch."
           />
 
           <p className="mb-5">
-            When excessive stress is placed on this tissue over time,
-            small areas of irritation and inflammation can develop,
-            leading to the heel pain commonly associated with plantar
-            fasciitis. Factors that may contribute include:
+            When you put too much stress on this tissue day after day, tiny tears
+            and swelling can happen. This is what causes that sharp heel pain.
+            Things that add to this stress include:
           </p>
 
           <ConsequenceList
             items={[
-              "Flat feet or high arches",
-              "Poor foot alignment",
-              "Long hours of standing",
-              "Unsupportive footwear",
-              "Changes in walking mechanics",
-              "Increased physical activity",
+              "Having flat feet or very high arches",
+              "Standing or walking with your feet rolled inward or outward",
+              "Standing on hard floors for long hours",
+              "Wearing shoes that lack proper support",
+              "Sudden changes in how you walk or run",
+              "Quickly increasing your exercise routine",
             ]}
           />
 
           <SectionHeading>Why Soft Insoles Aren&apos;t Always Enough</SectionHeading>
 
           <p className="mb-7">
-            Soft foam or gel inserts can provide temporary comfort by
-            cushioning the heel. However, cushioning alone doesn&apos;t
-            improve how forces are distributed across the foot.
+            Soft foam or gel inserts can give you quick comfort by padding your
+            sore heel. But adding a soft pad does not change how your body weight
+            presses down on your feet when you move.
           </p>
 
           <p className="mb-7">
-            In some cases, an insole may feel comfortable at first but
-            fail to provide enough structural support to reduce strain on
-            the plantar fascia during daily activities. Effective support
-            typically requires more than cushioning&mdash;the foot needs
-            proper alignment and stability so that pressure is distributed
-            more evenly with each step.
+            Often, a soft insole feels great on day one, but it is too weak to
+            actually support your foot during a long shift. To truly help your
+            feet, you need more than just a soft landing. Your foot needs firm,
+            structured support to spread your weight evenly with every step.
           </p>
 
           <CushioningVsSupport />
@@ -192,55 +187,50 @@ export default function BlogPost() {
           <SectionHeading>The Importance of Personalized Foot Support</SectionHeading>
 
           <p className="mb-7">
-            Every person walks differently. The way your foot contacts
-            the ground, how your weight shifts during movement, and where
-            pressure builds up can vary significantly from someone
-            else&apos;s. This is why a one-size-fits-all approach may not
-            work for everyone.
+            Everyone walks a little differently. How your foot hits the ground
+            and where your weight lands is completely unique to you. Because of
+            this, standard insoles from a pharmacy shelf often fail to do the trick.
           </p>
 
           <ArticleFigure
             src="/heat-map.png"
             alt="Digital heat map showing dynamic pressure distribution across a foot"
-            caption="Dynamic pressure mapping reveals exactly where your unique stride places the most stress."
+            caption="Tracking your foot pressure shows exactly where your unique walking style puts the most stress."
           />
 
           <p className="mb-5">
-            By assessing gait patterns and pressure distribution,
-            clinicians can better understand how the foot functions during
-            movement and identify areas that may be contributing to
-            discomfort. Key considerations often include:
+            By tracking exactly how you walk and where you put pressure, we can
+            see exactly why your foot hurts. A smart, personalized approach
+            focuses on:
           </p>
 
           <ConsequenceList
             items={[
-              "Arch support tailored to the individual's foot structure",
-              "Improved pressure distribution across the foot",
-              "Enhanced stability during walking and standing",
-              "Better alignment of the foot and lower limb",
+              "Arch support shaped specifically for your foot",
+              "Spreading your body weight evenly across your whole foot",
+              "Keeping your ankles and feet stable while you stand or walk",
+              "Helping your feet, knees, and legs line up correctly",
             ]}
           />
 
           <blockquote className="my-10 border-l-2 border-[#3D6B5C]/40 pl-6 py-1 text-[19px] leading-[1.7] text-[#1C2B27]/70 italic">
-            Understanding how a person moves is just as important as
-            understanding where they feel pain.
+            Knowing exactly how you walk is just as important as knowing where
+            your heel hurts.
           </blockquote>
 
           <SectionHeading>A More Informed Approach to Relief</SectionHeading>
 
           <p className="mb-7">
-            Through gait assessment and pressure analysis, the goal is to
-            create orthotic solutions that support the unique biomechanics
-            of each individual. Rather than focusing solely on cushioning,
-            this approach is designed to improve foot function, reduce
-            excessive strain, and help people stay active more
-            comfortably.
+            By tracking your movement and foot pressure, we can build a solution
+            that actually fits the way you walk. Instead of just adding foam
+            padding, this smart approach aims to improve how your foot works,
+            reduce stress on your muscles, and help you stay active.
           </p>
 
           <p className="mb-7">
-            While plantar fasciitis can be frustrating, the right
-            combination of assessment, support, and ongoing care can make
-            a meaningful difference in recovery and long-term foot health.
+            Heel pain can be incredibly frustrating. But with the right tracking,
+            proper support, and smart care, you can help your feet recover and
+            walk comfortably again.
           </p>
 
           <ClinicalPerspective />
@@ -352,10 +342,10 @@ function CushioningVsSupport() {
           Soft cushioning
         </div>
         <ul className="space-y-2.5 text-[15px] leading-snug text-[#1C2B27]/65">
-          <li>Softens impact you feel underfoot</li>
-          <li>Comfortable in the short term</li>
-          <li>Doesn&apos;t change how load travels through the foot</li>
-          <li>Underlying strain pattern continues unchanged</li>
+          <li>Softens the impact when your foot hits the ground</li>
+          <li>Feels comfortable for a short time</li>
+          <li>Does not fix how your body weight presses on your foot</li>
+          <li>Leaves the bad walking habits unchanged</li>
         </ul>
       </div>
       <div className="rounded-xl border border-[#3D6B5C]/20 bg-[#3D6B5C]/[0.05] px-6 py-6">
@@ -364,10 +354,10 @@ function CushioningVsSupport() {
           Pressure-mapped support
         </div>
         <ul className="space-y-2.5 text-[15px] leading-snug text-[#1C2B27]/75">
-          <li>Identifies exactly where pressure concentrates</li>
-          <li>Corrects alignment and stability, not just sensation</li>
-          <li>Redistributes load away from irritated tissue</li>
-          <li>Targets the mechanical cause, not just the symptom</li>
+          <li>Finds exactly where your foot takes the hardest hits</li>
+          <li>Supports your posture and balance, not just the pain</li>
+          <li>Shifts your weight away from your sore heel</li>
+          <li>Helps fix the root cause, instead of just hiding the pain</li>
         </ul>
       </div>
     </div>
@@ -383,15 +373,14 @@ function ClinicalPerspective() {
           Clinical Perspective
         </span>
         <p className="text-[1.3rem] leading-[1.5] font-semibold text-[#FAFAF7] mb-5">
-          At Spandhika Orthotics, we believe that understanding how a
-          person moves is just as important as understanding where they
-          feel pain.
+          At Spandhika Orthotics, we believe that tracking how you move is the
+          secret to fixing why you hurt.
         </p>
         <p className="text-[16px] leading-[1.75] text-[#FAFAF7]/65">
-          Through gait assessment and dynamic pressure analysis, we build
-          orthotic solutions around each person&apos;s unique biomechanics
-          rather than relying on cushioning alone&mdash;aiming to reduce
-          excessive strain at its source and support lasting recovery.
+          Using smart sensors to track your steps, we design insoles that
+          support your unique walking style. We do not just rely on soft foam.
+          We aim to help reduce the pressure causing your pain, supporting a
+          faster and more lasting recovery.
         </p>
       </div>
     </aside>

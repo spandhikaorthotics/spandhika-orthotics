@@ -38,24 +38,25 @@ export default function VideoSection() {
 
             {/* Lead Paragraph: Slightly larger and darker to grab attention */}
             <p className="mb-6 text-[17px] leading-[1.7] text-[#1C2B27]/90 sm:text-md">
-              Each step reveals a new story about your body and how it moves.
-              Traditional insoles consider only shock absorption and stability.
-              We start somewhere else:{" "}
+              Every step tells a story about how your body moves. At Spandhika,
+              we believe in{" "}
               <span className="font-semibold text-[#3D6B5C]">
                 hearing every step.
-              </span>
+              </span>{" "}
+              While ordinary insoles focus on comfort and support, our smart
+              insoles help you understand your movement in a whole new way.
             </p>
 
             <p className="mb-6 text-[17px] leading-[1.7] text-[#1C2B27]/90 sm:text-md">
-              Smart sensors built into our custom orthotics generate detailed
-              pressure maps from every stride, supporting gait analysis that
-              helps prevent foot complications in diabetic patients, guide
-              rehabilitation, and restore everyday mobility.
+              Our smart insoles track how you walk and monitor foot pressure,
+              turning everyday movement into simple, easy-to-understand
+              insights. Whether you're recovering from an injury, managing
+              diabetes, or simply looking to move more comfortably, Spandhika is
+              here to support every step.
             </p>
 
-            {/* Final Prompt: Styled like a subtle, sophisticated caption */}
             <p className="flex items-center gap-2 text-sm font-medium tracking-wide text-[#1C2B27]/60">
-              Watch the video to see how we put it all into practice.
+              Watch the video to see it in action.
             </p>
           </div>
 
@@ -75,7 +76,7 @@ export default function VideoSection() {
                 />
               ) : (
                 // --- PREVIEW STATE ---
-                <div 
+                <div
                   className="absolute inset-0 h-full w-full cursor-pointer bg-[#1C2B27]"
                   onClick={() => setIsPlaying(true)}
                   role="button"
@@ -103,7 +104,6 @@ export default function VideoSection() {
 
                   {/* 3D "Pop-Out" Play Button */}
                   <div className="absolute top-6 left-6 pointer-events-none sm:top-8 sm:left-8">
-                    
                     {/* Slowed down ambient pulse */}
                     <div className="absolute inset-0 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] rounded-full bg-[#3D6B5C] opacity-20"></div>
 
@@ -118,7 +118,6 @@ export default function VideoSection() {
                       </svg>
                     </div>
                   </div>
-                  
                 </div>
               )}
             </div>

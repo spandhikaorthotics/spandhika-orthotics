@@ -153,9 +153,9 @@ export default function BlogPost() {
         </h1>
 
         <p className="mx-auto text-lg leading-[1.6] text-[#1C2B27]/55 max-w-[600px] font-normal">
-          A diabetic foot ulcer isn&apos;t a sudden crisis. It&apos;s the
-          final, visible result of an 89-day blind spot between clinic
-          visits.
+          A diabetic foot sore does not happen suddenly. It is usually the
+          final result of weeks of invisible damage that happens between your
+          doctor visits.
         </p>
       </header>
 
@@ -177,76 +177,71 @@ export default function BlogPost() {
         <article className="text-[18px] leading-[1.8] text-[#1C2B27]/80">
 
           <p className="text-[21px] leading-[1.65] text-[#1C2B27] font-normal mb-9">
-            When a diabetic foot ulcer (DFU) appears, it often feels like a
-            sudden crisis. One day the foot looks fine, and seemingly the
-            next, there is a serious wound. However, clinical data tells a
-            very different story.
+            When a diabetic foot sore appears, it often feels like a sudden
+            emergency. One day your foot looks fine, and the next, there is a
+            serious wound. But the facts tell a very different story.
           </p>
 
           <p className="mb-7">
-            In India alone, there are over 50,000 lower limb amputations
-            annually, and 80% of them are preceded by an ulcer caused by
-            elevated pressure. These wounds are the final result of weeks,
-            or even months, of invisible, repetitive stress.
+            In India alone, there are over 50,000 leg or foot amputations every
+            year, and 80% of them start with a sore caused by too much foot
+            pressure. These wounds are the final result of weeks or months of
+            silent, repeated stress on the foot.
           </p>
 
           <SectionHeading>The Myth of the &quot;Sudden&quot; Ulcer</SectionHeading>
 
           <p className="mb-7">
-            Ulceration is driven by cumulative daily pressure, not a single
-            traumatic event. For patients with diabetic neuropathy, the
-            ability to feel this mounting pressure is severely diminished.
+            Foot sores are caused by pressure building up day after day, not by
+            a single injury. For people with diabetic nerve damage (neuropathy),
+            the ability to feel this pressure is greatly reduced or completely gone.
           </p>
 
           <p className="mb-5">
-            Clinically, the danger zone is widely recognized as{" "}
-            <Stat>200 kPa</Stat> of in-shoe peak pressure. When a specific
-            zone on the foot repeatedly absorbs pressures above this
-            threshold, the tissue begins to break down. This process is
-            accelerated by:
+            Doctors know that the danger zone starts when foot pressure crosses
+            a certain level (<Stat>200 kPa</Stat>). When one spot on your foot
+            repeatedly takes this much weight, the skin and tissue begin to break
+            down. This damage speeds up due to:
           </p>
 
           <ConsequenceList
             items={[
-              "Midfoot peak pressures jumping from 139.4 kPa in healthy adults to over 290.7 kPa in post-ulcer patients",
-              "Unnoticed shifts in gait and stance phases compensating for neuropathy",
-              "Micro-traumas escalating due to severe loss of protective sensation",
-              "Reduced walking speed and ankle dorsiflexion forcing abnormal weight transfer",
+              "High pressure in the middle of the foot, which can double for people who have had sores before",
+              "Unnoticed changes in how you walk to make up for foot numbness",
+              "Tiny daily injuries that go unnoticed because the foot cannot feel pain",
+              "Slower walking and stiff ankles that force your weight onto the wrong parts of your foot",
             ]}
           />
 
           <SectionHeading>The 89-Day Blind Spot</SectionHeading>
 
           <p className="mb-7">
-            Currently, the standard of care involves periodic clinic
-            visits&mdash;usually every 3 to 6 months. This creates a
-            dangerous gap between appointments where pressure hotspots go
-            completely undetected.
+            Right now, most patients only see their foot doctor every 3 to 6
+            months. This creates a dangerous gap between visits where high-pressure
+            spots go completely unnoticed.
           </p>
 
           <BlindSpotTimeline />
 
           <blockquote className="my-10 border-l-2 border-[#3D6B5C]/40 pl-6 py-1 text-[19px] leading-[1.7] text-[#1C2B27]/70 italic">
-            A 10-minute gait and pressure assessment in a clinic only
-            captures a patient&apos;s best performance, not the clinically
-            relevant fatigued state.
+            A quick 10-minute walk at the doctor&apos;s office only shows how you
+            walk at your best. It does not show how your feet act when you are
+            tired at the end of the day.
           </blockquote>
 
           <p className="mb-7">
-            Gait parameters degrade significantly after just 20 to 30
-            minutes of continuous walking. If we only measure pressure in a
-            pristine clinical environment four times a year, we are missing
-            the thousands of steps taken at home where the real damage
-            occurs.
+            The way you walk breaks down after just 20 to 30 minutes of being on
+            your feet. If we only check your feet in a clean clinic a few times
+            a year, we miss the thousands of steps you take at home where the
+            real damage happens.
           </p>
 
           <SectionHeading>The Power of Continuous Foot Monitoring</SectionHeading>
 
           <p className="mb-7">
-            The solution to this blind spot is continuous, daily
-            monitoring. By tracking plantar pressure in the real world, we
-            shift from reacting to wounds to preventing them entirely. The
-            clinical evidence is definitive:
+            The best way to fix this blind spot is to track your feet every day.
+            By monitoring foot pressure in the real world, we can help stop sores
+            before they start. The evidence is clear:
           </p>
 
           <OutcomeCards />
@@ -254,16 +249,15 @@ export default function BlogPost() {
           <SectionHeading>Shifting to Proactive Care</SectionHeading>
 
           <p className="mb-7">
-            We can no longer afford to wait for ulcers to appear before
-            taking action. IWGDF 2023 guidelines explicitly recommend
-            continuous plantar pressure monitoring for high-risk diabetic
-            foot patients.
+            We cannot afford to wait for sores to appear before doing something.
+            Global health guidelines now highly recommend continuous foot tracking
+            for high-risk diabetic patients.
           </p>
 
           <p className="mb-7">
-            By bringing clinical-grade monitoring into the home, we can
-            catch the invisible warnings weeks before they become a
-            crisis&mdash;saving feet, mobility, and lives.
+            By bringing smart, doctor-level tracking into your home, we can catch
+            invisible warning signs weeks before they turn into a crisis. This
+            helps protect your feet, keeps you moving, and supports a healthier life.
           </p>
 
           {/* Clinical Perspective Highlight Block */}
@@ -396,9 +390,9 @@ function BlindSpotTimeline() {
           className="absolute -translate-x-1/2 text-center font-semibold text-[#1C2B27]/70 leading-tight"
           style={{ left: "50%" }}
         >
-          Pressure crosses
+          Pressure gets
           <br />
-          200 kPa, unseen
+          dangerously high, unseen
         </span>
         <span className="absolute right-0 translate-x-1/2 sm:translate-x-0">
           Day 89
@@ -406,9 +400,9 @@ function BlindSpotTimeline() {
       </div>
 
       <p className="mt-5 pt-5 border-t border-[#1C2B27]/[0.06] text-[14.5px] leading-relaxed text-[#1C2B27]/55">
-        The foot looks normal at both clinic visits. Everything that
-        matters happens in the dashed middle&mdash;invisible to a quarterly
-        exam, and to the patient.
+        Your foot may look normal at both doctor visits. The real danger
+        happens in the dashed middle section&mdash;completely invisible to you
+        and your doctor.
       </p>
       
       <div className="mt-6">
@@ -434,10 +428,10 @@ function BlindSpotTimeline() {
  */
 function OutcomeCards() {
   const metrics = [
-    { label: "DFU recurrence reduction", value: "86", unit: "%", note: "demonstrated at 18 months" },
-    { label: "Critical pressure alert", value: "200", unit: "kPa", note: "widely accepted ulcer risk threshold" },
-    { label: "Minimum daily wear", value: "4.5", unit: "hr", note: "required for effective intervention" },
-    { label: "Advance fall warning", value: "6\u20138", unit: "wks", note: "detected via continuous gait shifts" },
+    { label: "Fewer returning sores", value: "86", unit: "%", note: "shown in 18-month studies" },
+    { label: "Danger zone pressure", value: "200", unit: "kPa", note: "standard risk level for sores" },
+    { label: "Daily use needed", value: "4.5", unit: "hr", note: "to see real benefits" },
+    { label: "Early fall warning", value: "6\u20138", unit: "wks", note: "found by tracking daily walking changes" },
   ];
   return (
     <div className="mb-10 mt-5 grid gap-3 sm:grid-cols-2">
@@ -459,9 +453,9 @@ function OutcomeCards() {
         </div>
       ))}
       <div className="sm:col-span-2 rounded-xl border border-[#1C2B27]/[0.08] bg-white/60 px-5 py-4 text-[15px] text-[#1C2B27]/70">
-        Personalized digital feedback also induces a behavioral learning
-        response&mdash;patients progressively reduce foot pressures over
-        time once they can see them.
+        Seeing your own foot data helps you learn naturally. Once patients can
+        see their pressure levels on a screen, they automatically adjust how
+        they walk to protect their feet.
       </div>
     </div>
   );
@@ -476,24 +470,23 @@ function ClinicalPerspective() {
           Clinical Perspective
         </span>
         <p className="text-[1.3rem] leading-[1.5] font-semibold text-[#FAFAF7] mb-5">
-          At Spandhika Orthotics, we developed the Intelligent Orthotic
-          &amp; Leg Monitoring System (IOLMS) to bring clinical-grade data
-          out of the lab and into the real world.
+          At Spandhika Orthotics, we built the Intelligent Orthotic
+          &amp; Leg Monitoring System (IOLMS) to bring high-tech foot tracking
+          out of the lab and into your daily life.
         </p>
         <p className="text-[16px] leading-[1.75] text-[#FAFAF7]/65 mb-7">
-          Unlike traditional systems that cost up to &#8377;83 Lakhs and are
-          confined to research labs, IOLMS is India&apos;s first
-          affordable, IP67-rated smart insole designed for continuous
-          daily home use. By utilizing a 32-node FSR sensor matrix mapping
-          pressures up to 1,000 kPa and a 9-axis IMU, we provide real-time
-          biomechanical analysis on all 7 critical gait parameters to
-          support ulcer prevention.
+          Traditional foot trackers can cost millions of rupees and are
+          stuck in research labs. IOLMS is India&apos;s first
+          affordable, water-resistant smart insole made for everyday use.
+          It uses 32 tiny sensors and motion trackers to map exactly how
+          you walk. It tracks 7 key movement stats in real time to help support
+          safer diabetic foot care and reduce injury risks.
         </p>
 
         <div className="grid grid-cols-3 gap-3 border-t border-[#FAFAF7]/10 pt-6">
-          <MiniStat value="32" label="FSR sensor nodes" />
-          <MiniStat value="IP67" label="Rated, daily use" />
-          <MiniStat value="7" label="Gait parameters tracked" />
+          <MiniStat value="32" label="Pressure sensors" />
+          <MiniStat value="IP67" label="Waterproof rating" />
+          <MiniStat value="7" label="Movement stats tracked" />
         </div>
       </div>
     </div>

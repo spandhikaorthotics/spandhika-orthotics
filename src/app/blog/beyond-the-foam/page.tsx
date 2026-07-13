@@ -103,9 +103,9 @@ export default function BlogPost() {
         </h1>
 
         <p className="mx-auto text-lg leading-[1.6] text-[#1C2B27]/55 max-w-[600px] font-normal">
-          Cushioning quiets the impact you feel. It rarely fixes the load
-          pattern underneath it &mdash; and that's usually where lasting
-          recovery is won or lost.
+          Cushioning hides the impact you feel. But it rarely fixes how pressure
+          is spread across your feet &mdash; and that is usually where lasting
+          recovery begins.
         </p>
       </header>
 
@@ -127,62 +127,61 @@ export default function BlogPost() {
         <article className="text-[18px] leading-[1.8] text-[#1C2B27]/80">
 
           <p className="text-[21px] leading-[1.65] text-[#1C2B27] font-normal mb-9">
-            Athletes often assume that more cushioning means better
-            protection. Whether it&apos;s running shoes, gel inserts, or soft
-            insoles, comfort is frequently associated with injury prevention
-            and recovery. While cushioning can reduce the sensation of
-            impact, it doesn&apos;t always address how forces move through
-            the foot during activity.
+            Athletes often think that more cushioning means better
+            protection. Whether you use running shoes, gel inserts, or soft
+            insoles, we usually link comfort with preventing injuries
+            and healing. Cushioning can make your steps feel softer,
+            but it does not always fix how weight moves through your foot
+            when you run or walk.
           </p>
 
           <p className="mb-7">
-            For athletes dealing with recurring foot discomfort, shin pain,
-            knee strain, or fatigue after training, the problem may not be a
-            lack of cushioning&mdash;it may be poor load distribution.
+            If you deal with foot pain, shin splints, sore knees,
+            or heavy legs after training, the problem might not be your shoes.
+            The real issue may be how pressure is spread across your feet.
           </p>
 
           <SectionHeading>Understanding Load Distribution</SectionHeading>
 
           <p className="mb-7">
-            Every step you take generates forces that travel through your
-            feet, ankles, knees, and hips. During running and high-impact
-            activities, these forces can be several times your body weight,
-            with optimized athletes maintaining high gait speeds of{" "}
+            Every step sends shockwaves through your
+            feet, ankles, knees, and hips. When you run or jump,
+            this force can be several times your body weight.
+            Fast runners hit the ground even harder, moving at speeds of{" "}
             <Stat>2.5&ndash;6 m/s</Stat>.
           </p>
 
           <p className="mb-5">
-            Ideally, pressure should be distributed efficiently across the
-            foot. However, when certain areas absorb excessive stress
-            repeatedly, tissues can become overloaded. Clinical data shows
-            that in-shoe peak pressures exceeding <Stat>200 kPa</Stat> can act
-            as an alert threshold for elevated injury or ulcer risk. Over
-            time, poor load distribution may contribute to:
+            Ideally, your weight should spread evenly across your whole foot.
+            But when one spot takes too much stress over and over,
+            your muscles and joints get overworked. Studies show
+            that when foot pressure crosses a certain level (<Stat>200 kPa</Stat>),
+            the risk of injury goes up. Over time, uneven pressure may help cause:
           </p>
 
           <ConsequenceList
             items={[
-              "Heel pain and asymmetric impact loading",
-              "Plantar fasciitis linked to hyperpronation and excessive eversion",
-              "Metatarsal discomfort from forefoot pressure exceeding safe thresholds",
-              "Lateral instability risks associated with excessive inversion",
-              "Knee irritation driven by an abnormal foot progression angle",
-              "Muscle fatigue and reduced push-off power during plantarflexion",
+              "Heel pain and uneven impact on your joints",
+              "Arch pain (plantar fasciitis) caused by feet rolling inward too much",
+              "Pain in the ball of your foot from too much front-end pressure",
+              "Ankle instability from feet rolling outward",
+              "Knee pain caused by your feet pointing too far in or out",
+              "Tired muscles and weaker push-offs when you jump or run",
             ]}
           />
 
           <SectionHeading>Why Cushioning Alone Isn&apos;t Enough</SectionHeading>
 
           <p className="mb-7">
-            Soft foam and gel inserts are designed to absorb impact, which
-            can provide immediate comfort. However, they often do little to
-            improve the underlying mechanics that cause excessive loading.
+            Soft foam and gel inserts are made to absorb shock. This gives you
+            quick comfort. But they rarely fix the root cause of why your foot
+            hits the ground too hard in the first place.
           </p>
 
           <blockquote className="my-10 border-l-2 border-[#3D6B5C]/40 pl-6 py-1 text-[19px] leading-[1.7] text-[#1C2B27]/70 italic">
-            Imagine driving a car with misaligned wheels. Adding softer
-            tires may improve the ride temporarily, but the uneven wear and
-            instability remain.
+            Imagine driving a car with badly aligned wheels. Adding softer
+            tires might make the ride feel smoother for a while, but the uneven
+            wear and steering problems will still be there.
           </blockquote>
           
           <figure className="my-10 w-full overflow-hidden rounded-xl border border-[#1C2B27]/[0.08] bg-[#FAFAF7]">
@@ -195,15 +194,15 @@ export default function BlogPost() {
               />
             </div>
             <figcaption className="px-5 py-3.5 text-[14px] leading-snug text-[#1C2B27]/60 text-center border-t border-[#1C2B27]/[0.08]">
-              Dynamic pressure mapping reveals exactly where your unique stride places the most stress.
+              Tracking your foot pressure in real-time shows exactly where your unique step puts the most stress.
             </figcaption>
           </figure>
 
           <p className="mb-7">
-            Similarly, cushioning without proper biomechanical support may
-            reduce discomfort while allowing inefficient movement patterns
-            to continue. For many athletes, lasting improvement requires
-            both shock absorption and effective force management.
+            Just like that car, padding your shoes without fixing your foot posture
+            only hides the problem. Bad walking habits will continue to cause damage.
+            For many athletes, lasting recovery requires both a soft landing and
+            smart pressure control.
           </p>
 
           <SectionHeading>The Need for Continuous Pressure Mapping</SectionHeading>
@@ -218,23 +217,22 @@ export default function BlogPost() {
               />
             </div>
             <figcaption className="px-5 py-3.5 text-[14px] leading-snug text-[#1C2B27]/60 text-center border-t border-[#1C2B27]/[0.08]">
-              Fatigue-induced gait degradation: Localized high-pressure hot spots emerge as the athlete tires over time.
+              As you get tired, your walking style breaks down. This causes dangerous high-pressure hot spots to form on your feet.
             </figcaption>
           </figure>
 
           <p className="mb-7">
-            Historically, athletes have relied on standard 10-minute clinic
-            assessments to evaluate their stride. However, gait parameters
-            degrade significantly after <Stat>20&ndash;30 min</Stat> of
-            continuous walking or running. A brief lab session captures the
-            athlete&apos;s best performance, completely missing the
-            fatigue-dependent gait changes that occur when injuries actually
-            happen.
+            In the past, athletes relied on short 10-minute clinic visits
+            to check their walking style. But the way your body moves breaks down
+            after <Stat>20&ndash;30 min</Stat> of continuous exercise.
+            A quick lab test only captures you at your best. It completely
+            misses what happens when you are tired&mdash;which is when
+            injuries usually happen.
           </p>
 
           <p className="mb-5">
-            Modern continuous pressure mapping systems can identify exactly
-            what happens when fatigue sets in, including:
+            Modern smart insoles can track your pressure constantly.
+            They help identify exactly what goes wrong when you get tired, including:
           </p>
 
           <GaitMetricsGrid />
@@ -242,17 +240,17 @@ export default function BlogPost() {
           <SectionHeading>Recovery Isn&apos;t Just About Rest</SectionHeading>
 
           <p className="mb-7">
-            Many athletes focus solely on stretching, strengthening, and
-            rest when recovering from injury. While these strategies are
-            important, recovery is also heavily influenced by what happens
-            every time the foot contacts the ground.
+            When healing an injury, many athletes only focus on stretching,
+            strength training, and resting. These are very important.
+            But recovery is also deeply affected by what happens every
+            time your foot hits the ground.
           </p>
 
           <p className="mb-7">
-            If excessive pressure continues to be concentrated in the same
-            areas, irritation can persist despite other treatments.
-            Addressing biomechanics alongside rehabilitation often provides
-            a more complete recovery strategy.
+            If too much pressure keeps pounding the same spot on your foot,
+            the pain may stay no matter how much you rest. Fixing the way
+            your body moves while doing physical therapy often gives you
+            the best chance to fully recover.
           </p>
 
           {/* Clinical Perspective Highlight Block */}
@@ -261,17 +259,17 @@ export default function BlogPost() {
           <SectionHeading>A Smarter Approach to Performance and Recovery</SectionHeading>
 
           <p className="mb-7">
-            Athletic recovery is about more than reducing impact. It&apos;s
-            about helping the body manage forces efficiently with every
-            step.
+            Athletic recovery is about more than just softening the blow.
+            It is about helping your body manage weight and pressure safely
+            with every single step.
           </p>
 
           <p className="mb-7">
-            While cushioning can improve comfort, smart load distribution
-            focuses on the mechanics behind movement. By understanding
-            where pressure builds and how it can be redistributed through
-            continuous data, athletes can support recovery, improve
-            comfort, and move with greater confidence.
+            Cushioning makes your shoes comfortable. But smart pressure control
+            focuses on the mechanics behind your movement. By understanding
+            exactly where pressure builds up, you can fix bad habits early.
+            This helps support your recovery, improves your daily comfort,
+            and lets you move with confidence.
           </p>
 
         </article>
@@ -352,10 +350,10 @@ function ConsequenceList({ items }: { items: string[] }) {
 
 function GaitMetricsGrid() {
   const metrics = [
-    { label: "Stride length", value: "150\u2013200", unit: "cm", note: "optimized range for runners" },
-    { label: "Stride variability", value: "< 1", unit: "%", note: "ceiling for highly optimized athletes" },
-    { label: "Foot progression angle", value: "7\u201310", unit: "\u00B0", note: "consistent toe-out range" },
-    { label: "Dorsiflexion (swing phase)", value: "10\u201325", unit: "\u00B0", note: "optimal range" },
+    { label: "Step length", value: "150\u2013200", unit: "cm", note: "ideal range for runners" },
+    { label: "Step consistency", value: "< 1", unit: "%", note: "goal for top athletes" },
+    { label: "Toe angle", value: "7\u201310", unit: "\u00B0", note: "healthy slight outward point" },
+    { label: "Ankle lift (swing phase)", value: "10\u201325", unit: "\u00B0", note: "ideal range for clearing the ground" },
   ];
   return (
     <div className="mb-10 mt-5 grid gap-3 sm:grid-cols-2">
@@ -377,9 +375,7 @@ function GaitMetricsGrid() {
         </div>
       ))}
       <div className="sm:col-span-2 rounded-xl border border-[#1C2B27]/[0.08] bg-white/60 px-5 py-4 text-[15px] text-[#1C2B27]/70">
-        Plus eversion and inversion asymmetry that develops as muscles
-        tire&mdash;visible only once fatigue sets in, not during a short
-        clinic walk.
+        They also catch uneven foot rolling (when your foot tilts too far inward or outward) that only happens as your muscles get tired. You won&apos;t see this during a quick doctor&apos;s visit.
       </div>
     </div>
   );
@@ -394,24 +390,23 @@ function ClinicalPerspective() {
           Clinical Perspective
         </span>
         <p className="text-[1.3rem] leading-[1.5] font-semibold text-[#FAFAF7] mb-5">
-          At Spandhika Orthotics, we developed the Intelligent Orthotic
-          &amp; Leg Monitoring System (IOLMS) to bring clinical-grade data
-          out of the lab and into the real world.
+          At Spandhika Orthotics, we built the Intelligent Orthotic
+          &amp; Leg Monitoring System (IOLMS) to bring high-tech foot tracking
+          out of the lab and into your daily life.
         </p>
         <p className="text-[16px] leading-[1.75] text-[#FAFAF7]/65 mb-7">
-          Unlike traditional systems that cost up to &#8377;83 Lakhs and are
-          confined to research labs, IOLMS is India&apos;s first
-          affordable, IP67-rated smart insole designed for continuous
-          daily home use. By utilizing a 32-node FSR sensor matrix mapping
-          pressures up to 1,000 kPa and a 9-axis IMU, we provide real-time
-          biomechanical analysis on all 7 critical gait parameters to
-          support injury prevention and optimized recovery.
+          Traditional foot trackers can cost millions of rupees and are
+          stuck in research labs. IOLMS is India&apos;s first
+          affordable, water-resistant smart insole made for everyday use.
+          It uses 32 tiny sensors and motion trackers to map exactly how
+          you walk. It tracks 7 key movement stats in real time.
+          This helps reduce injury risks and supports a faster, safer recovery.
         </p>
 
         <div className="grid grid-cols-3 gap-3 border-t border-[#FAFAF7]/10 pt-6">
-          <MiniStat value="32" label="FSR sensor nodes" />
-          <MiniStat value="IP67" label="Rated, daily use" />
-          <MiniStat value="7" label="Gait parameters tracked" />
+          <MiniStat value="32" label="Pressure sensors" />
+          <MiniStat value="IP67" label="Waterproof rating" />
+          <MiniStat value="7" label="Movement stats tracked" />
         </div>
       </div>
     </div>
