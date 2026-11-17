@@ -4,7 +4,7 @@ import WaitlistFaq from "@/components/ui/WaitlistFaq";
 import Problem from "@/components/ui/Problem";
 import Footer from "@/components/ui/Footer";
 import ProductShowcase from "@/components/ui/ProductShowcase";
-import VideoSection from "@/components/ui/VideoSection";
+// import VideoSection from "@/components/ui/VideoSection"; // Hidden for redesign — re-enable when needed
 import OrthoticsRange from "@/components/ui/OrthoticsRange";
 import Blogs from "@/components/ui/Blogs";
 import ContactUs from "@/components/ui/ContactUs";
@@ -26,7 +26,7 @@ export default function Home() {
       <main>
         <HomeVideoHero />
         <SupportedBy />
-        <VideoSection />
+        {/* <VideoSection /> */}
         <Problem />
         <ProductShowcase />
         <OrthoticsRange />
