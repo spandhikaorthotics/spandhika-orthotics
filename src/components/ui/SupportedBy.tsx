@@ -15,11 +15,11 @@ type Supporter = {
 };
 
 const supporters: Supporter[] = [
-  { name: "Uttishthati Foundation", initials: "UF" },
-  { name: "TIDES, IIT Roorkee", initials: "TIDES" },
-  { name: "STPI Mohali", initials: "STPI" },
-  { name: "NSRCEL, IIM Bangalore", initials: "NSRCEL" },
-  { name: "NCPEDP", initials: "NCPEDP" },
+  { name: "Uttishthati Foundation", initials: "UF", logo: "/partners/uttishthati.png" },
+  { name: "TIDES, IIT Roorkee", initials: "TIDES", logo: "/partners/tides-iitr.webp" },
+  { name: "STPI Mohali", initials: "STPI", logo: "/partners/stpi.jpg" },
+  { name: "NSRCEL, IIM Bangalore", initials: "NSRCEL", logo: "/partners/nsrcel.jpg" },
+  { name: "NCPEDP", initials: "NCPEDP", logo: "/partners/ncpedp.jpg" },
 ];
 
 function LogoPlaceholder({ initials }: { initials: string }) {
