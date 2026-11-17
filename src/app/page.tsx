@@ -11,6 +11,7 @@ import ContactUs from "@/components/ui/ContactUs";
 import Purpose from "@/components/ui/Purpose";
 import TargetAudience from "@/components/ui/TargetAudience";
 import Chatbot from "@/components/ui/Chatbot";
+import SupportedBy from "@/components/ui/SupportedBy";
 
 export const metadata = {
   title: "Spandhika Orthotics | Smart Orthotic Insoles",
@@ -25,6 +26,7 @@ export default function Home() {
       <DidYouKnowBanner />
       <main>
         <Hero />
+        <SupportedBy />
         <VideoSection />
         <Problem />
         <ProductShowcase />
