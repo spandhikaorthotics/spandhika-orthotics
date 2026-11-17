@@ -1,52 +1,22 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, Pause, Play } from "lucide-react";
 import { montserrat } from "@/lib/fonts";
 
-const clamp = (v: number) => Math.min(1, Math.max(0, v));
-
 /**
- * Full-screen background video that stays pinned while the user scrolls
- * through a 180svh section. The headline fades in and the overlay darkens
- * as scroll progress increases.
+ * Full-screen background video hero. Clicking anywhere on the video
+ * (outside the buttons) toggles playback; a corner button shows the state.
  */
 export default function HomeVideoHero() {
-  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const el = sectionRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const scrollable = rect.height - window.innerHeight;
-      setProgress(scrollable > 0 ? clamp(-rect.top / scrollable) : 1);
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, []);
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      video.pause();
-    } else {
-      video.play().catch(() => {});
-    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    video.play().catch(() => {});
   }, []);
 
   const togglePlayback = () => {
@@ -56,73 +26,72 @@ export default function HomeVideoHero() {
     else video.pause();
   };
 
-  const contentOpacity = clamp((progress - 0.12) / 0.48);
-  const shadeOpacity = Math.min(1, 0.15 + (progress / 0.65) * 0.85);
-  const contentVisible = progress > 0.12;
-
   return (
     <section
       id="top"
-      ref={sectionRef}
-      className={`${montserrat.className} home-video-scroll`}
+      className={`${montserrat.className} home-hero relative isolate flex cursor-pointer items-center justify-center overflow-hidden`}
+      onClick={togglePlayback}
     >
-      <div className="home-hero sticky top-0 flex overflow-hidden">
-        <video
-          ref={videoRef}
-          className="absolute inset-0 h-full w-full object-cover"
-          src="/hero.mp4"
-          loop
-          muted
-          playsInline
-          preload="auto"
-          aria-hidden="true"
-        />
+      <video
+        ref={videoRef}
+        className="absolute inset-0 -z-20 h-full w-full object-cover"
+        src="/hero.mp4"
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+      />
+      <div className="hero-shade pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
 
-        <div
-          className="hero-shade absolute inset-0 cursor-pointer"
-          role="button"
-          tabIndex={-1}
-          aria-label="Play or pause the background video"
-          onClick={togglePlayback}
-          style={{ opacity: shadeOpacity }}
-        />
-        <div className="hero-top-blur pointer-events-none absolute inset-0" aria-hidden="true" />
+      {/* Content: the wrapper ignores clicks so they reach the section; interactive children opt back in. */}
+      <div className="hero-content pointer-events-none mx-auto flex w-full max-w-4xl flex-col items-center px-6 py-20 text-center text-white">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/80 sm:text-xs">
+          Spandhika Orthotics &middot; Saarthi
+        </p>
 
-        <div
-          className="relative mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-6 pb-24 pt-32 text-center lg:px-10"
-          style={{ opacity: contentOpacity }}
-          inert={!contentVisible}
-          aria-hidden={!contentVisible}
-        >
-          <p className="text-xs font-semibold uppercase tracking-[0.2em]">
-            Spandhika Orthotics &middot; Saarthi
-          </p>
+        <h1 className="mt-5 text-[38px] font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-[64px]">
+          Smart Insights.
+          <br />
+          From Every Step.
+        </h1>
 
-          <h1 className="mt-5 text-[38px] font-semibold leading-[1.12] sm:text-5xl lg:text-[64px]">
-            <span className="block">Smart Insights.</span>
-            <span className="block">From Every Step.</span>
-          </h1>
+        <p className="mx-auto mt-6 max-w-xl text-[16px] leading-[1.65] text-white/85 sm:text-[18px]">
+          Smart insoles that monitor your feet. Understand your pressure,
+          balance and walking in one simple app.
+        </p>
 
-          <p className="mx-auto mt-6 max-w-xl text-[17px] leading-[1.65] lg:text-[19px]">
-            Smart insoles that monitor your feet. Understand your pressure,
-            balance and walking in one simple app.
-          </p>
-
+        <div className="pointer-events-auto mt-9 flex flex-col items-center gap-4 sm:flex-row">
           <a
             href="#waitlist"
-            className="mt-8 inline-flex h-14 w-full max-w-xs items-center justify-center gap-2 rounded-md bg-secondary-container px-4 text-base font-medium text-primary shadow-sm transition-colors hover:bg-secondary-container/80 sm:w-auto sm:px-8"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-7 text-[15px] font-semibold text-primary shadow-lg transition-all hover:-translate-y-0.5 hover:bg-secondary-container"
           >
             Join the waitlist <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
-
           <a
             href="#features"
-            className="mt-5 inline-flex min-h-11 items-center gap-2 text-[17px] text-white/95 hover:text-white"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex h-12 items-center gap-2 rounded-full border border-white/40 px-6 text-[15px] font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/10"
           >
             See how it works <ChevronDown className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
       </div>
+
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          togglePlayback();
+        }}
+        aria-label={playing ? "Pause background video" : "Play background video"}
+        className="absolute bottom-5 right-5 grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-white/40 bg-black/30 text-white backdrop-blur-md transition-colors hover:bg-black/50 sm:bottom-8 sm:right-8"
+      >
+        {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 translate-x-px" />}
+      </button>
     </section>
   );
 }
