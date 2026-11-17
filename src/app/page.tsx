@@ -4,7 +4,6 @@ import WaitlistFaq from "@/components/ui/WaitlistFaq";
 import Problem from "@/components/ui/Problem";
 import Footer from "@/components/ui/Footer";
 import ProductShowcase from "@/components/ui/ProductShowcase";
-import DidYouKnowBanner from "@/components/ui/DidYouKnow";
 import VideoSection from "@/components/ui/VideoSection";
 import OrthoticsRange from "@/components/ui/OrthoticsRange";
 import Blogs from "@/components/ui/Blogs";
@@ -24,7 +23,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-100 text-slate-900 font-sans">
       <Navbar />
-      <DidYouKnowBanner />
       <main>
         <HomeVideoHero />
         <SupportedBy />

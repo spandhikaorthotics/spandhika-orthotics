@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import ScrollProgress from "@/components/ui/ScrollProgress";
-import DidYouKnowBanner from "@/components/ui/DidYouKnow";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
