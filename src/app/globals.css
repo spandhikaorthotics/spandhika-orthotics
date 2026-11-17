@@ -559,7 +559,6 @@
   background: var(--foreground);
 }
 .spx-tag {
-  display: inline-block;
   white-space: nowrap;
   border: 1px solid var(--primary);
   border-radius: 9999px;

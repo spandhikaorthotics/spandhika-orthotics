@@ -44,7 +44,7 @@ function PhoneContent({ active }: { active: number }) {
             </div>
           ))}
         </div>
-        <span className="spx-tag mt-4">Illustrative readings</span>
+        <span className="spx-tag mt-4 inline-block">Illustrative readings</span>
       </>
     );
   }
