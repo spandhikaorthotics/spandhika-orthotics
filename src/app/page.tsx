@@ -3,16 +3,19 @@ import HomeVideoHero from "@/components/ui/HomeVideoHero";
 import WaitlistFaq from "@/components/ui/WaitlistFaq";
 // import Problem from "@/components/ui/Problem"; // "The signs" carousel — hidden for redesign
 import Footer from "@/components/ui/Footer";
-import ProductShowcase from "@/components/ui/ProductShowcase";
+// import ProductShowcase from "@/components/ui/ProductShowcase";
 // import VideoSection from "@/components/ui/VideoSection"; // Hidden for redesign — re-enable when needed
 // import OrthoticsRange from "@/components/ui/OrthoticsRange"; // Merged into WhoItsFor — re-enable if needed
 import Blogs from "@/components/ui/Blogs";
 import ContactUs from "@/components/ui/ContactUs";
 import Purpose from "@/components/ui/Purpose";
-import TargetAudience from "@/components/ui/TargetAudience";
+// import TargetAudience from "@/components/ui/TargetAudience";
 import Chatbot from "@/components/ui/Chatbot";
 import SupportedBy from "@/components/ui/SupportedBy";
 import WhoItsFor from "@/components/ui/WhoItsFor";
+import HowItWorks from "@/components/ui/HowItWorks";
+import AppPreview from "@/components/ui/AppPreview";
+import InsoleToInsight from "@/components/ui/InsoleToInsight";
 
 export const metadata = {
   title: "Spandhika Orthotics | Smart Orthotic Insoles",
@@ -28,11 +31,14 @@ export default function Home() {
         <HomeVideoHero />
         <SupportedBy />
         <WhoItsFor />
+        <HowItWorks />
+        <AppPreview />
+        <InsoleToInsight />
         {/* <OrthoticsRange /> */}
         {/* <VideoSection /> */}
         {/* <Problem /> */}
-        <ProductShowcase />
-        <TargetAudience />
+        {/* <ProductShowcase /> */}
+        {/* <TargetAudience /> */}
         <Blogs />
         <Purpose />
         <WaitlistFaq />

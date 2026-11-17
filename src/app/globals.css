@@ -472,3 +472,187 @@
     animation: none;
   }
 }
+
+/* ───────────── Redesign: Lovable palette, scoped to sections using .lv-theme ───────────── */
+.lv-theme {
+  --brand-green: oklch(65.129% 0.13884 144.251);
+  --primary: oklch(37.791% 0.06576 179.884);
+  --primary-foreground: oklch(99% 0 0);
+  --primary-soft: oklch(95.6% 0.025 145);
+  --primary-glow: var(--brand-green);
+  --background: oklch(98.9% 0.004 145);
+  --foreground: oklch(24% 0.035 175);
+  --card: oklch(100% 0 0);
+  --secondary: oklch(95.6% 0.025 145);
+  --muted: oklch(96.6% 0.012 145);
+  --muted-foreground: oklch(38% 0.025 175);
+  --accent: oklch(94.7% 0.035 36);
+  --border: oklch(89% 0.023 145);
+  --heat-empty: var(--muted);
+  --heat-low: oklch(90% 0.08 145);
+  --heat-medium: var(--brand-green);
+  --heat-high: oklch(85% 0.15 95);
+  --heat-peak: oklch(72% 0.17 45);
+  --deep-surface: var(--primary);
+  --deep-ink: oklch(99% 0.003 145);
+  --deep-muted: oklch(89% 0.023 145);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+.lv-label {
+  color: var(--primary);
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.lv-title {
+  color: var(--primary);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.18;
+}
+@media (min-width: 640px) {
+  .lv-title { font-size: 40px; }
+}
+.lv-copy {
+  color: var(--muted-foreground);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+/* How it works */
+.feature-card {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--secondary);
+  padding: 24px;
+}
+.metric-trend-bar { border: 1px solid var(--primary); }
+.metric-trend-line { stroke: var(--primary); }
+
+/* App band */
+.app-band {
+  background: var(--deep-surface);
+  color: var(--deep-ink);
+}
+.app-band .lv-label,
+.app-band .lv-title { color: var(--deep-ink); }
+.app-band .lv-copy,
+.app-band [role="tab"][aria-selected="false"] { color: var(--deep-muted); }
+.app-band [role="tab"]:hover { background: var(--primary-soft); color: var(--primary); }
+.phone-preview {
+  border: 6px solid var(--foreground);
+  background: var(--card);
+  width: min(300px, 100%);
+  min-height: 420px;
+  color: var(--foreground);
+  border-radius: 32px;
+  padding: 24px;
+}
+.phone-speaker {
+  display: block;
+  margin: 0 auto;
+  width: 72px;
+  height: 7px;
+  border-radius: 20px;
+  background: var(--foreground);
+}
+.spx-tag {
+  display: inline-block;
+  white-space: nowrap;
+  border: 1px solid var(--primary);
+  border-radius: 9999px;
+  padding: 3px 8px;
+  background: color-mix(in oklab, var(--primary) 8%, var(--card));
+  color: var(--primary);
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+@keyframes lv-swap-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.lv-swap { animation: lv-swap-in 0.42s ease-out both; }
+
+/* Insole-to-insight orbit */
+.parameter-stage { min-height: 420px; }
+.parameter-ring {
+  border: 1px dashed var(--border);
+  border-radius: 50%;
+  width: 260px;
+  height: 260px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.parameter-ring-outer { width: 320px; height: 320px; }
+@media (min-width: 640px) {
+  .parameter-ring { width: 360px; height: 360px; }
+  .parameter-ring-outer { width: 460px; height: 460px; }
+}
+@media (min-width: 1024px) {
+  .parameter-stage { min-height: 700px; }
+}
+.orbit-core {
+  --orbit-core-size: 210px;
+  width: var(--orbit-core-size);
+  height: var(--orbit-core-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--primary) 18%, transparent);
+  background:
+    radial-gradient(circle at 50% 26%, color-mix(in srgb, var(--primary-glow) 22%, transparent), transparent 64%),
+    radial-gradient(circle at 50% 52%, var(--primary-soft), var(--secondary) 74%, color-mix(in srgb, var(--secondary) 55%, var(--background)) 100%);
+  box-shadow: 0 44px 84px -52px color-mix(in srgb, var(--primary) 55%, transparent), inset 0 1px 0 #fff9;
+}
+@media (min-width: 640px) { .orbit-core { --orbit-core-size: 250px; } }
+@media (min-width: 1024px) { .orbit-core { --orbit-core-size: 320px; } }
+.orbit-core img { height: 76%; width: auto; object-fit: contain; }
+.orbit-scene { z-index: 5; }
+.orbit-slot,
+.orbit-upright { position: absolute; top: 0; left: 0; width: 0; height: 0; }
+.orbit-chip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%) rotate(var(--tilt, 0deg));
+}
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed var(--border);
+  border-radius: 50%;
+}
+.orbit-ring-faint { border-color: color-mix(in srgb, var(--primary) 22%, transparent); }
+@keyframes orbit-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+.orbit-spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  animation: orbit-spin var(--orbit-dur, 55s) linear infinite;
+}
+.orbit-spin[data-dir="reverse"] { animation-direction: reverse; }
+.orbit-counter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  animation: orbit-spin var(--orbit-dur, 55s) linear infinite reverse;
+}
+.orbit-spin[data-dir="reverse"] .orbit-counter { animation-direction: normal; }
+@media (prefers-reduced-motion: reduce) {
+  .orbit-spin,
+  .orbit-counter,
+  .lv-swap { animation: none !important; }
+}

@@ -72,7 +72,7 @@ export default function HomeVideoHero() {
             Join the waitlist <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
           <a
-            href="#features"
+            href="#how"
             onClick={(e) => e.stopPropagation()}
             className="inline-flex h-12 items-center gap-2 rounded-full border border-white/40 px-6 text-[15px] font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/10"
           >
