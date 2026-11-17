@@ -1,7 +1,7 @@
 import Navbar from "@/components/ui/Navbar";
 import HomeVideoHero from "@/components/ui/HomeVideoHero";
 import WaitlistFaq from "@/components/ui/WaitlistFaq";
-import Problem from "@/components/ui/Problem";
+// import Problem from "@/components/ui/Problem"; // "The signs" carousel — hidden for redesign
 import Footer from "@/components/ui/Footer";
 import ProductShowcase from "@/components/ui/ProductShowcase";
 // import VideoSection from "@/components/ui/VideoSection"; // Hidden for redesign — re-enable when needed
@@ -30,7 +30,7 @@ export default function Home() {
         <WhoItsFor />
         {/* <OrthoticsRange /> */}
         {/* <VideoSection /> */}
-        <Problem />
+        {/* <Problem /> */}
         <ProductShowcase />
         <TargetAudience />
         <Blogs />
