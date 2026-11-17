@@ -5,7 +5,7 @@ import Problem from "@/components/ui/Problem";
 import Footer from "@/components/ui/Footer";
 import ProductShowcase from "@/components/ui/ProductShowcase";
 // import VideoSection from "@/components/ui/VideoSection"; // Hidden for redesign — re-enable when needed
-import OrthoticsRange from "@/components/ui/OrthoticsRange";
+// import OrthoticsRange from "@/components/ui/OrthoticsRange"; // Merged into WhoItsFor — re-enable if needed
 import Blogs from "@/components/ui/Blogs";
 import ContactUs from "@/components/ui/ContactUs";
 import Purpose from "@/components/ui/Purpose";
@@ -28,7 +28,7 @@ export default function Home() {
         <HomeVideoHero />
         <SupportedBy />
         <WhoItsFor />
-        <OrthoticsRange />
+        {/* <OrthoticsRange /> */}
         {/* <VideoSection /> */}
         <Problem />
         <ProductShowcase />
