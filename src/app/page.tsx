@@ -12,6 +12,7 @@ import Purpose from "@/components/ui/Purpose";
 import TargetAudience from "@/components/ui/TargetAudience";
 import Chatbot from "@/components/ui/Chatbot";
 import SupportedBy from "@/components/ui/SupportedBy";
+import WhoItsFor from "@/components/ui/WhoItsFor";
 
 export const metadata = {
   title: "Spandhika Orthotics | Smart Orthotic Insoles",
@@ -26,10 +27,11 @@ export default function Home() {
       <main>
         <HomeVideoHero />
         <SupportedBy />
+        <WhoItsFor />
+        <OrthoticsRange />
         {/* <VideoSection /> */}
         <Problem />
         <ProductShowcase />
-        <OrthoticsRange />
         <TargetAudience />
         <Blogs />
         <Purpose />
