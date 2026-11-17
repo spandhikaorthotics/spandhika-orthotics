@@ -399,3 +399,80 @@
     animation: none !important;
   }
 }
+
+/* ───────────── Redesign: video hero ───────────── */
+.home-video-scroll {
+  height: 180svh;
+}
+.home-hero {
+  height: 100svh;
+  min-height: 580px;
+  background: #06140f;
+  color: #ffffff;
+}
+.hero-shade {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, #06140f 60%, transparent),
+    color-mix(in oklab, #06140f 25%, transparent) 55%,
+    color-mix(in oklab, #06140f 55%, transparent)
+  );
+}
+.hero-top-blur {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  mask-image: linear-gradient(#000 0%, #0000 35%);
+  -webkit-mask-image: linear-gradient(#000 0%, #0000 35%);
+}
+@media (min-width: 1024px) {
+  .hero-top-blur {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+}
+
+/* ───────────── Redesign: animated waitlist gradient ───────────── */
+@property --wg-x1 { syntax: "<percentage>"; inherits: false; initial-value: 10%; }
+@property --wg-y1 { syntax: "<percentage>"; inherits: false; initial-value: 10%; }
+@property --wg-x2 { syntax: "<percentage>"; inherits: false; initial-value: 90%; }
+@property --wg-y2 { syntax: "<percentage>"; inherits: false; initial-value: 10%; }
+@property --wg-x3 { syntax: "<percentage>"; inherits: false; initial-value: 10%; }
+@property --wg-y3 { syntax: "<percentage>"; inherits: false; initial-value: 90%; }
+@property --wg-x4 { syntax: "<percentage>"; inherits: false; initial-value: 90%; }
+@property --wg-y4 { syntax: "<percentage>"; inherits: false; initial-value: 90%; }
+@property --wg-s1 { syntax: "<percentage>"; inherits: false; initial-value: 45%; }
+@property --wg-s2 { syntax: "<percentage>"; inherits: false; initial-value: 45%; }
+@property --wg-s3 { syntax: "<percentage>"; inherits: false; initial-value: 45%; }
+@property --wg-s4 { syntax: "<percentage>"; inherits: false; initial-value: 45%; }
+
+.waitlist-gradient {
+  background-color: var(--primary);
+  background-image:
+    radial-gradient(circle at var(--wg-x1) var(--wg-y1), color-mix(in oklab, var(--on-primary-container) 70%, transparent) 0px, transparent var(--wg-s1)),
+    radial-gradient(circle at var(--wg-x2) var(--wg-y2), var(--primary-container) 0px, transparent var(--wg-s2)),
+    radial-gradient(circle at var(--wg-x3) var(--wg-y3), color-mix(in oklab, #10b981 75%, transparent) 0px, transparent var(--wg-s3)),
+    radial-gradient(circle at var(--wg-x4) var(--wg-y4), color-mix(in oklab, var(--tertiary-fixed-dim) 45%, transparent) 0px, transparent var(--wg-s4));
+  animation:
+    wg-blob1 9s ease-in-out infinite,
+    wg-blob2 11s ease-in-out infinite,
+    wg-blob3 10s ease-in-out infinite,
+    wg-blob4 12s ease-in-out infinite,
+    wg-size1 7s ease-in-out infinite,
+    wg-size2 8.4s ease-in-out infinite,
+    wg-size3 7.6s ease-in-out infinite,
+    wg-size4 9.2s ease-in-out infinite;
+}
+@keyframes wg-blob1 { 0%, 100% { --wg-x1: 5%; --wg-y1: 5%; } 25% { --wg-x1: 45%; --wg-y1: 20%; } 50% { --wg-x1: 30%; --wg-y1: 55%; } 75% { --wg-x1: 0%; --wg-y1: 30%; } }
+@keyframes wg-blob2 { 0%, 100% { --wg-x2: 95%; --wg-y2: 5%; } 33% { --wg-x2: 55%; --wg-y2: 35%; } 66% { --wg-x2: 80%; --wg-y2: 65%; } }
+@keyframes wg-blob3 { 0%, 100% { --wg-x3: 5%; --wg-y3: 95%; } 40% { --wg-x3: 45%; --wg-y3: 65%; } 70% { --wg-x3: 25%; --wg-y3: 100%; } }
+@keyframes wg-blob4 { 0%, 100% { --wg-x4: 95%; --wg-y4: 95%; } 30% { --wg-x4: 60%; --wg-y4: 70%; } 60% { --wg-x4: 100%; --wg-y4: 50%; } }
+@keyframes wg-size1 { 0%, 100% { --wg-s1: 45%; } 50% { --wg-s1: 80%; } }
+@keyframes wg-size2 { 0%, 100% { --wg-s2: 45%; } 50% { --wg-s2: 85%; } }
+@keyframes wg-size3 { 0%, 100% { --wg-s3: 45%; } 50% { --wg-s3: 78%; } }
+@keyframes wg-size4 { 0%, 100% { --wg-s4: 45%; } 50% { --wg-s4: 82%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .waitlist-gradient {
+    animation: none;
+  }
+}

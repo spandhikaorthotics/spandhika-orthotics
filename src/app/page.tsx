@@ -1,5 +1,6 @@
 import Navbar from "@/components/ui/Navbar";
-import Hero from "@/components/ui/Hero";
+import HomeVideoHero from "@/components/ui/HomeVideoHero";
+import WaitlistFaq from "@/components/ui/WaitlistFaq";
 import Problem from "@/components/ui/Problem";
 import Footer from "@/components/ui/Footer";
 import ProductShowcase from "@/components/ui/ProductShowcase";
@@ -25,7 +26,7 @@ export default function Home() {
       <Navbar />
       <DidYouKnowBanner />
       <main>
-        <Hero />
+        <HomeVideoHero />
         <SupportedBy />
         <VideoSection />
         <Problem />
@@ -34,6 +35,7 @@ export default function Home() {
         <TargetAudience />
         <Blogs />
         <Purpose />
+        <WaitlistFaq />
         <ContactUs />
         <Footer />
       </main>
