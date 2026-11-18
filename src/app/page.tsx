@@ -16,6 +16,7 @@ import WhoItsFor from "@/components/ui/WhoItsFor";
 import HowItWorks from "@/components/ui/HowItWorks";
 import AppPreview from "@/components/ui/AppPreview";
 import InsoleToInsight from "@/components/ui/InsoleToInsight";
+import Testimonials from "@/components/ui/Testimonials";
 
 export const metadata = {
   title: "Spandhika Orthotics | Smart Orthotic Insoles",
@@ -34,6 +35,7 @@ export default function Home() {
         <HowItWorks />
         <AppPreview />
         <InsoleToInsight />
+        <Testimonials />
         {/* <OrthoticsRange /> */}
         {/* <VideoSection /> */}
         {/* <Problem /> */}
