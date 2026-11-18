@@ -1,137 +1,269 @@
-"use client"; 
+"use client";
 
-import { useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowUp, Sparkles, X } from "lucide-react";
+import { montserrat } from "@/lib/fonts";
+
+type Message = { sender: "user" | "bot"; text: string };
+
+const suggestions = [
+  "What is Saarthi?",
+  "Can it help with diabetic feet?",
+  "How does the insole work?",
+  "When does it launch?",
+];
+
+/** Renders **bold** and [label](url) from the assistant's replies. */
+function formatMessage(text: string) {
+  const parts = text.split(/(\[.*?\]\(.*?\)|\*\*.*?\*\*)/g);
+  return parts.map((part, index) => {
+    const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/);
+    if (linkMatch) {
+      return (
+        <a
+          key={index}
+          href={linkMatch[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-primary underline decoration-[color-mix(in_oklab,var(--primary)_35%,transparent)] underline-offset-2 hover:decoration-primary"
+        >
+          {linkMatch[1]}
+        </a>
+      );
+    }
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+}
+
+function BotAvatar({ size = "h-8 w-8" }: { size?: string }) {
+  return (
+    <span
+      className={`${size} grid shrink-0 place-items-center rounded-full bg-[var(--primary-soft)] text-primary ring-1 ring-[color-mix(in_oklab,var(--primary)_15%,transparent)]`}
+      aria-hidden="true"
+    >
+      <Sparkles className="h-[45%] w-[45%]" />
+    </span>
+  );
+}
 
 export default function Chatbot() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState<{sender: 'user' | 'bot', text: string}[]>([]);
-    const [input, setInput] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [compact, setCompact] = useState(false);
 
-    const themeColor = '#0d3b2e'; // Deep teal for header and buttons
-    const lightGreen = '#dcfce7'; // Soft light green for user chat bubbles
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-    const formatMessage = (text: string) => {
-        const parts = text.split(/(\[.*?\]\(.*?\)|\*\*.*?\*\*)/g);
-        
-        return parts.map((part, index) => {
-            const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/);
-            if (linkMatch) {
-                return (
-                    <a 
-                        key={index} 
-                        href={linkMatch[2]} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        style={{ color: '#0066FF', textDecoration: 'underline', fontWeight: '500' }}
-                    >
-                        {linkMatch[1]}
-                    </a>
-                );
-            }
-            
-            if (part.startsWith('**') && part.endsWith('**')) {
-                return <strong key={index}>{part.slice(2, -2)}</strong>;
-            }
-            
-            return part;
+  // Collapse the launcher label to an icon once the visitor scrolls.
+  useEffect(() => {
+    const onScroll = () => setCompact(window.scrollY > 400);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Keep the newest message in view.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  }, [messages, isLoading]);
+
+  // Focus the input on open; close on Escape.
+  useEffect(() => {
+    if (!isOpen) return;
+    const t = setTimeout(() => inputRef.current?.focus(), 150);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setIsOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [isOpen]);
+
+  const sendMessage = useCallback(
+    async (text?: string) => {
+      const userMsg = (text ?? input).trim();
+      if (!userMsg || isLoading) return;
+
+      setMessages((prev) => [...prev, { sender: "user", text: userMsg }]);
+      setInput("");
+      setIsLoading(true);
+
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userMsg }),
         });
-    };
+        const data = await response.json();
+        setMessages((prev) => [...prev, { sender: "bot", text: data.reply || data.error }]);
+      } catch {
+        setMessages((prev) => [...prev, { sender: "bot", text: "Error connecting to server." }]);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [input, isLoading],
+  );
 
-    const sendMessage = async () => {
-        if (!input.trim()) return;
+  const showLabel = !isOpen && !compact;
 
-        const userMsg = input;
-        setMessages(prev => [...prev, { sender: 'user', text: userMsg }]);
-        setInput('');
-        setIsLoading(true);
-
-        try {
-            const response = await fetch('/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMsg })
-            });
-            
-            const data = await response.json();
-            setMessages(prev => [...prev, { sender: 'bot', text: data.reply || data.error }]);
-        } catch (error) {
-            setMessages(prev => [...prev, { sender: 'bot', text: 'Error connecting to server.' }]);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    return (
-        <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 50, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-            {isOpen && (
-                <div style={{ width: '320px', height: '450px', backgroundColor: 'white', border: '1px solid #e5e5e5', borderRadius: '12px', display: 'flex', flexDirection: 'column', marginBottom: '16px', boxShadow: '0 10px 25px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                    <div style={{ backgroundColor: themeColor, color: 'white', padding: '16px', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span>Spandhika Orthotics Assistant</span>
-                        <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                        </button>
-                    </div>
-                    
-                    <div style={{ flex: 1, overflowY: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px', backgroundColor: '#f9f9f9' }}>
-                        {messages.length === 0 && (
-                            <div style={{ textAlign: 'center', color: '#666', fontSize: '14px', marginTop: '20px' }}>
-                                Hi! How can I help you today?
-                            </div>
-                        )}
-                        {messages.map((msg, i) => (
-                            <div key={i} style={{ textAlign: msg.sender === 'user' ? 'right' : 'left' }}>
-                                <span style={{ 
-                                    display: 'inline-block', 
-                                    padding: '10px 14px', 
-                                    borderRadius: '12px', 
-                                    backgroundColor: msg.sender === 'user' ? lightGreen : '#fff', 
-                                    color: msg.sender === 'user' ? themeColor : '#333', 
-                                    fontSize: '14px', 
-                                    border: msg.sender === 'bot' ? '1px solid #e5e5e5' : 'none', 
-                                    maxWidth: '85%', 
-                                    wordWrap: 'break-word', 
-                                    whiteSpace: 'pre-wrap' 
-                                }}>
-                                    {formatMessage(msg.text)}
-                                </span>
-                            </div>
-                        ))}
-                        {isLoading && <div style={{ fontSize: '12px', color: '#666', fontStyle: 'italic' }}>Typing...</div>}
-                    </div>
-
-                    <div style={{ display: 'flex', borderTop: '1px solid #e5e5e5', backgroundColor: '#fff', padding: '8px', alignItems: 'center' }}>
-                        <input 
-                            type="text" 
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-                            placeholder="Type your message..." 
-                            style={{ flex: 1, padding: '10px', border: 'none', outline: 'none', backgroundColor: 'transparent' }}
-                        />
-                        <button 
-                            onClick={sendMessage} 
-                            style={{ padding: '10px', backgroundColor: themeColor, color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: '8px' }}
-                        >
-                            <ArrowRight size={20} strokeWidth={2.5} />
-                        </button>
-                    </div>
-                </div>
-            )}
-
-            <button 
-                onClick={() => setIsOpen(!isOpen)} 
-                style={{ width: '60px', height: '60px', backgroundColor: themeColor, color: '#fff', border: 'none', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', transition: 'transform 0.2s' }}
-                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+  return (
+    <div className={`${montserrat.className} lv-theme bg-transparent!`}>
+      {/* ── Chat panel ── */}
+      {isOpen && (
+        <div
+          role="dialog"
+          aria-label="Saarthi Assistant"
+          className="chat-pop fixed inset-0 z-[60] flex flex-col overflow-hidden bg-card sm:inset-auto sm:bottom-24 sm:right-6 sm:h-[min(600px,calc(100svh-8rem))] sm:w-[380px] sm:rounded-3xl sm:border sm:border-border sm:shadow-[0_30px_70px_-25px_color-mix(in_oklab,var(--primary)_50%,transparent)]"
+        >
+          {/* Header */}
+          <div className="flex items-center gap-3 border-b border-border px-5 py-4">
+            <BotAvatar size="h-10 w-10" />
+            <div className="min-w-0 flex-1">
+              <p className="text-[15px] font-semibold text-primary">Saarthi Assistant</p>
+              <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-green)]" aria-hidden="true" />
+                AI · replies instantly
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              aria-label="Close chat"
+              className="grid h-9 w-9 cursor-pointer place-items-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
             >
-                {isOpen ? (
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                ) : (
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                )}
+              <X className="h-5 w-5" />
             </button>
+          </div>
+
+          {/* Messages */}
+          <div
+            ref={scrollRef}
+            className="flex-1 overflow-y-auto bg-[color-mix(in_oklab,var(--secondary)_45%,white)] px-4 py-5"
+            aria-live="polite"
+          >
+            {messages.length === 0 ? (
+              <div className="flex h-full flex-col">
+                <div className="mt-6 flex flex-col items-center text-center">
+                  <BotAvatar size="h-14 w-14" />
+                  <p className="mt-4 text-lg font-semibold text-primary">Hi, I&apos;m Saarthi&apos;s assistant</p>
+                  <p className="mt-1.5 max-w-[16rem] text-sm leading-relaxed text-muted-foreground">
+                    Ask me about our smart insoles, foot health, or getting early access.
+                  </p>
+                </div>
+                <div className="mt-auto pt-6">
+                  <p className="mb-2.5 px-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                    Try asking
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {suggestions.map((s) => (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => sendMessage(s)}
+                        className="cursor-pointer rounded-full border border-border bg-white px-3.5 py-2 text-left text-[13px] font-medium text-primary transition-colors hover:border-primary hover:bg-[var(--primary-soft)]"
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <ul className="flex flex-col gap-3">
+                {messages.map((msg, i) =>
+                  msg.sender === "user" ? (
+                    <li key={i} className="flex justify-end">
+                      <span className="max-w-[85%] whitespace-pre-wrap break-words rounded-2xl rounded-br-md bg-primary px-4 py-2.5 text-sm leading-relaxed text-primary-foreground">
+                        {msg.text}
+                      </span>
+                    </li>
+                  ) : (
+                    <li key={i} className="flex items-end gap-2">
+                      <BotAvatar size="h-7 w-7" />
+                      <span className="max-w-[85%] whitespace-pre-wrap break-words rounded-2xl rounded-bl-md border border-border bg-white px-4 py-2.5 text-sm leading-relaxed text-foreground">
+                        {formatMessage(msg.text)}
+                      </span>
+                    </li>
+                  ),
+                )}
+                {isLoading && (
+                  <li className="flex items-end gap-2" aria-label="Assistant is typing">
+                    <BotAvatar size="h-7 w-7" />
+                    <span className="flex gap-1 rounded-2xl rounded-bl-md border border-border bg-white px-4 py-3.5">
+                      <span className="chat-dot" />
+                      <span className="chat-dot [animation-delay:150ms]" />
+                      <span className="chat-dot [animation-delay:300ms]" />
+                    </span>
+                  </li>
+                )}
+              </ul>
+            )}
+          </div>
+
+          {/* Composer */}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendMessage();
+            }}
+            className="border-t border-border bg-card p-3"
+          >
+            <div className="flex items-center gap-2 rounded-full border border-border bg-[color-mix(in_oklab,var(--secondary)_45%,white)] py-1.5 pl-4 pr-1.5 transition-colors focus-within:border-primary focus-within:bg-white">
+              <label htmlFor="chat-input" className="sr-only">
+                Message
+              </label>
+              <input
+                id="chat-input"
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask anything about Saarthi…"
+                autoComplete="off"
+                className="min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground/70"
+              />
+              <button
+                type="submit"
+                disabled={!input.trim() || isLoading}
+                aria-label="Send message"
+                className="grid h-9 w-9 shrink-0 cursor-pointer place-items-center rounded-full bg-primary text-primary-foreground transition-all hover:scale-105 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
+              >
+                <ArrowUp className="h-4 w-4" strokeWidth={2.5} />
+              </button>
+            </div>
+            <p className="mt-2 text-center text-[11px] text-muted-foreground/80">
+              AI can make mistakes. Not a substitute for medical advice.
+            </p>
+          </form>
         </div>
-    );
+      )}
+
+      {/* ── Launcher ── */}
+      <button
+        type="button"
+        onClick={() => setIsOpen((o) => !o)}
+        aria-label={isOpen ? "Close chat" : "Ask Saarthi AI"}
+        aria-expanded={isOpen}
+        className={`fixed bottom-6 right-6 z-[60] h-14 cursor-pointer items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground shadow-[0_14px_30px_-10px_color-mix(in_oklab,var(--primary)_70%,transparent)] transition-all duration-300 hover:-translate-y-0.5 ${
+          isOpen ? "hidden sm:flex sm:w-14" : "flex"
+        } ${showLabel ? "px-5" : "w-14"}`}
+      >
+        {isOpen ? (
+          <X className="h-6 w-6" />
+        ) : (
+          <>
+            <Sparkles className="h-5 w-5 shrink-0" />
+            {showLabel && <span className="whitespace-nowrap text-sm font-semibold">Ask Saarthi AI</span>}
+          </>
+        )}
+      </button>
+    </div>
+  );
 }
