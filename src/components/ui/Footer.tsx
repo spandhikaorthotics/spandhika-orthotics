@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Image from "next/image";
 import { Turnstile } from "nextjs-turnstile";
+import { montserrat } from "@/lib/fonts";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -45,7 +46,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative overflow-hidden bg-[var(--primary)]">
+    <footer className={`${montserrat.className} relative overflow-hidden bg-[var(--primary)]`}>
       {/* Ambient glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
@@ -115,7 +116,7 @@ export default function Footer() {
                   style={{ background: "var(--tertiary-fixed-dim)" }}
                 />
                 <span className="text-[14px] font-medium text-white">
-                  You're on the list. We'll be in touch.
+                  You&apos;re on the list. We&apos;ll be in touch.
                 </span>
               </div>
             ) : (
@@ -136,7 +137,7 @@ export default function Footer() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
-                    className="flex-1 bg-transparent px-3 py-2 text-[14px] text-white focus:outline-none placeholder:opacity-40 disabled:opacity-50"
+                    className="min-w-0 flex-1 bg-transparent px-3 py-2 text-[14px] text-white focus:outline-none placeholder:opacity-40 disabled:opacity-50"
                   />
                   <button
                     type="submit"
@@ -314,9 +315,9 @@ export default function Footer() {
               <Image
                 src="/SO_Logo.png"
                 alt="Spandhika Orthotics logo"
-                width={50}
-                height={32}
-                className="brightness-0 invert opacity-80"
+                width={64}
+                height={41}
+                className="brightness-0 invert"
               />
             </a>
             <p
@@ -408,8 +409,8 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               {[
-                { label: "SAARTHI Tech", href: "#features" },
-                { label: "Foot Conditions", href: "#problem" },
+                { label: "How it works", href: "#how" },
+                { label: "Foot Conditions", href: "#foot-concerns" },
                 { label: "Mobile App", href: "/mobileapp" },
                 {
                   label: "Join Waitlist",
@@ -539,9 +540,17 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* ── WORDMARK ── */}
+        <p
+          aria-hidden="true"
+          className="footer-wordmark pointer-events-none select-none text-center font-semibold leading-[0.8] tracking-[-0.04em]"
+        >
+          Spandhika
+        </p>
+
         {/* ── BOTTOM BAR ── */}
         <div
-          className="py-6 flex flex-col sm:flex-row items-center justify-between gap-3"
+          className="relative py-6 flex flex-col sm:flex-row items-center justify-between gap-3"
           style={{
             borderTop: "1px solid color-mix(in oklab, white 8%, transparent)",
           }}
