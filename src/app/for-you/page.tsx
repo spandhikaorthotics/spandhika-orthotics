@@ -60,12 +60,14 @@ export default function ForYouPage() {
           title: "Athletes",
           text: "Train smarter with cadence, stride and symmetry insights after every run or session.",
           image: "/audience/groups/athletes.jpg",
+          position: "center 10%",
           alt: "An athlete running",
         },
         {
           title: "Divyangjan",
           text: "Support for every step — pressure and balance insights that help make everyday movement safer and more confident.",
           image: "/audience/groups/divyangjan.jpg",
+          position: "center 20%",
           alt: "A person with a disability moving confidently",
         },
       ]}

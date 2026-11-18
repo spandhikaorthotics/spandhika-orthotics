@@ -6,7 +6,14 @@ import { montserrat } from "@/lib/fonts";
 export type AudienceKey = "for-you" | "for-families" | "for-clinicians";
 
 type Benefit = { icon: LucideIcon; title: string; text: string };
-type Group = { title: string; text: string; image: string; alt: string };
+type Group = {
+  title: string;
+  text: string;
+  image: string;
+  alt: string;
+  /** CSS object-position for the photo crop, e.g. "center 15%". */
+  position?: string;
+};
 
 export type AudiencePageProps = {
   current: AudienceKey;
@@ -161,11 +168,18 @@ export default function AudiencePage({
                   // Five cards: three on the first row, two wider ones on the second.
                   const wide = groups.length === 5 && i >= 3;
                   return (
-                  <li key={g.title} className={`overflow-hidden rounded-2xl bg-white ring-1 ring-border/70 ${wide ? "lg:col-span-3" : "lg:col-span-2"}`}>
-                    <div className={`relative bg-muted ${wide ? "aspect-[4/3] lg:aspect-[2/1]" : "aspect-[4/3]"}`}>
-                      <Image src={g.image} alt={g.alt} fill sizes="(min-width: 1024px) 540px, (min-width: 640px) 50vw, 100vw" className="object-cover" />
+                  <li key={g.title} className={`overflow-hidden rounded-2xl bg-white ring-1 ring-border/70 ${wide ? "lg:col-span-3 lg:flex lg:items-center" : "lg:col-span-2"}`}>
+                    <div className={`relative aspect-[4/3] bg-muted ${wide ? "lg:aspect-square lg:w-[46%] lg:shrink-0" : ""}`}>
+                      <Image
+                        src={g.image}
+                        alt={g.alt}
+                        fill
+                        sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover"
+                        style={{ objectPosition: g.position ?? "center" }}
+                      />
                     </div>
-                    <div className="p-6">
+                    <div className={wide ? "p-6 lg:p-8" : "p-6"}>
                       <h3 className="text-lg font-semibold text-primary">{g.title}</h3>
                       <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{g.text}</p>
                     </div>
