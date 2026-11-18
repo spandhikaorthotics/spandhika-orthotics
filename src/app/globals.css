@@ -542,10 +542,13 @@
 .app-band [role="tab"][aria-selected="false"] { color: var(--deep-muted); }
 .app-band [role="tab"]:hover { background: var(--primary-soft); color: var(--primary); }
 .phone-preview {
+  display: flex;
+  flex-direction: column;
   border: 6px solid var(--foreground);
   background: var(--card);
   width: min(300px, 100%);
-  min-height: 420px;
+  /* Fixed height so the frame doesn't resize when switching tabs. */
+  height: 604px;
   color: var(--foreground);
   border-radius: 32px;
   padding: 24px;

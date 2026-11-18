@@ -44,7 +44,7 @@ function PhoneContent({ active }: { active: number }) {
             </div>
           ))}
         </div>
-        <span className="spx-tag mt-4 inline-block">Illustrative readings</span>
+        <span className="spx-tag mt-auto inline-block self-start">Illustrative readings</span>
       </>
     );
   }
@@ -54,10 +54,10 @@ function PhoneContent({ active }: { active: number }) {
       <>
         <h3 className="mt-5 text-2xl font-semibold text-primary">Your balance</h3>
         <p className="mt-3 text-[17px] text-muted-foreground">A week at a glance</p>
-        <div className="mt-10">
+        <div className="flex flex-1 flex-col justify-center">
           <BalanceTrend />
         </div>
-        <p className="mt-8 text-[17px] leading-relaxed text-muted-foreground">
+        <p className="text-[17px] leading-relaxed text-muted-foreground">
           Notice patterns. Follow changes over time.
         </p>
       </>
@@ -75,7 +75,7 @@ function PhoneContent({ active }: { active: number }) {
           </p>
         ))}
       </div>
-      <p className="mt-5 text-sm text-muted-foreground">A clearer conversation about your care.</p>
+      <p className="mt-auto text-sm text-muted-foreground">A clearer conversation about your care.</p>
     </>
   );
 }
@@ -121,7 +121,7 @@ export default function AppPreview() {
             })}
           </div>
 
-          <p key={active} className="lv-copy lv-swap mt-6 max-w-lg">
+          <p key={active} className="lv-copy lv-swap mt-6 min-h-[5.25em] max-w-lg lg:min-h-0">
             {tabs[active].copy}
           </p>
         </div>
@@ -135,7 +135,7 @@ export default function AppPreview() {
           <div className="phone-preview">
             <span className="phone-speaker" aria-hidden="true" />
             <p className="mt-8 text-sm font-semibold text-primary">SAARTHI</p>
-            <div key={active} className="lv-swap">
+            <div key={active} className="lv-swap flex flex-1 flex-col">
               <PhoneContent active={active} />
             </div>
           </div>
