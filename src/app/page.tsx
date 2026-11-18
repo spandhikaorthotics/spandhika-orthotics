@@ -43,7 +43,7 @@ export default function Home() {
         {/* <Problem /> */}
         {/* <ProductShowcase /> */}
         {/* <TargetAudience /> */}
-        <Blogs />
+        {/* <Blogs /> */}
         {/* <Purpose /> */}
         <WaitlistFaq />
         <ContactUs />
