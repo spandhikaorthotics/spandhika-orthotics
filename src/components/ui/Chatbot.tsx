@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowUp, MessageCircle, Sparkles, X } from "lucide-react";
+import { ArrowUp, Sparkles, X } from "lucide-react";
 import { montserrat } from "@/lib/fonts";
 
 type Message = { sender: "user" | "bot"; text: string };
@@ -55,40 +55,46 @@ export default function Chatbot() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pastHero, setPastHero] = useState(false);
-  const [intro, setIntro] = useState(false);
-  const [introDone, setIntroDone] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
 
-  // Hide the launcher while the homepage video hero (#top) is on screen;
-  // show it once the hero's bottom edge has scrolled out of view.
+  // Hide the launcher over the homepage video hero (#top). Show it once the
+  // bottom of the viewport has scrolled past the bottom of the hero.
   useEffect(() => {
     const hero = document.getElementById("top");
-    if (!hero) {
-      const raf = requestAnimationFrame(() => setPastHero(true));
-      return () => cancelAnimationFrame(raf);
-    }
-    const io = new IntersectionObserver(([entry]) => {
-      setPastHero(!entry.isIntersecting && entry.boundingClientRect.top < 0);
-    });
-    io.observe(hero);
-    return () => io.disconnect();
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setPastHero(!hero || hero.getBoundingClientRect().bottom < window.innerHeight - 24);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
-  // The first time the launcher appears, show its label briefly.
+  // Close when the visitor clicks anywhere outside the chat. The conversation
+  // and any reply still loading are kept, since this component stays mounted.
   useEffect(() => {
-    if (!pastHero || introDone) return;
-    const show = setTimeout(() => setIntro(true), 300);
-    const hide = setTimeout(() => {
-      setIntro(false);
-      setIntroDone(true);
-    }, 4300);
-    return () => {
-      clearTimeout(show);
-      clearTimeout(hide);
+    if (!isOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as Node;
+      if (panelRef.current?.contains(target) || launcherRef.current?.contains(target)) return;
+      setIsOpen(false);
     };
-  }, [pastHero, introDone]);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [isOpen]);
 
   // Keep the newest message in view.
   useEffect(() => {
@@ -141,6 +147,7 @@ export default function Chatbot() {
       {/* ── Chat panel ── */}
       {isOpen && (
         <div
+          ref={panelRef}
           role="dialog"
           aria-label="Saarthi Assistant"
           className="chat-pop fixed inset-0 z-[60] flex flex-col overflow-hidden bg-card sm:inset-auto sm:bottom-24 sm:right-6 sm:h-[min(600px,calc(100svh-8rem))] sm:w-[380px] sm:rounded-3xl sm:border sm:border-border sm:shadow-[0_30px_70px_-25px_color-mix(in_oklab,var(--primary)_50%,transparent)]"
@@ -270,29 +277,25 @@ export default function Chatbot() {
 
       {/* ── Launcher ── */}
       <button
+        ref={launcherRef}
         type="button"
         onClick={() => setIsOpen((o) => !o)}
-        aria-label={isOpen ? "Close chat" : "Ask Saarthi AI"}
+        aria-label={isOpen ? "Close chat" : "Open chat"}
         aria-expanded={isOpen}
         tabIndex={launcherVisible ? undefined : -1}
         aria-hidden={!launcherVisible}
-        data-expanded={intro && !isOpen ? "" : undefined}
-        className={`chat-launcher group fixed bottom-6 right-6 z-[60] h-14 cursor-pointer items-center rounded-full text-white transition-all duration-500 ease-out hover:-translate-y-0.5 ${
+        className={`fixed bottom-6 right-6 z-[60] h-[60px] w-[60px] cursor-pointer items-center justify-center rounded-full bg-[#0d3b2e] text-white shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-300 ease-out hover:scale-105 ${
           isOpen ? "hidden sm:flex" : "flex"
         } ${launcherVisible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"}`}
       >
-        <span className="relative grid h-14 w-14 shrink-0 place-items-center">
-          {isOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <>
-              <MessageCircle className="h-6 w-6" strokeWidth={2.2} />
-              <Sparkles className="absolute right-[13px] top-[12px] h-3 w-3 fill-white" strokeWidth={2.5} />
-            </>
-          )}
-        </span>
-        {!isOpen && (
-          <span className="chat-launcher-label whitespace-nowrap text-sm font-semibold">Ask Saarthi AI</span>
+        {isOpen ? (
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        ) : (
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
         )}
       </button>
     </div>
