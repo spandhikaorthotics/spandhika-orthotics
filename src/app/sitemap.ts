@@ -12,5 +12,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       priority: 0.8,
     },
+    {
+      url: "https://spandhikaorthotics.in/for-you",
+      lastModified: new Date(),
+      priority: 0.7,
+    },
+    {
+      url: "https://spandhikaorthotics.in/for-families",
+      lastModified: new Date(),
+      priority: 0.7,
+    },
+    {
+      url: "https://spandhikaorthotics.in/for-clinicians",
+      lastModified: new Date(),
+      priority: 0.7,
+    },
   ];
 }

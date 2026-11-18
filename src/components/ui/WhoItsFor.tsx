@@ -2,12 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { montserrat } from "@/lib/fonts";
 
 const audiences = [
   {
     title: "For you",
+    href: "/for-you",
     description:
       "Understand your steps — whether you're managing foot health, recovering, or staying active.",
     image: "/audience/for-you.jpg",
@@ -16,6 +18,7 @@ const audiences = [
   },
   {
     title: "For families",
+    href: "/for-families",
     description:
       "A clearer picture of a loved one's walking, for more informed conversations about their care.",
     image: "/audience/for-families.jpg",
@@ -24,6 +27,7 @@ const audiences = [
   },
   {
     title: "For clinicians",
+    href: "/for-clinicians",
     description:
       "Explore pressure, balance and gait insights to support your clinical assessment.",
     image: "/audience/for-clinicians.jpg",
@@ -98,8 +102,8 @@ export default function WhoItsFor() {
                 key={a.title}
                 className="w-[82%] shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)]"
               >
-                <a
-                  href="#waitlist"
+                <Link
+                  href={a.href}
                   className="group relative block h-full overflow-hidden rounded-lg border border-outline-variant/70 bg-card transition-shadow duration-300 hover:shadow-xl"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -129,7 +133,7 @@ export default function WhoItsFor() {
                       <ArrowRight className="h-5 w-5" aria-hidden="true" />
                     </span>
                   </div>
-                </a>
+                </Link>
               </div>
             ))}
           </div>
