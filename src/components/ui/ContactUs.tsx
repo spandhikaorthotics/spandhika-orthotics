@@ -257,16 +257,16 @@ export default function ContactUs() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid overflow-hidden rounded-[2rem] border border-border bg-card shadow-[0_30px_80px_-40px_color-mix(in_oklab,var(--primary)_45%,transparent)] lg:grid-cols-[0.85fr_1.15fr]">
           {/* ── LEFT: info panel ── */}
-          <div className="relative overflow-hidden bg-primary px-7 py-10 text-primary-foreground sm:px-10 sm:py-12">
-            <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[var(--brand-green)] opacity-25 blur-3xl" aria-hidden="true" />
-            <div className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-[var(--primary-soft)] opacity-10 blur-3xl" aria-hidden="true" />
+          <div className="relative overflow-hidden bg-[linear-gradient(160deg,var(--secondary)_0%,color-mix(in_oklab,var(--brand-green)_16%,white)_100%)] px-7 py-10 text-foreground sm:px-10 sm:py-12">
+            <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[var(--brand-green)] opacity-20 blur-3xl" aria-hidden="true" />
+            <div className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-white opacity-70 blur-3xl" aria-hidden="true" />
 
             <div className="relative flex h-full flex-col">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--deep-muted)]">Get in touch</p>
-              <h2 className="mt-3 text-[32px] font-semibold leading-[1.12] sm:text-[40px]">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Get in touch</p>
+              <h2 className="mt-3 text-[32px] font-semibold leading-[1.12] text-primary sm:text-[40px]">
                 Let&apos;s start a conversation
               </h2>
-              <p className="mt-5 max-w-sm text-[16px] leading-[1.7] text-[var(--deep-muted)]">
+              <p className="mt-5 max-w-sm text-[16px] leading-[1.7] text-muted-foreground">
                 Whether you&apos;re looking to bring SAARTHI into your clinical practice or need help with your device, our team is ready to assist.
               </p>
 
@@ -274,19 +274,19 @@ export default function ContactUs() {
                 {contactItems.map(({ icon: Icon, label, value, href }) => {
                   const inner = (
                     <>
-                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10 ring-1 ring-white/15 transition-colors group-hover:bg-white group-hover:text-primary">
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white text-primary shadow-sm ring-1 ring-border transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                         <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
                       </span>
                       <span className="min-w-0">
-                        <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--deep-muted)] opacity-80">{label}</span>
-                        <span className="mt-0.5 block text-[15px] font-medium">{value}</span>
+                        <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{label}</span>
+                        <span className="mt-0.5 block text-[15px] font-medium text-foreground">{value}</span>
                       </span>
                     </>
                   );
                   return (
                     <li key={label}>
                       {href ? (
-                        <a href={href} className="group -m-2 flex items-center gap-4 rounded-2xl p-2 transition-colors hover:bg-white/5">
+                        <a href={href} className="group -m-2 flex items-center gap-4 rounded-2xl p-2 transition-colors hover:bg-white/60">
                           {inner}
                         </a>
                       ) : (
@@ -297,7 +297,7 @@ export default function ContactUs() {
                 })}
               </ul>
 
-              <p className="mt-auto flex items-center gap-2 pt-10 text-sm text-[var(--deep-muted)]">
+              <p className="mt-auto flex items-center gap-2 pt-10 text-sm text-muted-foreground">
                 <Clock className="h-4 w-4" aria-hidden="true" />
                 We usually reply within one working day.
               </p>
