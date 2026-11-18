@@ -540,14 +540,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ── WORDMARK ── */}
-        <p
-          aria-hidden="true"
-          className="footer-wordmark pointer-events-none select-none text-center font-semibold leading-[0.8] tracking-[-0.04em]"
-        >
-          Spandhika
-        </p>
-
         {/* ── BOTTOM BAR ── */}
         <div
           className="relative py-6 flex flex-col sm:flex-row items-center justify-between gap-3"

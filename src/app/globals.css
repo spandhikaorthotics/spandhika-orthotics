@@ -691,19 +691,3 @@
   .tm-marquee-copy { display: none; }
   .tm-marquee-group > li { scroll-snap-align: start; }
 }
-
-/* Footer wordmark: large brand name fading into the bottom bar */
-.footer-wordmark {
-  font-size: clamp(3rem, 17vw, 14rem);
-  margin-top: 0.5rem;
-  margin-bottom: -0.12em;
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklab, white 16%, transparent) 0%,
-    color-mix(in oklab, var(--tertiary-fixed) 7%, transparent) 55%,
-    transparent 92%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
