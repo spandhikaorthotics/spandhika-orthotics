@@ -41,14 +41,14 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed inset-x-0 top-0 z-50 pt-6 pb-4 transition-[background-color,box-shadow,backdrop-filter] duration-150 ${
+      className={`fixed inset-x-0 top-0 z-50 pt-6 pb-4 transition-[background-color,box-shadow] duration-100 ${
         solid ? "bg-white/90 backdrop-blur-md shadow-sm" : "bg-transparent"
       }`}
     >
       {/* Soft shade so white links stay readable over bright video frames */}
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/45 to-transparent transition-opacity duration-150 ${
+        className={`pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/45 to-transparent transition-opacity duration-100 ${
           solid ? "opacity-0" : "opacity-100"
         }`}
       />
@@ -61,7 +61,7 @@ export default function Navbar() {
               alt="Spandhika Orthotics Logo"
               width={50}
               height={50}
-              className={`object-contain transition-[filter] duration-150 ${solid ? "" : "brightness-0 invert"}`}
+              className={`object-contain transition-[filter] duration-100 ${solid ? "" : "brightness-0 invert"}`}
               priority
             />
           </Link>
@@ -69,7 +69,7 @@ export default function Navbar() {
 
         {/* Desktop Links */}
         <div
-          className={`hidden lg:flex items-center gap-6 xl:gap-8 font-medium text-[15px] transition-colors duration-150 ${
+          className={`hidden lg:flex items-center gap-6 xl:gap-8 font-medium text-[15px] transition-colors duration-100 ${
             solid ? "text-slate-600" : "text-white/90"
           }`}
         >
@@ -77,7 +77,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className={solid ? "hover:text-emerald-800 transition-colors" : "hover:text-white transition-colors"}
+              className={solid ? "hover:text-emerald-800 transition-colors duration-100" : "hover:text-white transition-colors duration-100"}
             >
               {link.name}
             </Link>
@@ -98,7 +98,7 @@ export default function Navbar() {
               );
               setIsOpen(false); // Close menu if it was open
             }}
-            className={`px-5 py-2.5 rounded-full text-sm sm:text-base font-medium transition-colors shadow-sm cursor-pointer ${
+            className={`px-5 py-2.5 rounded-full text-sm sm:text-base font-medium transition-colors duration-100 shadow-sm cursor-pointer ${
               solid ? "bg-[#022c22] hover:bg-emerald-950 text-white" : "bg-white hover:bg-white/90 text-[#022c22]"
             }`}
           >

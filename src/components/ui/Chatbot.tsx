@@ -291,7 +291,7 @@ export default function Chatbot() {
         aria-expanded={isOpen}
         tabIndex={launcherVisible ? undefined : -1}
         aria-hidden={!launcherVisible}
-        className={`fixed bottom-6 right-6 z-[60] h-[60px] w-[60px] cursor-pointer items-center justify-center rounded-full bg-[#0d3b2e] text-white shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-300 ease-out hover:scale-105 ${
+        className={`fixed bottom-6 right-6 z-[60] h-[60px] w-[60px] cursor-pointer items-center justify-center rounded-full bg-[#0d3b2e] text-white shadow-[0_4px_12px_rgba(0,0,0,0.15)] transition-all duration-150 ease-out hover:scale-105 ${
           isOpen ? "hidden sm:flex" : "flex"
         } ${launcherVisible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"}`}
       >
