@@ -1,46 +1,17 @@
 "use client";
 import { useState } from "react";
-import { Turnstile } from "nextjs-turnstile"; 
+import { Turnstile } from "nextjs-turnstile";
+import { AlertCircle, ArrowRight, Check, ChevronDown, Clock, Loader2, Mail, MapPin, Phone } from "lucide-react";
+import { montserrat } from "@/lib/fonts";
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-3 text-slate-500 text-xs font-semibold tracking-widest uppercase mb-6">
-      <span className="h-px w-6 bg-[#10b981]" />
-      {children}
-    </div>
-  );
-}
+// --- Form primitives ---
+const fieldClass =
+  "w-full rounded-xl border border-border bg-[color-mix(in_oklab,var(--secondary)_55%,white)] px-4 py-3 text-[15px] text-foreground transition-all placeholder:text-muted-foreground/60 hover:border-[color-mix(in_oklab,var(--primary)_35%,var(--border))] focus:border-primary focus:bg-white focus:outline-none focus:ring-4 focus:ring-[color-mix(in_oklab,var(--primary)_12%,transparent)]";
 
-// --- Reusable SVG Icons for the Left Section ---
-function MailIcon() {
-  return (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-  );
-}
-
-function PhoneIcon() {
-  return (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-    </svg>
-  );
-}
-
-function MapPinIcon() {
-  return (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-    </svg>
-  );
-}
-
-// --- Form Input Components (Light Theme, Medium Sized) ---
-const Label = ({ children }: { children: React.ReactNode }) => (
-  <label className="block text-[11px] font-bold tracking-[0.08em] text-gray-500 mb-1.5 uppercase">
+const Label = ({ children, required }: { children: React.ReactNode; required?: boolean }) => (
+  <label className="mb-2 block text-[13px] font-medium text-foreground/80">
     {children}
+    {required && <span className="ml-0.5 text-[var(--brand-green)]">*</span>}
   </label>
 );
 
@@ -56,16 +27,7 @@ const Input = ({
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
-}) => (
-  <input
-    type={type}
-    name={name}
-    placeholder={placeholder}
-    value={value}
-    onChange={onChange}
-    className="w-full bg-white border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm text-gray-900 shadow-sm focus:outline-none focus:border-[#10b981] focus:ring-1 focus:ring-[#10b981] transition-all placeholder:text-gray-400"
-  />
-);
+}) => <input type={type} name={name} placeholder={placeholder} value={value} onChange={onChange} className={fieldClass} />;
 
 const Select = ({
   placeholder,
@@ -85,22 +47,18 @@ const Select = ({
       name={name}
       value={value}
       onChange={onChange}
-      className="w-full bg-white border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm text-gray-900 shadow-sm appearance-none focus:outline-none focus:border-[#10b981] focus:ring-1 focus:ring-[#10b981] transition-all cursor-pointer"
+      className={`${fieldClass} cursor-pointer appearance-none pr-10 ${value ? "" : "text-muted-foreground/60"}`}
     >
-      <option value="" disabled className="text-gray-400">
+      <option value="" disabled>
         {placeholder}
       </option>
       {options.map((opt) => (
-        <option key={opt} value={opt}>
+        <option key={opt} value={opt} className="text-foreground">
           {opt}
         </option>
       ))}
     </select>
-    <div className="absolute inset-y-0 right-3.5 flex items-center pointer-events-none text-gray-400">
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-      </svg>
-    </div>
+    <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
   </div>
 );
 
@@ -114,43 +72,69 @@ const Textarea = ({
   value: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   name: string;
-}) => (
-  <textarea
-    rows={3}
-    name={name}
-    placeholder={placeholder}
-    value={value}
-    onChange={onChange}
-    className="w-full bg-white border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm text-gray-900 shadow-sm focus:outline-none focus:border-[#10b981] focus:ring-1 focus:ring-[#10b981] transition-all placeholder:text-gray-400 resize-y"
-  />
-);
+}) => <textarea rows={4} name={name} placeholder={placeholder} value={value} onChange={onChange} className={`${fieldClass} resize-y`} />;
 
 // --- Feedback Banner ---
 type FeedbackState = { type: "success" | "error"; message: string } | null;
 
 function FeedbackBanner({ feedback }: { feedback: FeedbackState }) {
   if (!feedback) return null;
+  const success = feedback.type === "success";
   return (
     <div
-      className={`rounded-lg px-4 py-3 text-sm font-medium mb-6 flex items-center gap-2 ${
-        feedback.type === "success"
-          ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-          : "bg-red-50 text-red-800 border border-red-200"
+      role={success ? "status" : "alert"}
+      className={`flex items-center gap-2.5 rounded-xl px-4 py-3 text-sm font-medium ${
+        success
+          ? "bg-[color-mix(in_oklab,var(--brand-green)_14%,white)] text-primary ring-1 ring-[color-mix(in_oklab,var(--brand-green)_35%,transparent)]"
+          : "bg-red-50 text-red-800 ring-1 ring-red-200"
       }`}
     >
-      {feedback.type === "success" ? (
-        <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-        </svg>
-      ) : (
-        <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      )}
+      {success ? <Check className="h-4 w-4 shrink-0" aria-hidden="true" /> : <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />}
       {feedback.message}
     </div>
   );
 }
+
+function SubmitButton({
+  loading,
+  disabled,
+  onClick,
+  label,
+  loadingLabel,
+}: {
+  loading: boolean;
+  disabled: boolean;
+  onClick: () => void;
+  label: string;
+  loadingLabel: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary py-3.5 text-[15px] font-semibold text-primary-foreground shadow-[0_12px_24px_-12px_color-mix(in_oklab,var(--primary)_70%,transparent)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_30px_-12px_color-mix(in_oklab,var(--primary)_70%,transparent)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+    >
+      {loading ? (
+        <>
+          <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+          {loadingLabel}
+        </>
+      ) : (
+        <>
+          {label}
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+        </>
+      )}
+    </button>
+  );
+}
+
+const contactItems = [
+  { icon: Mail, label: "Email us", value: "spandhikaorthotics@​gmail.com", href: "mailto:spandhikaorthotics@gmail.com" },
+  { icon: Phone, label: "Call us", value: "+91-93500-26954", href: "tel:+919350026954" },
+  { icon: MapPin, label: "Visit us", value: "Hamirpur, Himachal Pradesh" },
+];
 
 // --- Initial State Factories ---
 const initialSalesData = {
@@ -269,260 +253,205 @@ export default function ContactUs() {
   };
 
   return (
-    <section id="contact" className="py-16 lg:py-20 bg-white text-[#051911] relative overflow-hidden">
+    <section id="contact" className={`${montserrat.className} lv-theme scroll-mt-24 py-16 lg:py-24`}>
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="grid overflow-hidden rounded-[2rem] border border-border bg-card shadow-[0_30px_80px_-40px_color-mix(in_oklab,var(--primary)_45%,transparent)] lg:grid-cols-[0.85fr_1.15fr]">
+          {/* ── LEFT: info panel ── */}
+          <div className="relative overflow-hidden bg-primary px-7 py-10 text-primary-foreground sm:px-10 sm:py-12">
+            <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[var(--brand-green)] opacity-25 blur-3xl" aria-hidden="true" />
+            <div className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-[var(--primary-soft)] opacity-10 blur-3xl" aria-hidden="true" />
 
-      {/* ── BACKGROUND RADIANT GLOW ── */}
-      <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] bg-[#6ee7b7]/20 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[400px] h-[400px] bg-[#6ee7b7]/15 rounded-full blur-[80px] pointer-events-none" />
+            <div className="relative flex h-full flex-col">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--deep-muted)]">Get in touch</p>
+              <h2 className="mt-3 text-[32px] font-semibold leading-[1.12] sm:text-[40px]">
+                Let&apos;s start a conversation
+              </h2>
+              <p className="mt-5 max-w-sm text-[16px] leading-[1.7] text-[var(--deep-muted)]">
+                Whether you&apos;re looking to bring SAARTHI into your clinical practice or need help with your device, our team is ready to assist.
+              </p>
 
-      <div className="mx-auto max-w-[1100px] px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-start">
+              <ul className="mt-10 space-y-3">
+                {contactItems.map(({ icon: Icon, label, value, href }) => {
+                  const inner = (
+                    <>
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10 ring-1 ring-white/15 transition-colors group-hover:bg-white group-hover:text-primary">
+                        <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--deep-muted)] opacity-80">{label}</span>
+                        <span className="mt-0.5 block text-[15px] font-medium">{value}</span>
+                      </span>
+                    </>
+                  );
+                  return (
+                    <li key={label}>
+                      {href ? (
+                        <a href={href} className="group -m-2 flex items-center gap-4 rounded-2xl p-2 transition-colors hover:bg-white/5">
+                          {inner}
+                        </a>
+                      ) : (
+                        <div className="group -m-2 flex items-center gap-4 rounded-2xl p-2">{inner}</div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
 
-          {/* ── LEFT COLUMN ── */}
-          <div className="lg:sticky lg:top-24">
-            <Eyebrow>Get in touch</Eyebrow>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-5 text-[#051911]">
-              Let's start a <br className="hidden lg:block" /> conversation
-            </h2>
-            <p className="text-base text-gray-600 font-light leading-relaxed mb-10 max-w-sm">
-              Whether you're looking to integrate SAARTHI into your clinical practice, or need technical assistance with your existing system, our team is ready to assist you.
-            </p>
-
-            <div className="space-y-6">
-              <div className="flex items-start gap-4 group">
-                <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center justify-center text-[#10b981] group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex-shrink-0">
-                  <MailIcon />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Email Us</h4>
-                  <a href="mailto:spandhikaorthotics@gmail.com" className="text-base font-medium text-[#051911] hover:text-[#10b981] transition-colors">
-                    spandhikaorthotics@gmail.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 group">
-                <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center justify-center text-[#10b981] group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex-shrink-0">
-                  <PhoneIcon />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Call Us</h4>
-                  <a href="tel:+919350026954" className="text-base font-medium text-[#051911] hover:text-[#10b981] transition-colors">
-                    +91-93500-26954
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 group">
-                <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center justify-center text-[#10b981] group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex-shrink-0">
-                  <MapPinIcon />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Address</h4>
-                  <p className="text-base font-medium text-[#051911]">Hamirpur, Himachal Pradesh</p>
-                </div>
-              </div>
+              <p className="mt-auto flex items-center gap-2 pt-10 text-sm text-[var(--deep-muted)]">
+                <Clock className="h-4 w-4" aria-hidden="true" />
+                We usually reply within one working day.
+              </p>
             </div>
           </div>
 
-          {/* ── RIGHT COLUMN: Form Card ── */}
-          <div className="bg-white/90 backdrop-blur-xl rounded-[1.5rem] border border-white/50 p-6 sm:p-8 shadow-[0_20px_60px_-15px_rgba(16,185,129,0.12)] relative overflow-hidden">
-
-            {/* Tab Switcher */}
-            <div className="flex bg-gray-50 rounded-full p-1.5 mb-8 border border-gray-200 shadow-inner">
-              <button
-                onClick={() => { setTab("sales"); setSalesFeedback(null); }}
-                className={`flex-1 py-2.5 px-3 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 ${
-                  tab === "sales" ? "bg-[#0E3320] text-white shadow-md" : "text-gray-500 hover:text-gray-900"
+          {/* ── RIGHT: form ── */}
+          <div className="px-6 py-8 sm:px-10 sm:py-12">
+            {/* Tab switcher */}
+            <div role="tablist" aria-label="Contact type" className="relative grid grid-cols-2 rounded-full bg-secondary p-1.5">
+              <span
+                aria-hidden="true"
+                className={`absolute inset-y-1.5 left-1.5 w-[calc(50%-0.375rem)] rounded-full bg-primary shadow-md transition-transform duration-300 ease-out ${
+                  tab === "support" ? "translate-x-full" : ""
                 }`}
-              >
-                Sales & Partnership
-              </button>
-              <button
-                onClick={() => { setTab("support"); setSupportFeedback(null); }}
-                className={`flex-1 py-2.5 px-3 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 ${
-                  tab === "support" ? "bg-[#0E3320] text-white shadow-md" : "text-gray-500 hover:text-gray-900"
-                }`}
-              >
-                Support & Help
-              </button>
+              />
+              {(
+                [
+                  ["sales", "Sales & partnership"],
+                  ["support", "Support & help"],
+                ] as const
+              ).map(([key, label]) => (
+                <button
+                  key={key}
+                  type="button"
+                  role="tab"
+                  aria-selected={tab === key}
+                  onClick={() => {
+                    setTab(key);
+                    if (key === "sales") setSalesFeedback(null);
+                    else setSupportFeedback(null);
+                  }}
+                  className={`relative z-10 cursor-pointer whitespace-nowrap rounded-full px-2 py-2.5 text-[12.5px] font-semibold transition-colors duration-300 sm:px-3 sm:text-sm ${
+                    tab === key ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
 
             {/* ── SALES FORM ── */}
             {tab === "sales" && (
-              <div className="space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div key="sales" className="lv-swap mt-8 space-y-5">
                 <FeedbackBanner feedback={salesFeedback} />
 
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <Label>Full Name <span className="text-[#10b981]">*</span></Label>
+                    <Label required>Full name</Label>
                     <Input name="fullName" placeholder="Jane Smith" value={salesData.fullName} onChange={handleSalesChange} />
                   </div>
                   <div>
-                    <Label>Work Email <span className="text-[#10b981]">*</span></Label>
+                    <Label required>Work email</Label>
                     <Input name="email" placeholder="jane@clinic.com" type="email" value={salesData.email} onChange={handleSalesChange} />
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <Label>Organisation <span className="text-[#10b981]">*</span></Label>
-                    <Input name="organization" placeholder="Clinic, hospital, or institution" value={salesData.organization} onChange={handleSalesChange} />
+                    <Label required>Organisation</Label>
+                    <Input name="organization" placeholder="Clinic, hospital or institution" value={salesData.organization} onChange={handleSalesChange} />
                   </div>
                   <div>
-                    <Label>Country <span className="text-[#10b981]">*</span></Label>
-                    <Select name="country" placeholder="Select country..." options={["United States", "India", "United Kingdom", "Canada", "Australia"]} value={salesData.country} onChange={handleSalesChange} />
+                    <Label required>Country</Label>
+                    <Select name="country" placeholder="Select country" options={["United States", "India", "United Kingdom", "Canada", "Australia"]} value={salesData.country} onChange={handleSalesChange} />
                   </div>
-                </div>
-
-                <div className="flex items-center py-2">
-                  <div className="flex-grow border-t border-gray-100"></div>
-                  <span className="flex-shrink-0 mx-4 text-[10px] font-bold tracking-[0.2em] text-[#10b981] uppercase">Interest</span>
-                  <div className="flex-grow border-t border-gray-100"></div>
                 </div>
 
                 <div>
-                  <Label>I'm interested in... <span className="text-[#10b981]">*</span></Label>
-                  <Select name="interest" placeholder="Select a topic..." options={["Purchasing SAARTHI", "Bulk / Enterprise Order", "Partnership Program", "Requesting a Demo", "Other"]} value={salesData.interest} onChange={handleSalesChange} />
+                  <Label required>I&apos;m interested in</Label>
+                  <Select name="interest" placeholder="Select a topic" options={["Purchasing SAARTHI", "Bulk / Enterprise Order", "Partnership Program", "Requesting a Demo", "Other"]} value={salesData.interest} onChange={handleSalesChange} />
                 </div>
 
                 <div>
                   <Label>Tell us more</Label>
-                  <Textarea name="message" placeholder="Briefly describe what you're looking to achieve..." value={salesData.message} onChange={handleSalesChange} />
+                  <Textarea name="message" placeholder="Briefly describe what you're looking to achieve…" value={salesData.message} onChange={handleSalesChange} />
                 </div>
 
-                {/* 5. Render Turnstile Widget (Light Theme) */}
-                <div className="mt-2">
-                  <Turnstile 
-                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                    onSuccess={(t) => {
-                      setToken(t);
-                      if (salesFeedback?.message === "Please complete the security check.") {
-                        setSalesFeedback(null);
-                      }
-                    }}
-                    onExpire={() => setToken(null)}
-                    onError={() => setSalesFeedback({ type: "error", message: "Security verification failed. Please refresh." })}
-                    theme="light"
-                  />
-                </div>
+                <Turnstile
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                  onSuccess={(t) => {
+                    setToken(t);
+                    if (salesFeedback?.message === "Please complete the security check.") {
+                      setSalesFeedback(null);
+                    }
+                  }}
+                  onExpire={() => setToken(null)}
+                  onError={() => setSalesFeedback({ type: "error", message: "Security verification failed. Please refresh." })}
+                  theme="light"
+                />
 
-                <button
-                  type="button"
-                  onClick={handleSalesSubmit}
-                  disabled={salesLoading || !token}
-                  className="w-full bg-[#0E3320] hover:bg-[#0a2316] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-bold tracking-wider uppercase rounded-lg py-3.5 flex items-center justify-center gap-2 transition-colors mt-2 shadow-lg shadow-[#051911]/10"
-                >
-                  {salesLoading ? (
-                    <>
-                      <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                      </svg>
-                      Sending…
-                    </>
-                  ) : (
-                    <>
-                      Send Inquiry
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </>
-                  )}
-                </button>
+                <SubmitButton loading={salesLoading} disabled={salesLoading || !token} onClick={handleSalesSubmit} label="Send inquiry" loadingLabel="Sending…" />
               </div>
             )}
 
             {/* ── SUPPORT FORM ── */}
             {tab === "support" && (
-              <div className="space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div key="support" className="lv-swap mt-8 space-y-5">
                 <FeedbackBanner feedback={supportFeedback} />
 
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <Label>Full Name <span className="text-[#10b981]">*</span></Label>
+                    <Label required>Full name</Label>
                     <Input name="fullName" placeholder="Jane Smith" value={supportData.fullName} onChange={handleSupportChange} />
                   </div>
                   <div>
-                    <Label>Email Address <span className="text-[#10b981]">*</span></Label>
+                    <Label required>Email address</Label>
                     <Input name="email" placeholder="jane@clinic.com" type="email" value={supportData.email} onChange={handleSupportChange} />
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <Label>Account / Order ID</Label>
+                    <Label>Account / order ID</Label>
                     <Input name="accountId" placeholder="e.g. BAL-00123 (optional)" value={supportData.accountId} onChange={handleSupportChange} />
                   </div>
                   <div>
-                    <Label>Deployment / Service <span className="text-[#10b981]">*</span></Label>
-                    <Select name="service" placeholder="Select..." options={["SAARTHI Hardware", "Mobile App", "Web Dashboard", "API / Integration"]} value={supportData.service} onChange={handleSupportChange} />
+                    <Label required>Product / service</Label>
+                    <Select name="service" placeholder="Select" options={["SAARTHI Hardware", "Mobile App", "Web Dashboard", "API / Integration"]} value={supportData.service} onChange={handleSupportChange} />
                   </div>
                 </div>
 
-                <div className="flex items-center py-2">
-                  <div className="flex-grow border-t border-gray-100"></div>
-                  <span className="flex-shrink-0 mx-4 text-[10px] font-bold tracking-[0.2em] text-[#10b981] uppercase">Issue Details</span>
-                  <div className="flex-grow border-t border-gray-100"></div>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <Label required>Issue category</Label>
+                    <Select name="issueCategory" placeholder="What best describes it?" options={["Connectivity / Bluetooth", "Sensor Calibration", "Software Bug", "Hardware Defect", "Billing & Account"]} value={supportData.issueCategory} onChange={handleSupportChange} />
+                  </div>
+                  <div>
+                    <Label>Priority</Label>
+                    <Select name="priority" placeholder="Select urgency" options={["Low - General Question", "Normal - Impedes workflow", "High - Completely blocked"]} value={supportData.priority} onChange={handleSupportChange} />
+                  </div>
                 </div>
 
                 <div>
-                  <Label>Issue Category <span className="text-[#10b981]">*</span></Label>
-                  <Select name="issueCategory" placeholder="What best describes your issue?" options={["Connectivity / Bluetooth", "Sensor Calibration", "Software Bug", "Hardware Defect", "Billing & Account"]} value={supportData.issueCategory} onChange={handleSupportChange} />
+                  <Label required>Describe your issue</Label>
+                  <Textarea name="message" placeholder="What happened, and what did you expect?" value={supportData.message} onChange={handleSupportChange} />
                 </div>
 
-                <div>
-                  <Label>Describe your issue <span className="text-[#10b981]">*</span></Label>
-                  <Textarea name="message" placeholder="Please describe what happened, what you expected..." value={supportData.message} onChange={handleSupportChange} />
-                </div>
+                <Turnstile
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                  onSuccess={(t) => {
+                    setToken(t);
+                    if (supportFeedback?.message === "Please complete the security check.") {
+                      setSupportFeedback(null);
+                    }
+                  }}
+                  onExpire={() => setToken(null)}
+                  onError={() => setSupportFeedback({ type: "error", message: "Security verification failed. Please refresh." })}
+                  theme="light"
+                />
 
-                <div>
-                  <Label>Priority</Label>
-                  <Select name="priority" placeholder="Select urgency..." options={["Low - General Question", "Normal - Impedes workflow", "High - Completely blocked"]} value={supportData.priority} onChange={handleSupportChange} />
-                </div>
-
-                {/* 5. Render Turnstile Widget (Light Theme) */}
-                <div className="mt-2">
-                  <Turnstile 
-                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                    onSuccess={(t) => {
-                      setToken(t);
-                      if (supportFeedback?.message === "Please complete the security check.") {
-                        setSupportFeedback(null);
-                      }
-                    }}
-                    onExpire={() => setToken(null)}
-                    onError={() => setSupportFeedback({ type: "error", message: "Security verification failed. Please refresh." })}
-                    theme="light"
-                  />
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleSupportSubmit}
-                  disabled={supportLoading || !token}
-                  className="w-full bg-[#0E3320] hover:bg-[#0a2316] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-bold tracking-wider uppercase rounded-lg py-3.5 flex items-center justify-center gap-2 transition-colors mt-2 shadow-lg shadow-[#051911]/10"
-                >
-                  {supportLoading ? (
-                    <>
-                      <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                      </svg>
-                      Submitting…
-                    </>
-                  ) : (
-                    <>
-                      Submit Support Request
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </>
-                  )}
-                </button>
+                <SubmitButton loading={supportLoading} disabled={supportLoading || !token} onClick={handleSupportSubmit} label="Submit support request" loadingLabel="Submitting…" />
               </div>
             )}
-
           </div>
         </div>
       </div>
