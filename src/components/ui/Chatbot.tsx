@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowUp, Sparkles, X } from "lucide-react";
+import { ArrowUp, MessageCircle, Sparkles, X } from "lucide-react";
 import { montserrat } from "@/lib/fonts";
 
 type Message = { sender: "user" | "bot"; text: string };
@@ -54,18 +54,41 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [compact, setCompact] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
+  const [intro, setIntro] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Collapse the launcher label to an icon once the visitor scrolls.
+  // Hide the launcher while the homepage video hero (#top) is on screen;
+  // show it once the hero's bottom edge has scrolled out of view.
   useEffect(() => {
-    const onScroll = () => setCompact(window.scrollY > 400);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const hero = document.getElementById("top");
+    if (!hero) {
+      const raf = requestAnimationFrame(() => setPastHero(true));
+      return () => cancelAnimationFrame(raf);
+    }
+    const io = new IntersectionObserver(([entry]) => {
+      setPastHero(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+    });
+    io.observe(hero);
+    return () => io.disconnect();
   }, []);
+
+  // The first time the launcher appears, show its label briefly.
+  useEffect(() => {
+    if (!pastHero || introDone) return;
+    const show = setTimeout(() => setIntro(true), 300);
+    const hide = setTimeout(() => {
+      setIntro(false);
+      setIntroDone(true);
+    }, 4300);
+    return () => {
+      clearTimeout(show);
+      clearTimeout(hide);
+    };
+  }, [pastHero, introDone]);
 
   // Keep the newest message in view.
   useEffect(() => {
@@ -111,7 +134,7 @@ export default function Chatbot() {
     [input, isLoading],
   );
 
-  const showLabel = !isOpen && !compact;
+  const launcherVisible = pastHero || isOpen;
 
   return (
     <div className={`${montserrat.className} lv-theme bg-transparent!`}>
@@ -251,17 +274,25 @@ export default function Chatbot() {
         onClick={() => setIsOpen((o) => !o)}
         aria-label={isOpen ? "Close chat" : "Ask Saarthi AI"}
         aria-expanded={isOpen}
-        className={`fixed bottom-6 right-6 z-[60] h-14 cursor-pointer items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground shadow-[0_14px_30px_-10px_color-mix(in_oklab,var(--primary)_70%,transparent)] transition-all duration-300 hover:-translate-y-0.5 ${
-          isOpen ? "hidden sm:flex sm:w-14" : "flex"
-        } ${showLabel ? "px-5" : "w-14"}`}
+        tabIndex={launcherVisible ? undefined : -1}
+        aria-hidden={!launcherVisible}
+        data-expanded={intro && !isOpen ? "" : undefined}
+        className={`chat-launcher group fixed bottom-6 right-6 z-[60] h-14 cursor-pointer items-center rounded-full text-white transition-all duration-500 ease-out hover:-translate-y-0.5 ${
+          isOpen ? "hidden sm:flex" : "flex"
+        } ${launcherVisible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"}`}
       >
-        {isOpen ? (
-          <X className="h-6 w-6" />
-        ) : (
-          <>
-            <Sparkles className="h-5 w-5 shrink-0" />
-            {showLabel && <span className="whitespace-nowrap text-sm font-semibold">Ask Saarthi AI</span>}
-          </>
+        <span className="relative grid h-14 w-14 shrink-0 place-items-center">
+          {isOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <>
+              <MessageCircle className="h-6 w-6" strokeWidth={2.2} />
+              <Sparkles className="absolute right-[13px] top-[12px] h-3 w-3 fill-white" strokeWidth={2.5} />
+            </>
+          )}
+        </span>
+        {!isOpen && (
+          <span className="chat-launcher-label whitespace-nowrap text-sm font-semibold">Ask Saarthi AI</span>
         )}
       </button>
     </div>
