@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Info, type LucideIcon } from "lucide-react";
-import { montserrat } from "@/lib/fonts";
+import { ArrowRight, Info, type LucideIcon } from "lucide-react";
+import { CtaBand, SiteShell } from "@/components/site/SiteChrome";
 
 export type AudienceKey = "for-you" | "for-families" | "for-clinicians";
 
@@ -51,34 +51,6 @@ const audienceCards: Record<AudienceKey, { title: string; text: string; image: s
   },
 };
 
-function SubpageHeader() {
-  return (
-    <header className="sticky top-0 z-50 border-b border-border backdrop-blur-xl" style={{ backgroundColor: "rgb(255 255 255 / 0.86)" }}>
-      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-4 px-6 lg:px-10">
-        <Link href="/" aria-label="Spandhika Orthotics home" className="flex shrink-0 items-center">
-          <Image src="/SO_Logo.png" alt="Spandhika Orthotics" width={48} height={48} className="h-11 w-auto object-contain" priority />
-        </Link>
-        <div className="flex items-center gap-2 sm:gap-3">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
-          >
-            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-            <span className="hidden sm:inline">Back to home</span>
-            <span className="sm:hidden">Home</span>
-          </Link>
-          <Link
-            href="/#waitlist"
-            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
-          >
-            Join waitlist
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 export default function AudiencePage({
   current,
   eyebrow,
@@ -96,10 +68,7 @@ export default function AudiencePage({
   const others = (Object.keys(audienceCards) as AudienceKey[]).filter((k) => k !== current);
 
   return (
-    <div className={`${montserrat.className} lv-theme min-h-screen`}>
-      <SubpageHeader />
-
-      <main>
+    <SiteShell>
         {/* ── Hero ── */}
         <section className="mx-auto grid max-w-6xl items-center gap-10 px-6 pb-16 pt-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:px-10 lg:pb-24 lg:pt-20">
           <div>
@@ -229,34 +198,7 @@ export default function AudiencePage({
           </div>
         </section>
 
-        {/* ── CTA band ── */}
-        <section className="pb-20">
-          <div className="mx-auto max-w-6xl px-6 lg:px-10">
-            <div className="waitlist-gradient flex flex-col items-center rounded-[2rem] px-8 py-14 text-center text-primary-foreground sm:py-16">
-              <h2 className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">Be first to walk on SAARTHI.</h2>
-              <p className="mt-3 max-w-md text-base opacity-90">Join the waitlist for early access and launch pricing.</p>
-              <Link
-                href="/#waitlist"
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[15px] font-semibold text-primary transition-transform hover:-translate-y-0.5"
-              >
-                Join the waitlist
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-6 text-sm text-muted-foreground sm:flex-row lg:px-10">
-          <p>© {new Date().getFullYear()} Spandhika Orthotics. All rights reserved.</p>
-          <div className="flex gap-5">
-            <Link href="/privacy" className="hover:text-primary">Privacy</Link>
-            <Link href="/terms" className="hover:text-primary">Terms</Link>
-            <Link href="/#contact" className="hover:text-primary">Contact</Link>
-          </div>
-        </div>
-      </footer>
-    </div>
+        <CtaBand />
+    </SiteShell>
   );
 }

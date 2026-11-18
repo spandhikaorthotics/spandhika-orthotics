@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import BlogArticle from "@/components/blog/BlogArticle";
 
 export const metadata: Metadata = {
   title: "Beyond the Foam: How Pressure Mapping Helps Athletes Recover Faster",
@@ -40,93 +40,10 @@ export default function BlogPost() {
   };
 
   return (
-    <main className="relative bg-[#FAFAF7] min-h-screen pb-32 selection:bg-[#3D6B5C]/20">
+    <BlogArticle slug="beyond-the-foam" jsonLd={jsonLd}>
+        <article className="text-[17px] leading-[1.85] text-foreground/80">
 
-      {/* --- Article Schema Markup --- */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      {/* ----------------------------- */}
-
-      {/* --- Signature element: ambient pressure-gradient rail (desktop only) --- */}
-      <div
-        aria-hidden="true"
-        className="hidden lg:block fixed top-0 left-0 h-screen w-[3px] z-0"
-        style={{
-          background:
-            "linear-gradient(180deg, transparent 0%, #3D6B5C22 12%, #3D6B5C 50%, #3D6B5C33 88%, transparent 100%)",
-        }}
-      />
-
-      {/* --- Back to Homepage Button --- */}
-      <div className="fixed top-8 left-6 sm:left-8 z-20">
-        <Link
-          href="/#blogs"
-          className="group inline-flex items-center gap-2.5 rounded-full bg-[#FAFAF7]/90 px-4 py-2 text-[13px] font-semibold tracking-wide text-[#1C2B27] backdrop-blur-sm transition-colors hover:text-[#3D6B5C] border border-[#1C2B27]/10 shadow-sm"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="transition-transform group-hover:-translate-x-1"
-          >
-            <path
-              d="M10.6667 3.33331L5.33337 7.99998L10.6667 12.6666"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          Back to homepage
-        </Link>
-      </div>
-      {/* ----------------------------------- */}
-
-      {/* 1. Header */}
-      <header className="mx-auto max-w-[760px] px-6 pt-32 sm:pt-36 text-center">
-        <div className="mb-6 flex items-center justify-center gap-3">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#3D6B5C]/30 bg-[#3D6B5C]/[0.06] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#3D6B5C]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#3D6B5C]" />
-            Performance
-          </span>
-          <span className="text-[13px] text-[#1C2B27]/40 font-medium">
-            6 min read
-          </span>
-        </div>
-
-        <h1 className="text-[2.5rem] sm:text-[3.25rem] leading-[1.08] tracking-[-0.02em] text-[#1C2B27] font-bold mb-8">
-          Beyond the Foam: How Pressure Mapping Helps Athletes Recover Faster
-        </h1>
-
-        <p className="mx-auto text-lg leading-[1.6] text-[#1C2B27]/55 max-w-[600px] font-normal">
-          Cushioning hides the impact you feel. But it rarely fixes how pressure
-          is spread across your feet &mdash; and that is usually where lasting
-          recovery begins.
-        </p>
-      </header>
-
-      {/* 2. Hero Image — aligned to the same column as the text */}
-      <div className="mx-auto max-w-[760px] px-6 mt-10 mb-14">
-        <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#1C2B27]/5 rounded-xl ring-1 ring-[#1C2B27]/[0.06]">
-          <Image
-            src="/1.png"
-            alt="Runner's shoe showing dynamic pressure mapping load distribution"
-            fill
-            className="object-cover object-center"
-            priority
-          />
-        </div>
-      </div>
-
-      {/* 3. Content Column */}
-      <div className="mx-auto max-w-[760px] px-6">
-        <article className="text-[18px] leading-[1.8] text-[#1C2B27]/80">
-
-          <p className="text-[21px] leading-[1.65] text-[#1C2B27] font-normal mb-9">
+          <p className="text-[21px] leading-[1.65] text-foreground font-normal mb-9">
             Athletes often think that more cushioning means better
             protection. Whether you use running shoes, gel inserts, or soft
             insoles, we usually link comfort with preventing injuries
@@ -178,14 +95,14 @@ export default function BlogPost() {
             hits the ground too hard in the first place.
           </p>
 
-          <blockquote className="my-10 border-l-2 border-[#3D6B5C]/40 pl-6 py-1 text-[19px] leading-[1.7] text-[#1C2B27]/70 italic">
+          <blockquote className="my-10 border-l-2 border-primary/40 pl-6 py-1 text-[19px] leading-[1.7] text-foreground/70 italic">
             Imagine driving a car with badly aligned wheels. Adding softer
             tires might make the ride feel smoother for a while, but the uneven
             wear and steering problems will still be there.
           </blockquote>
           
-          <figure className="my-10 w-full overflow-hidden rounded-xl border border-[#1C2B27]/[0.08] bg-[#FAFAF7]">
-            <div className="relative aspect-[18/9] w-full bg-[#1C2B27]/5">
+          <figure className="my-10 w-full overflow-hidden rounded-xl border border-foreground/[0.08] bg-background">
+            <div className="relative aspect-[18/9] w-full bg-foreground/5">
               <Image
                 src="/pronation.png"
                 alt="Digital heat map showing dynamic pressure distribution across a foot"
@@ -193,7 +110,7 @@ export default function BlogPost() {
                 className="object-cover object-center"
               />
             </div>
-            <figcaption className="px-5 py-3.5 text-[14px] leading-snug text-[#1C2B27]/60 text-center border-t border-[#1C2B27]/[0.08]">
+            <figcaption className="px-5 py-3.5 text-[14px] leading-snug text-foreground/60 text-center border-t border-foreground/[0.08]">
               Tracking your foot pressure in real-time shows exactly where your unique step puts the most stress.
             </figcaption>
           </figure>
@@ -207,8 +124,8 @@ export default function BlogPost() {
 
           <SectionHeading>The Need for Continuous Pressure Mapping</SectionHeading>
 
-          <figure className="my-10 w-full overflow-hidden rounded-xl border border-[#1C2B27]/[0.08] bg-[#FAFAF7]">
-            <div className="relative aspect-[16/9] w-full bg-[#1C2B27]/5">
+          <figure className="my-10 w-full overflow-hidden rounded-xl border border-foreground/[0.08] bg-background">
+            <div className="relative aspect-[16/9] w-full bg-foreground/5">
               <Image
                 src="/degradation.png"
                 alt="Fatigue-induced gait degradation showing pressure mapping comparison between a fresh and fatigued athlete"
@@ -216,7 +133,7 @@ export default function BlogPost() {
                 className="object-cover object-center"
               />
             </div>
-            <figcaption className="px-5 py-3.5 text-[14px] leading-snug text-[#1C2B27]/60 text-center border-t border-[#1C2B27]/[0.08]">
+            <figcaption className="px-5 py-3.5 text-[14px] leading-snug text-foreground/60 text-center border-t border-foreground/[0.08]">
               As you get tired, your walking style breaks down. This causes dangerous high-pressure hot spots to form on your feet.
             </figcaption>
           </figure>
@@ -273,38 +190,7 @@ export default function BlogPost() {
           </p>
 
         </article>
-
-        {/* Minimal Back Link */}
-        <div className="mt-20 border-t border-[#1C2B27]/10 pt-10 flex items-center justify-between">
-          <Link
-            href="/blog"
-            className="group inline-flex items-center gap-2 text-sm font-semibold text-[#3D6B5C] hover:text-[#1C2B27] transition-colors"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="transition-transform group-hover:-translate-x-1"
-            >
-              <path
-                d="M10.6667 3.33331L5.33337 7.99998L10.6667 12.6666"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Back to Journal
-          </Link>
-          <span className="text-xs text-[#1C2B27]/35 font-medium tracking-wide">
-            Spandhika Orthotics
-          </span>
-        </div>
-
-      </div>
-    </main>
+    </BlogArticle>
   );
 }
 
@@ -318,7 +204,7 @@ function SectionHeading({
   children: React.ReactNode;
 }) {
   return (
-    <h2 className="mt-16 mb-6 text-[1.65rem] sm:text-[1.85rem] leading-tight tracking-[-0.01em] text-[#1C2B27] font-bold">
+    <h2 className="mt-16 mb-6 text-[1.65rem] sm:text-[1.85rem] leading-tight tracking-[-0.01em] text-primary font-semibold">
       {children}
     </h2>
   );
@@ -326,7 +212,7 @@ function SectionHeading({
 
 function Stat({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-baseline rounded-md bg-[#3D6B5C]/[0.08] px-1.5 py-0.5 font-semibold text-[#3D6B5C] tabular-nums text-[0.95em] whitespace-nowrap">
+    <span className="inline-flex items-baseline rounded-md bg-primary/[0.08] px-1.5 py-0.5 font-semibold text-primary tabular-nums text-[0.95em] whitespace-nowrap">
       {children}
     </span>
   );
@@ -334,13 +220,13 @@ function Stat({ children }: { children: React.ReactNode }) {
 
 function ConsequenceList({ items }: { items: string[] }) {
   return (
-    <ul className="mb-10 mt-5 grid gap-px overflow-hidden rounded-xl border border-[#1C2B27]/[0.08] bg-[#1C2B27]/[0.08] sm:grid-cols-2">
+    <ul className="mb-10 mt-5 grid gap-px overflow-hidden rounded-xl border border-foreground/[0.08] bg-foreground/[0.08] sm:grid-cols-2">
       {items.map((item, i) => (
         <li
           key={i}
-          className="flex items-start gap-3 bg-[#FAFAF7] px-5 py-4 text-[15.5px] leading-snug text-[#1C2B27]/75"
+          className="flex items-start gap-3 bg-background px-5 py-4 text-[15.5px] leading-snug text-foreground/75"
         >
-          <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#3D6B5C]" />
+          <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
           {item}
         </li>
       ))}
@@ -360,21 +246,21 @@ function GaitMetricsGrid() {
       {metrics.map((m) => (
         <div
           key={m.label}
-          className="rounded-xl border border-[#1C2B27]/[0.08] bg-white/60 px-5 py-4"
+          className="rounded-xl border border-foreground/[0.08] bg-white/60 px-5 py-4"
         >
-          <div className="text-[12px] font-semibold uppercase tracking-[0.07em] text-[#1C2B27]/45 mb-1.5">
+          <div className="text-[12px] font-semibold uppercase tracking-[0.07em] text-foreground/45 mb-1.5">
             {m.label}
           </div>
           <div className="flex items-baseline gap-1.5">
-            <span className="text-[1.6rem] font-semibold tabular-nums text-[#1C2B27] leading-none">
+            <span className="text-[1.6rem] font-semibold tabular-nums text-foreground leading-none">
               {m.value}
             </span>
-            <span className="text-sm font-medium text-[#3D6B5C]">{m.unit}</span>
+            <span className="text-sm font-medium text-primary">{m.unit}</span>
           </div>
-          <div className="text-[13px] text-[#1C2B27]/45 mt-1">{m.note}</div>
+          <div className="text-[13px] text-foreground/45 mt-1">{m.note}</div>
         </div>
       ))}
-      <div className="sm:col-span-2 rounded-xl border border-[#1C2B27]/[0.08] bg-white/60 px-5 py-4 text-[15px] text-[#1C2B27]/70">
+      <div className="sm:col-span-2 rounded-xl border border-foreground/[0.08] bg-white/60 px-5 py-4 text-[15px] text-foreground/70">
         They also catch uneven foot rolling (when your foot tilts too far inward or outward) that only happens as your muscles get tired. You won&apos;t see this during a quick doctor&apos;s visit.
       </div>
     </div>
@@ -383,18 +269,18 @@ function GaitMetricsGrid() {
 
 function ClinicalPerspective() {
   return (
-    <div className="my-12 overflow-hidden rounded-2xl border border-[#1C2B27]/10 bg-[#1C2B27] text-[#FAFAF7] shadow-[0_20px_50px_-20px_rgba(28,43,39,0.4)]">
+    <div className="my-12 overflow-hidden rounded-2xl border border-foreground/10 bg-primary text-primary-foreground shadow-[0_20px_50px_-20px_rgba(28,43,39,0.4)]">
       <div className="px-7 py-7 sm:px-9 sm:py-9">
-        <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#7FAF9C] mb-4">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#7FAF9C]" />
+        <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--brand-green)] mb-4">
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-green)]" />
           Clinical Perspective
         </span>
-        <p className="text-[1.3rem] leading-[1.5] font-semibold text-[#FAFAF7] mb-5">
+        <p className="text-[1.3rem] leading-[1.5] font-semibold text-primary-foreground mb-5">
           At Spandhika Orthotics, we built the Intelligent Orthotic
           &amp; Leg Monitoring System (IOLMS) to bring high-tech foot tracking
           out of the lab and into your daily life.
         </p>
-        <p className="text-[16px] leading-[1.75] text-[#FAFAF7]/65 mb-7">
+        <p className="text-[16px] leading-[1.75] text-primary-foreground/65 mb-7">
           Traditional foot trackers can cost millions of rupees and are
           stuck in research labs. IOLMS is India&apos;s first
           affordable, water-resistant smart insole made for everyday use.
@@ -403,7 +289,7 @@ function ClinicalPerspective() {
           This helps reduce injury risks and supports a faster, safer recovery.
         </p>
 
-        <div className="grid grid-cols-3 gap-3 border-t border-[#FAFAF7]/10 pt-6">
+        <div className="grid grid-cols-3 gap-3 border-t border-background/10 pt-6">
           <MiniStat value="32" label="Pressure sensors" />
           <MiniStat value="IP67" label="Waterproof rating" />
           <MiniStat value="7" label="Movement stats tracked" />
@@ -416,10 +302,10 @@ function ClinicalPerspective() {
 function MiniStat({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="text-[1.4rem] font-semibold tabular-nums text-[#FAFAF7] leading-none mb-1">
+      <div className="text-[1.4rem] font-semibold tabular-nums text-primary-foreground leading-none mb-1">
         {value}
       </div>
-      <div className="text-[11.5px] leading-tight text-[#FAFAF7]/45">{label}</div>
+      <div className="text-[11.5px] leading-tight text-primary-foreground/45">{label}</div>
     </div>
   );
 }

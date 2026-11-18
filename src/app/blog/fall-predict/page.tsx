@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import BlogArticle from "@/components/blog/BlogArticle";
 import React from "react";
 
 // --- Types & Interfaces ---
@@ -94,91 +94,10 @@ export default function BlogPost() {
   };
 
   return (
-    <main className="relative bg-[#FAFAF7] min-h-screen pb-32 selection:bg-[#3D6B5C]/20">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <BlogArticle slug="fall-predict" jsonLd={jsonLd}>
+        <article className="text-[17px] leading-[1.85] text-foreground/80">
 
-      {/* Decorative gradient rail (desktop only) */}
-      <div
-        aria-hidden="true"
-        className="hidden lg:block fixed top-0 left-0 h-screen w-[3px] z-0"
-        style={{
-          background:
-            "linear-gradient(180deg, transparent 0%, #3D6B5C22 12%, #3D6B5C 50%, #3D6B5C33 88%, transparent 100%)",
-        }}
-      />
-
-      {/* Navigation */}
-      <nav className="fixed top-8 left-6 sm:left-8 z-20">
-        <Link
-          href="/#blogs"
-          aria-label="Back to homepage"
-          className="group inline-flex items-center gap-2.5 rounded-full bg-[#FAFAF7]/90 px-4 py-2 text-[13px] font-semibold tracking-wide text-[#1C2B27] backdrop-blur-sm transition-colors hover:text-[#3D6B5C] border border-[#1C2B27]/10 shadow-sm"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="transition-transform group-hover:-translate-x-1"
-            aria-hidden="true"
-          >
-            <path
-              d="M10.6667 3.33331L5.33337 7.99998L10.6667 12.6666"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          Back to homepage
-        </Link>
-      </nav>
-
-      {/* Article Header */}
-      <header className="mx-auto max-w-[760px] px-6 pt-32 sm:pt-36 text-center">
-        <div className="mb-6 flex items-center justify-center gap-3">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#3D6B5C]/30 bg-[#3D6B5C]/[0.06] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#3D6B5C]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#3D6B5C]" aria-hidden="true" />
-            Elderly Care
-          </span>
-          <span className="text-[13px] text-[#1C2B27]/40 font-medium">
-            6 min read
-          </span>
-        </div>
-
-        <h1 className="text-[2.5rem] sm:text-[3.25rem] leading-[1.08] tracking-[-0.02em] text-[#1C2B27] font-bold mb-8">
-          Preventing Falls in Seniors: How Gait Tracking Detects Risks Before They Happen
-        </h1>
-
-        <p className="mx-auto text-lg leading-[1.6] text-[#1C2B27]/55 max-w-[600px] font-normal">
-          A fall is rarely just a sudden accident. It is usually the result of
-          weeks of slow, invisible changes in how a person walks that standard
-          doctor checkups often miss.
-        </p>
-      </header>
-
-      {/* Hero Image */}
-      <figure className="mx-auto max-w-[760px] px-6 mt-10 mb-14">
-        <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#1C2B27]/5 rounded-xl ring-1 ring-[#1C2B27]/[0.06]">
-          <Image
-            src="/3_1.png"
-            alt="An elderly person walking steadily, supported by continuous gait monitoring technology"
-            fill
-            className="object-cover object-center"
-            priority
-          />
-        </div>
-      </figure>
-
-      {/* Main Content */}
-      <div className="mx-auto max-w-[760px] px-6">
-        <article className="text-[18px] leading-[1.8] text-[#1C2B27]/80">
-
-          <p className="text-[21px] leading-[1.65] text-[#1C2B27] font-normal mb-9">
+          <p className="text-[21px] leading-[1.65] text-foreground font-normal mb-9">
             India&apos;s older population is growing fast, with over 153 million
             people aged 60 and above today, and expected to reach 317 million by 2050.
             With this growth comes a major health challenge: injuries from falls cost
@@ -218,7 +137,7 @@ export default function BlogPost() {
                 width={1200}
                 height={675}
                 layout="responsive"
-                className="rounded-xl ring-1 ring-[#1C2B27]/[0.06] shadow-sm"
+                className="rounded-xl ring-1 ring-foreground/[0.06] shadow-sm"
               />
             </div>
             {/* -------------------------------------- */}
@@ -234,7 +153,7 @@ export default function BlogPost() {
               down a short hallway for a few minutes.
             </p>
 
-            <blockquote className="my-10 border-l-2 border-[#3D6B5C]/40 pl-6 py-1 text-[19px] leading-[1.7] text-[#1C2B27]/70 italic">
+            <blockquote className="my-10 border-l-2 border-primary/40 pl-6 py-1 text-[19px] leading-[1.7] text-foreground/70 italic">
               Medical studies show that quick checkups are not enough to accurately
               predict falls. A 10-minute visit only shows the patient at their
               best, not when they are tired&mdash;which is when falls usually happen.
@@ -248,7 +167,7 @@ export default function BlogPost() {
                 width={1200}
                 height={675}
                 layout="responsive"
-                className="rounded-xl ring-1 ring-[#1C2B27]/[0.06] shadow-sm"
+                className="rounded-xl ring-1 ring-foreground/[0.06] shadow-sm"
               />
             </div>
             {/* ------------------------------------- */}
@@ -307,39 +226,7 @@ export default function BlogPost() {
           </section>
 
         </article>
-
-        {/* Footer Navigation */}
-        <nav className="mt-20 border-t border-[#1C2B27]/10 pt-10 flex items-center justify-between">
-          <Link
-            href="/blog"
-            className="group inline-flex items-center gap-2 text-sm font-semibold text-[#3D6B5C] hover:text-[#1C2B27] transition-colors"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="transition-transform group-hover:-translate-x-1"
-              aria-hidden="true"
-            >
-              <path
-                d="M10.6667 3.33331L5.33337 7.99998L10.6667 12.6666"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Back to Journal
-          </Link>
-          <span className="text-xs text-[#1C2B27]/35 font-medium tracking-wide">
-            Spandhika Orthotics
-          </span>
-        </nav>
-
-      </div>
-    </main>
+    </BlogArticle>
   );
 }
 
@@ -349,7 +236,7 @@ export default function BlogPost() {
 
 function SectionHeading({ children }: SectionHeadingProps) {
   return (
-    <h2 className="mt-16 mb-6 text-[1.65rem] sm:text-[1.85rem] leading-tight tracking-[-0.01em] text-[#1C2B27] font-bold">
+    <h2 className="mt-16 mb-6 text-[1.65rem] sm:text-[1.85rem] leading-tight tracking-[-0.01em] text-primary font-semibold">
       {children}
     </h2>
   );
@@ -357,7 +244,7 @@ function SectionHeading({ children }: SectionHeadingProps) {
 
 function Stat({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-baseline rounded-md bg-[#3D6B5C]/[0.08] px-1.5 py-0.5 font-semibold text-[#3D6B5C] tabular-nums text-[0.95em] whitespace-nowrap">
+    <span className="inline-flex items-baseline rounded-md bg-primary/[0.08] px-1.5 py-0.5 font-semibold text-primary tabular-nums text-[0.95em] whitespace-nowrap">
       {children}
     </span>
   );
@@ -365,13 +252,13 @@ function Stat({ children }: { children: React.ReactNode }) {
 
 function ConsequenceList({ items }: ConsequenceListProps) {
   return (
-    <ul className="mb-10 mt-5 grid gap-px overflow-hidden rounded-xl border border-[#1C2B27]/[0.08] bg-[#1C2B27]/[0.08] sm:grid-cols-2">
+    <ul className="mb-10 mt-5 grid gap-px overflow-hidden rounded-xl border border-foreground/[0.08] bg-foreground/[0.08] sm:grid-cols-2">
       {items.map((item, index) => (
         <li
           key={`consequence-${index}`}
-          className="flex items-start gap-3 bg-[#FAFAF7] px-5 py-4 text-[15.5px] leading-snug text-[#1C2B27]/75"
+          className="flex items-start gap-3 bg-background px-5 py-4 text-[15.5px] leading-snug text-foreground/75"
         >
-          <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#3D6B5C]" aria-hidden="true" />
+          <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
           {item}
         </li>
       ))}
@@ -389,10 +276,10 @@ function ConsequenceList({ items }: ConsequenceListProps) {
  */
 function FallWarningHorizon() {
   return (
-    <div className="mb-10 mt-7 rounded-xl border border-[#1C2B27]/[0.08] bg-white/60 px-6 py-7 sm:px-8 sm:py-8">
-      <div className="mb-7 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.08em] text-[#1C2B27]/40">
+    <div className="mb-10 mt-7 rounded-xl border border-foreground/[0.08] bg-white/60 px-6 py-7 sm:px-8 sm:py-8">
+      <div className="mb-7 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.08em] text-foreground/40">
         <span>Today</span>
-        <span className="text-[#3D6B5C]">6&ndash;8 week warning window</span>
+        <span className="text-primary">6&ndash;8 week warning window</span>
         <span>Clinic check-in</span>
       </div>
 
@@ -410,17 +297,17 @@ function FallWarningHorizon() {
               className="flex-1 rounded-sm"
               style={{
                 height: `${heightPct}%`,
-                backgroundColor: isAlert ? "#3D6B5C" : "#3D6B5C55",
+                backgroundColor: isAlert ? "var(--primary)" : "color-mix(in oklab, var(--primary) 33%, transparent)",
               }}
             />
           );
         })}
       </div>
 
-      <div className="relative h-10 text-[12px] text-[#1C2B27]/50">
+      <div className="relative h-10 text-[12px] text-foreground/50">
         <span className="absolute left-0">Day 0</span>
         <span
-          className="absolute -translate-x-1/2 text-center font-semibold text-[#1C2B27]/70 leading-tight"
+          className="absolute -translate-x-1/2 text-center font-semibold text-foreground/70 leading-tight"
           style={{ left: "78%" }}
         >
           Warning signs get
@@ -430,7 +317,7 @@ function FallWarningHorizon() {
         <span className="absolute right-0">Week 8</span>
       </div>
 
-      <p className="mt-5 pt-5 border-t border-[#1C2B27]/[0.06] text-[14.5px] leading-relaxed text-[#1C2B27]/55">
+      <p className="mt-5 pt-5 border-t border-foreground/[0.06] text-[14.5px] leading-relaxed text-foreground/55">
         Each bar represents a few days of real-world walking data. The
         changes start small and grow steadily&mdash;showing up weeks before they
         would ever be noticed during a normal doctor visit.
@@ -445,18 +332,18 @@ function GaitMetricsGrid({ metrics }: { metrics: Metric[] }) {
       {metrics.map((m, index) => (
         <div
           key={`metric-${index}`}
-          className="rounded-xl border border-[#1C2B27]/[0.08] bg-white/60 px-5 py-4"
+          className="rounded-xl border border-foreground/[0.08] bg-white/60 px-5 py-4"
         >
-          <div className="text-[12px] font-semibold uppercase tracking-[0.07em] text-[#1C2B27]/45 mb-1.5">
+          <div className="text-[12px] font-semibold uppercase tracking-[0.07em] text-foreground/45 mb-1.5">
             {m.label}
           </div>
           <div className="flex items-baseline gap-1.5">
-            <span className="text-[1.6rem] font-semibold tabular-nums text-[#1C2B27] leading-none">
+            <span className="text-[1.6rem] font-semibold tabular-nums text-foreground leading-none">
               {m.value}
             </span>
-            <span className="text-sm font-medium text-[#3D6B5C]">{m.unit}</span>
+            <span className="text-sm font-medium text-primary">{m.unit}</span>
           </div>
-          <div className="text-[13px] text-[#1C2B27]/45 mt-1">{m.note}</div>
+          <div className="text-[13px] text-foreground/45 mt-1">{m.note}</div>
         </div>
       ))}
     </div>
@@ -465,17 +352,17 @@ function GaitMetricsGrid({ metrics }: { metrics: Metric[] }) {
 
 function ClinicalPerspective() {
   return (
-    <aside className="my-12 overflow-hidden rounded-2xl border border-[#1C2B27]/10 bg-[#1C2B27] text-[#FAFAF7] shadow-[0_20px_50px_-20px_rgba(28,43,39,0.4)]">
+    <aside className="my-12 overflow-hidden rounded-2xl border border-foreground/10 bg-primary text-primary-foreground shadow-[0_20px_50px_-20px_rgba(28,43,39,0.4)]">
       <div className="px-7 py-7 sm:px-9 sm:py-9">
-        <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#7FAF9C] mb-4">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#7FAF9C]" aria-hidden="true" />
+        <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--brand-green)] mb-4">
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-green)]" aria-hidden="true" />
           Clinical Perspective
         </span>
-        <p className="text-[1.3rem] leading-[1.5] font-semibold text-[#FAFAF7] mb-5">
+        <p className="text-[1.3rem] leading-[1.5] font-semibold text-primary-foreground mb-5">
           At Spandhika Orthotics, we believe in helping prevent falls before
           they happen.
         </p>
-        <p className="text-[16px] leading-[1.75] text-[#FAFAF7]/65 mb-7">
+        <p className="text-[16px] leading-[1.75] text-primary-foreground/65 mb-7">
           Our Intelligent Orthotic &amp; Leg Monitoring System (IOLMS) is
           India&apos;s first affordable smart insole made for daily home use.
           By packing 32 tiny pressure sensors and motion trackers into a
@@ -485,7 +372,7 @@ function ClinicalPerspective() {
           short doctor visits.
         </p>
 
-        <div className="grid grid-cols-3 gap-3 border-t border-[#FAFAF7]/10 pt-6">
+        <div className="grid grid-cols-3 gap-3 border-t border-background/10 pt-6">
           <MiniStat value="32" label="Pressure sensors" />
           <MiniStat value="IP67" label="Waterproof rating" />
           <MiniStat value="7" label="Movement stats tracked" />
@@ -498,10 +385,10 @@ function ClinicalPerspective() {
 function MiniStat({ value, label }: MiniStatProps) {
   return (
     <div>
-      <div className="text-[1.4rem] font-semibold tabular-nums text-[#FAFAF7] leading-none mb-1">
+      <div className="text-[1.4rem] font-semibold tabular-nums text-primary-foreground leading-none mb-1">
         {value}
       </div>
-      <div className="text-[11.5px] leading-tight text-[#FAFAF7]/45">{label}</div>
+      <div className="text-[11.5px] leading-tight text-primary-foreground/45">{label}</div>
     </div>
   );
 }

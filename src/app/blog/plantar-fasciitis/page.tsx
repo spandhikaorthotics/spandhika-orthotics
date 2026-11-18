@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import BlogArticle from "@/components/blog/BlogArticle";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -38,91 +38,10 @@ export default function BlogPost() {
   };
 
   return (
-    <main className="relative bg-[#FAFAF7] min-h-screen pb-32 selection:bg-[#3D6B5C]/20">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <BlogArticle slug="plantar-fasciitis" jsonLd={jsonLd}>
+        <article className="text-[17px] leading-[1.85] text-foreground/80">
 
-      {/* Decorative gradient rail (desktop only) */}
-      <div
-        aria-hidden="true"
-        className="hidden lg:block fixed top-0 left-0 h-screen w-[3px] z-0"
-        style={{
-          background:
-            "linear-gradient(180deg, transparent 0%, #3D6B5C22 12%, #3D6B5C 50%, #3D6B5C33 88%, transparent 100%)",
-        }}
-      />
-
-      {/* Navigation */}
-      <nav className="fixed top-8 left-6 sm:left-8 z-20">
-        <Link
-          href="/#blogs"
-          aria-label="Back to homepage"
-          className="group inline-flex items-center gap-2.5 rounded-full bg-[#FAFAF7]/90 px-4 py-2 text-[13px] font-semibold tracking-wide text-[#1C2B27] backdrop-blur-sm transition-colors hover:text-[#3D6B5C] border border-[#1C2B27]/10 shadow-sm"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="transition-transform group-hover:-translate-x-1"
-            aria-hidden="true"
-          >
-            <path
-              d="M10.6667 3.33331L5.33337 7.99998L10.6667 12.6666"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          Back to homepage
-        </Link>
-      </nav>
-
-      {/* Article Header */}
-      <header className="mx-auto max-w-[760px] px-6 pt-32 sm:pt-36 text-center">
-        <div className="mb-6 flex items-center justify-center gap-3">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#3D6B5C]/30 bg-[#3D6B5C]/[0.06] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#3D6B5C]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#3D6B5C]" aria-hidden="true" />
-            Clinical Care
-          </span>
-          <span className="text-[13px] text-[#1C2B27]/40 font-medium">
-            5 min read
-          </span>
-        </div>
-
-        <h1 className="text-[2.5rem] sm:text-[3.25rem] leading-[1.08] tracking-[-0.02em] text-[#1C2B27] font-bold mb-8">
-          Plantar Fasciitis Relief: Why Standard Insoles Often Fall Short
-        </h1>
-
-        <p className="mx-auto text-lg leading-[1.6] text-[#1C2B27]/55 max-w-[600px] font-normal">
-          Soft foam can hide your heel pain for a little while. But it rarely
-          fixes the uneven pressure that caused the pain in the first
-          place&mdash;and that is usually the key to lasting relief.
-        </p>
-      </header>
-
-      {/* Hero Image */}
-      <figure className="mx-auto max-w-[760px] px-6 mt-10 mb-14">
-        <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#1C2B27]/5 rounded-xl ring-1 ring-[#1C2B27]/[0.06]">
-          <Image
-            src="/4.png"
-            alt="Clinician examining a patient's foot mechanics to assess plantar fasciitis"
-            fill
-            className="object-cover object-center"
-            priority
-          />
-        </div>
-      </figure>
-
-      {/* Main Content */}
-      <div className="mx-auto max-w-[760px] px-6">
-        <article className="text-[18px] leading-[1.8] text-[#1C2B27]/80">
-
-          <p className="text-[21px] leading-[1.65] text-[#1C2B27] font-normal mb-9">
+          <p className="text-[21px] leading-[1.65] text-foreground font-normal mb-9">
             If you have ever felt a sharp, stabbing pain in your heel right after
             getting out of bed, you are not alone. This condition, called plantar
             fasciitis, is a very common cause of foot pain. It affects everyone
@@ -213,7 +132,7 @@ export default function BlogPost() {
             ]}
           />
 
-          <blockquote className="my-10 border-l-2 border-[#3D6B5C]/40 pl-6 py-1 text-[19px] leading-[1.7] text-[#1C2B27]/70 italic">
+          <blockquote className="my-10 border-l-2 border-primary/40 pl-6 py-1 text-[19px] leading-[1.7] text-foreground/70 italic">
             Knowing exactly how you walk is just as important as knowing where
             your heel hurts.
           </blockquote>
@@ -236,39 +155,7 @@ export default function BlogPost() {
           <ClinicalPerspective />
 
         </article>
-
-        {/* Footer Navigation */}
-        <nav className="mt-20 border-t border-[#1C2B27]/10 pt-10 flex items-center justify-between">
-          <Link
-            href="/blog"
-            className="group inline-flex items-center gap-2 text-sm font-semibold text-[#3D6B5C] hover:text-[#1C2B27] transition-colors"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="transition-transform group-hover:-translate-x-1"
-              aria-hidden="true"
-            >
-              <path
-                d="M10.6667 3.33331L5.33337 7.99998L10.6667 12.6666"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Back to Journal
-          </Link>
-          <span className="text-xs text-[#1C2B27]/35 font-medium tracking-wide">
-            Spandhika Orthotics
-          </span>
-        </nav>
-
-      </div>
-    </main>
+    </BlogArticle>
   );
 }
 
@@ -278,7 +165,7 @@ export default function BlogPost() {
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="mt-16 mb-6 text-[1.65rem] sm:text-[1.85rem] leading-tight tracking-[-0.01em] text-[#1C2B27] font-bold">
+    <h2 className="mt-16 mb-6 text-[1.65rem] sm:text-[1.85rem] leading-tight tracking-[-0.01em] text-primary font-semibold">
       {children}
     </h2>
   );
@@ -286,13 +173,13 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 
 function ConsequenceList({ items }: { items: string[] }) {
   return (
-    <ul className="mb-10 mt-5 grid gap-px overflow-hidden rounded-xl border border-[#1C2B27]/[0.08] bg-[#1C2B27]/[0.08] sm:grid-cols-2">
+    <ul className="mb-10 mt-5 grid gap-px overflow-hidden rounded-xl border border-foreground/[0.08] bg-foreground/[0.08] sm:grid-cols-2">
       {items.map((item, index) => (
         <li
           key={`consequence-${index}`}
-          className="flex items-start gap-3 bg-[#FAFAF7] px-5 py-4 text-[15.5px] leading-snug text-[#1C2B27]/75"
+          className="flex items-start gap-3 bg-background px-5 py-4 text-[15.5px] leading-snug text-foreground/75"
         >
-          <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#3D6B5C]" aria-hidden="true" />
+          <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
           {item}
         </li>
       ))}
@@ -317,10 +204,10 @@ function ArticleFigure({
 }) {
   return (
     <figure className="my-10">
-      <div className="relative aspect-[18/9] w-full overflow-hidden rounded-xl bg-[#1C2B27]/5 ring-1 ring-[#1C2B27]/[0.06]">
+      <div className="relative aspect-[18/9] w-full overflow-hidden rounded-xl bg-foreground/5 ring-1 ring-foreground/[0.06]">
         <Image src={src} alt={alt} fill className="object-cover object-center" />
       </div>
-      <figcaption className="mt-3 text-center text-[14px] leading-snug text-[#1C2B27]/50">
+      <figcaption className="mt-3 text-center text-[14px] leading-snug text-foreground/50">
         {caption}
       </figcaption>
     </figure>
@@ -341,19 +228,19 @@ function CushioningVsSupport() {
           <span className="h-1.5 w-1.5 rounded-full bg-[#B3493B]/60" />
           Soft cushioning
         </div>
-        <ul className="space-y-2.5 text-[15px] leading-snug text-[#1C2B27]/65">
+        <ul className="space-y-2.5 text-[15px] leading-snug text-foreground/65">
           <li>Softens the impact when your foot hits the ground</li>
           <li>Feels comfortable for a short time</li>
           <li>Does not fix how your body weight presses on your foot</li>
           <li>Leaves the bad walking habits unchanged</li>
         </ul>
       </div>
-      <div className="rounded-xl border border-[#3D6B5C]/20 bg-[#3D6B5C]/[0.05] px-6 py-6">
-        <div className="mb-3 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.1em] text-[#3D6B5C]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#3D6B5C]" />
+      <div className="rounded-xl border border-primary/20 bg-primary/[0.05] px-6 py-6">
+        <div className="mb-3 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.1em] text-primary">
+          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
           Pressure-mapped support
         </div>
-        <ul className="space-y-2.5 text-[15px] leading-snug text-[#1C2B27]/75">
+        <ul className="space-y-2.5 text-[15px] leading-snug text-foreground/75">
           <li>Finds exactly where your foot takes the hardest hits</li>
           <li>Supports your posture and balance, not just the pain</li>
           <li>Shifts your weight away from your sore heel</li>
@@ -366,17 +253,17 @@ function CushioningVsSupport() {
 
 function ClinicalPerspective() {
   return (
-    <aside className="my-12 overflow-hidden rounded-2xl border border-[#1C2B27]/10 bg-[#1C2B27] text-[#FAFAF7] shadow-[0_20px_50px_-20px_rgba(28,43,39,0.4)]">
+    <aside className="my-12 overflow-hidden rounded-2xl border border-foreground/10 bg-primary text-primary-foreground shadow-[0_20px_50px_-20px_rgba(28,43,39,0.4)]">
       <div className="px-7 py-7 sm:px-9 sm:py-9">
-        <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#7FAF9C] mb-4">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#7FAF9C]" aria-hidden="true" />
+        <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--brand-green)] mb-4">
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-green)]" aria-hidden="true" />
           Clinical Perspective
         </span>
-        <p className="text-[1.3rem] leading-[1.5] font-semibold text-[#FAFAF7] mb-5">
+        <p className="text-[1.3rem] leading-[1.5] font-semibold text-primary-foreground mb-5">
           At Spandhika Orthotics, we believe that tracking how you move is the
           secret to fixing why you hurt.
         </p>
-        <p className="text-[16px] leading-[1.75] text-[#FAFAF7]/65">
+        <p className="text-[16px] leading-[1.75] text-primary-foreground/65">
           Using smart sensors to track your steps, we design insoles that
           support your unique walking style. We do not just rely on soft foam.
           We aim to help reduce the pressure causing your pain, supporting a
