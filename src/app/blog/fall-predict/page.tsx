@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   title: "Preventing Falls in Seniors: How Gait Tracking Detects Risks Before They Happen",
   description: "A fall isn't just an accident—it usually follows weeks of invisible changes in walking. Learn how daily tracking helps detect fall risks 6-8 weeks early.",
   openGraph: {
-    images: ["/3_1.png"],
+    images: ["/3_1.jpg"],
   }
 };
 
@@ -73,7 +73,7 @@ export default function BlogPost() {
     "@type": "BlogPosting",
     "headline": "The Hidden Warning Signs of a Fall: How Smart Insoles Protect Seniors at Home",
     "image": [
-      "https://spandhikaorthotics.in/3_1.png"
+      "https://spandhikaorthotics.in/3_1.jpg"
     ],
     "author": [{
       "@type": "Organization",
@@ -132,7 +132,7 @@ export default function BlogPost() {
             {/* --- ADDED IMAGE 1: GAIT MECHANICS --- */}
             <div className="mt-8 mb-12">
               <Image
-                src="/gaitmechanics.png"
+                src="/gaitmechanics.jpg"
                 alt="Biomechanical illustration comparing a healthy gait to a deteriorating gait, highlighting stride length and dorsiflexion"
                 width={1200}
                 height={675}
@@ -162,7 +162,7 @@ export default function BlogPost() {
             {/* --- ADDED IMAGE 2: REAL VS CLINIC --- */}
             <div className="mb-10">
               <Image
-                src="/realvsclinic.png"
+                src="/realvsclinic.jpg"
                 alt="Line graph comparing stable 10-minute clinic assessments with real-world monitoring that reveals hidden fatigue over time"
                 width={1200}
                 height={675}

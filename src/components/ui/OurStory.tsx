@@ -15,13 +15,13 @@ const founders: Founder[] = [
   {
     name: "Abhishek Goyal",
     role: "Co-founder",
-    image: "/founders/abhishek.png",
+    image: "/founders/abhishek.jpg",
     imageStyle: { objectPosition: "50% 0%", transform: "scale(1.25)", transformOrigin: "50% 23%" },
   },
   {
     name: "Krishna Gambhir",
     role: "Co-founder",
-    image: "/founders/krishna.png",
+    image: "/founders/krishna.jpg",
     imageStyle: { objectPosition: "50% 76%" },
   },
 ];

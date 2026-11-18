@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Surviving a 12-Hour Shift: The Science of Sustained Foot Comfort",
   description: "Discover the biomechanics behind foot fatigue during long work shifts. Learn how pressure distribution, alignment, and personalized support can help nurses, teachers, retail workers, and other professionals stay comfortable throughout the day.",
   openGraph: {
-    images: ["/3.png"],
+    images: ["/3.jpg"],
   }
 };
 
@@ -16,7 +16,7 @@ export default function BlogPost() {
     "@type": "BlogPosting",
     "headline": "Surviving a 12-Hour Shift: The Science of Sustained Foot Comfort",
     "image": [
-      "https://spandhikaorthotics.in/3.png"
+      "https://spandhikaorthotics.in/3.jpg"
     ],
     "author": [{
       "@type": "Organization",

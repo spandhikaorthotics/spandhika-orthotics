@@ -13,14 +13,14 @@ const founders: { name: string; role: string; image: string; imageStyle: CSSProp
   {
     name: "Abhishek Goyal",
     role: "Co-founder",
-    image: "/founders/abhishek.png",
+    image: "/founders/abhishek.jpg",
     imageStyle: { objectPosition: "50% 0%", transform: "scale(1.25)", transformOrigin: "50% 23%" },
     text: "Abhishek holds an M.Tech in Electronics & Communication Engineering from NIT Hamirpur. The idea for IOLMS began after a friend developed severe back pain that was eventually traced to an undiagnosed flat foot, a condition that could have been detected much earlier with the right data. That experience inspired a patent, the founding of the company, and a mission to make gait health visible before it turns into a serious medical problem.",
   },
   {
     name: "Krishna Gambhir",
     role: "Co-founder",
-    image: "/founders/krishna.png",
+    image: "/founders/krishna.jpg",
     imageStyle: { objectPosition: "50% 76%" },
     text: "Krishna holds a B.Tech in Electronics & Communication Engineering from NIT Hamirpur. He leads the hardware and firmware development of IOLMS, designing everything from the sensor architecture to the embedded systems that have transformed an early hackathon prototype into a medical device ready for certification.",
   },

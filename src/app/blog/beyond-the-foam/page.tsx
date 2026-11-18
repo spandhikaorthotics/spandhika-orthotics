@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Beyond the Foam: How Pressure Mapping Helps Athletes Recover Faster",
   description: "Learn how smart load distribution, continuous pressure mapping, and gait analysis help athletes recover faster by reducing repetitive strain and supporting efficient movement patterns.",
   openGraph: {
-    images: ["/1.png"],
+    images: ["/1.jpg"],
   }
 };
 // ----------------------------
@@ -18,7 +18,7 @@ export default function BlogPost() {
     "@type": "BlogPosting",
     "headline": "Beyond the Foam: How Pressure Mapping Helps Athletes Recover Faster",
     "image": [
-      "https://spandhikaorthotics.in/1.png"
+      "https://spandhikaorthotics.in/1.jpg"
     ],
     "author": [{
       "@type": "Organization",
@@ -104,7 +104,7 @@ export default function BlogPost() {
           <figure className="my-10 w-full overflow-hidden rounded-xl border border-foreground/[0.08] bg-background">
             <div className="relative aspect-[18/9] w-full bg-foreground/5">
               <Image
-                src="/pronation.png"
+                src="/pronation.jpg"
                 alt="Digital heat map showing dynamic pressure distribution across a foot"
                 fill
                 className="object-cover object-center"
@@ -127,7 +127,7 @@ export default function BlogPost() {
           <figure className="my-10 w-full overflow-hidden rounded-xl border border-foreground/[0.08] bg-background">
             <div className="relative aspect-[16/9] w-full bg-foreground/5">
               <Image
-                src="/degradation.png"
+                src="/degradation.jpg"
                 alt="Fatigue-induced gait degradation showing pressure mapping comparison between a fresh and fatigued athlete"
                 fill
                 className="object-cover object-center"

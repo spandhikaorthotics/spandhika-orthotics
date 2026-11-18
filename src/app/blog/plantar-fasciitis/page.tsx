@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Plantar Fasciitis Relief: Why Standard Insoles Often Fall Short",
   description: "Learn why standard soft insoles often fail to fix heel pain (plantar fasciitis), and how tracking your unique foot pressure can help target the root cause.",
   openGraph: {
-    images: ["/4.png"],
+    images: ["/4.jpg"],
   }
 };
 
@@ -17,7 +17,7 @@ export default function BlogPost() {
     "@type": "BlogPosting",
     "headline": "Plantar Fasciitis Relief: Why Standard Insoles Often Fall Short",
     "image": [
-      "https://spandhikaorthotics.in/4.png"
+      "https://spandhikaorthotics.in/4.jpg"
     ],
     "author": [{
       "@type": "Organization",
@@ -64,7 +64,7 @@ export default function BlogPost() {
           </p>
 
           <ArticleFigure
-            src="/plantar_fascia.png"
+            src="/plantar_fascia.jpg"
             alt="Diagram showing the plantar fascia band connecting the heel bone to the toes"
             caption="The plantar fascia acts like a shock-absorbing bowstring that supports your arch."
           />
@@ -112,7 +112,7 @@ export default function BlogPost() {
           </p>
 
           <ArticleFigure
-            src="/heat-map.png"
+            src="/heat-map.jpg"
             alt="Digital heat map showing dynamic pressure distribution across a foot"
             caption="Tracking your foot pressure shows exactly where your unique walking style puts the most stress."
           />

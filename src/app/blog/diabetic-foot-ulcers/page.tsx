@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "article",
     images: [
       {
-        url: "https://spandhikaorthotics.in/2_.png",
+        url: "https://spandhikaorthotics.in/2_.jpg",
         width: 1200,
         height: 675,
         alt: "Clinician examining a diabetic patient's foot to assess plantar pressure and ulcer risk",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Diabetic Foot Ulcer Prevention: Why Continuous Pressure Monitoring Matters",
     description: "Diabetic foot ulcers form in the 89-day blind spot between clinic visits. Here's why continuous plantar pressure monitoring closes that gap.",
-    images: ["https://spandhikaorthotics.in/2_.png"],
+    images: ["https://spandhikaorthotics.in/2_.jpg"],
   },
 };
 // ----------------------------
@@ -58,7 +58,7 @@ export default function BlogPost() {
     "alternativeHeadline": "Why Diabetic Foot Ulcers Don't Start Overnight",
     "description": "A diabetic foot ulcer isn't a sudden crisis—it's the result of an 89-day blind spot between clinic visits. Discover why continuous pressure monitoring is crucial for diabetic foot ulcer prevention.",
     "image": [
-      "https://spandhikaorthotics.in/2_.png"
+      "https://spandhikaorthotics.in/2_.jpg"
     ],
     "keywords": [
       "diabetic foot ulcer prevention",
@@ -292,7 +292,7 @@ function BlindSpotTimeline() {
       
       <div className="mt-6">
         <Image
-          src="/89day.png"
+          src="/89day.jpg"
           alt="Detailed medical diagram illustrating the invisible tissue stress and ulcer progression within the 89-day blind spot between clinic visits, compared to the exterior foot appearance"
           width={1200}
           height={600}

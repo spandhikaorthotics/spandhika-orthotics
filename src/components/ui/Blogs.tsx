@@ -10,7 +10,7 @@ export default function Blogs() {
       readTime: "6 min read",
       title: "Beyond the Foam: How Pressure Mapping Helps Athletes Recover Faster",
       excerpt: "Athletes need more than just cushioning. Discover how dynamic pressure mapping and load distribution actively prevent repetitive strain injuries and speed up recovery.",
-      image: "/1.png", // The runner image
+      image: "/1.jpg", // The runner image
       link: "/blog/beyond-the-foam"
     },
     {
@@ -19,7 +19,7 @@ export default function Blogs() {
       readTime: "5 min read",
       title: "Why Diabetic Foot Ulcers Don't Start Overnight: The Importance of Continuous Foot Monitoring",
       excerpt: "A diabetic foot ulcer isn't a sudden crisis—it's the result of an 89-day blind spot between clinic visits. Discover why continuous pressure monitoring is crucial.",
-      image: "/2_.png", // The physical therapist image
+      image: "/2_.jpg", // The physical therapist image
       link: "/blog/diabetic-foot-ulcers"
     },
     {
@@ -28,7 +28,7 @@ export default function Blogs() {
       readTime: "6 min read",
       title: "Preventing Falls in Seniors: How Gait Tracking Detects Risks Before They Happen",
       excerpt: "A fall is rarely just a sudden accident. It is often the predictable outcome of weeks of invisible gait deterioration that standard checkups miss.",
-      image: "/3_1.png", // Elderly person walking steadily
+      image: "/3_1.jpg", // Elderly person walking steadily
       link: "/blog/fall-predict"
     }
   ];
