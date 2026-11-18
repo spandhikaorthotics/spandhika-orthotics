@@ -31,6 +31,7 @@ export default function Navbar() {
   // Array of links to avoid repeating code for desktop and mobile menus
   const navLinks = [
     { name: "How it works", href: "#how" },
+    { name: "What Saarthi measures", href: "/what-saarthi-measures" },
     { name: "Who it's for", href: "#who" },
     { name: "Our story", href: "#story" },
     { name: "Blogs", href: "/blog" },
@@ -68,7 +69,7 @@ export default function Navbar() {
 
         {/* Desktop Links */}
         <div
-          className={`hidden md:flex items-center gap-8 font-medium text-[15px] transition-colors duration-150 ${
+          className={`hidden lg:flex items-center gap-6 xl:gap-8 font-medium text-[15px] transition-colors duration-150 ${
             solid ? "text-slate-600" : "text-white/90"
           }`}
         >
@@ -107,7 +108,7 @@ export default function Navbar() {
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden p-2 -mr-2 transition-colors focus:outline-none ${
+            className={`lg:hidden p-2 -mr-2 transition-colors focus:outline-none ${
               solid ? "text-slate-600 hover:text-emerald-800" : "text-white"
             }`}
             aria-label="Toggle menu"
@@ -128,7 +129,7 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 py-4 px-6 flex flex-col gap-4">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 py-4 px-6 flex flex-col gap-4">
           {navLinks.map((link) => (
             <Link
               key={link.name}

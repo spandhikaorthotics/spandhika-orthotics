@@ -410,6 +410,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {[
                 { label: "How it works", href: "#how" },
+                { label: "What Saarthi measures", href: "/what-saarthi-measures" },
                 { label: "Foot Conditions", href: "#foot-concerns" },
                 { label: "Mobile App", href: "/mobileapp" },
                 {
