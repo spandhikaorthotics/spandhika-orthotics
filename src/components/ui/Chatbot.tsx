@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { ArrowUp, Sparkles, X } from "lucide-react";
 import { montserrat } from "@/lib/fonts";
 
@@ -63,25 +64,31 @@ export default function Chatbot() {
 
   // Hide the launcher over the homepage video hero (#top). Show it once the
   // bottom of the viewport has scrolled past the bottom of the hero.
+  // The chatbot lives in the root layout and survives client-side navigation,
+  // so the hero is looked up on every check and re-checked when the route changes.
+  const pathname = usePathname();
   useEffect(() => {
-    const hero = document.getElementById("top");
     let frame = 0;
     const update = () => {
       frame = 0;
+      const hero = document.getElementById("top");
       setPastHero(!hero || hero.getBoundingClientRect().bottom < window.innerHeight - 24);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
     onScroll();
+    // Re-check after the new page has rendered and scroll position is restored.
+    const settle = setTimeout(onScroll, 250);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
+      clearTimeout(settle);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [pathname]);
 
   // Close when the visitor clicks anywhere outside the chat. The conversation
   // and any reply still loading are kept, since this component stays mounted.
