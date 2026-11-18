@@ -47,7 +47,7 @@ export default function HomeVideoHero() {
       <div className="hero-shade pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
 
       {/* Content: the wrapper ignores clicks so they reach the section; interactive children opt back in. */}
-      <div className="hero-content pointer-events-none mx-auto flex w-full max-w-4xl flex-col items-center px-6 py-20 text-center text-white">
+      <div className="hero-content pointer-events-none mx-auto flex w-full max-w-4xl flex-col items-center px-6 pb-20 pt-28 text-center text-white">
         <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/80 sm:text-xs">
           Spandhika Orthotics &middot; Saarthi
         </p>

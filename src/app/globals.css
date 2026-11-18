@@ -402,10 +402,9 @@
 
 /* ───────────── Redesign: video hero ───────────── */
 .home-hero {
-  /* Fill the viewport below the sticky navbar (~88px). */
-  height: calc(100svh - 88px);
+  /* Full screen; the navbar floats over it (transparent until scrolled). */
+  height: 100svh;
   min-height: 560px;
-  max-height: 960px;
   background: #06140f;
 }
 .hero-shade {
