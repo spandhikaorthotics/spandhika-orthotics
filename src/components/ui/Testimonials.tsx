@@ -91,9 +91,6 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const rowA = testimonials.slice(0, 6);
-const rowB = testimonials.slice(6);
-
 function initials(name: string) {
   return name
     .replace(/^(Dr\.|Mr\.)\s*/, "")
@@ -200,9 +197,8 @@ export default function Testimonials() {
         </p>
       </div>
 
-      <div className="mt-10 flex flex-col gap-5">
-        <MarqueeRow items={rowA} duration="70s" />
-        <MarqueeRow items={rowB} duration="80s" reverse />
+      <div className="mt-10">
+        <MarqueeRow items={testimonials} duration="140s" />
       </div>
     </section>
   );
