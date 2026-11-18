@@ -402,8 +402,8 @@
 
 /* ───────────── Redesign: video hero ───────────── */
 .home-hero {
-  /* Fill the viewport below the sticky navbar (~88px). */
-  height: calc(100svh - 88px);
+  /* Fill the viewport below the sticky navbar (76px tall). */
+  height: calc(100svh - 76px);
   min-height: 560px;
   max-height: 960px;
   background: #06140f;

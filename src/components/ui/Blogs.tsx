@@ -34,7 +34,7 @@ export default function Blogs() {
   ];
 
   return (
-    <section id="blogs" className="bg-[#FAFAF7] py-20 md:py-28">
+    <section id="blogs" className="scroll-mt-20 bg-[#FAFAF7] py-20 md:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
 
         {/* Header Section */}

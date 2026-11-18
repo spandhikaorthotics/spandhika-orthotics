@@ -1,103 +1,173 @@
 "use client";
-import Link from "next/link";
+
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Menu, X } from "lucide-react";
+import { montserrat } from "@/lib/fonts";
+
+const navLinks = [
+  { name: "How it works", id: "how" },
+  { name: "Who it's for", id: "who" },
+  { name: "Our story", id: "story" },
+  { name: "Blogs", id: "blogs" },
+  { name: "FAQ", id: "faq" },
+  { name: "Contact", id: "contact" },
+];
+
+function goToWaitlist() {
+  document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  setTimeout(() => document.getElementById("waitlist-email")?.focus({ preventScroll: true }), 700);
+}
 
 export default function Navbar() {
-  // State to manage mobile menu visibility
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+  const navRef = useRef<HTMLElement>(null);
 
-  // Array of links to avoid repeating code for desktop and mobile menus
-  const navLinks = [
-    { name: "The problem", href: "#problem" },
-    { name: "Features", href: "#features" },
-    { name: "Who it's for", href: "#who-its-for" },
-    { name: "Purpose", href: "#purpose" },
-    { name: "Contact", href: "#contact" },
-  ];
+  // Add a shadow once the page has scrolled.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Highlight the link for the section currently in view.
+  useEffect(() => {
+    const sections = navLinks
+      .map((l) => document.getElementById(l.id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (!sections.length) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (visible.length) {
+          visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+          setActive(visible[0].target.id);
+        } else if (window.scrollY < window.innerHeight * 0.5) {
+          setActive(null);
+        }
+      },
+      // A band across the upper-middle of the viewport decides the active section.
+      { rootMargin: "-30% 0px -60% 0px" },
+    );
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
+  }, []);
+
+  // Mobile menu: close on Escape or a tap outside the navbar.
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setIsOpen(false);
+    const onPointer = (e: PointerEvent) => {
+      if (!navRef.current?.contains(e.target as Node)) setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
+    };
+  }, [isOpen]);
 
   return (
-    <nav className="sticky top-0 z-50 pt-6 pb-4 bg-white/90 backdrop-blur-md shadow-sm relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+    <nav
+      ref={navRef}
+      aria-label="Main"
+      className={`${montserrat.className} lv-theme sticky top-0 z-50 border-b backdrop-blur-xl transition-[box-shadow,border-color] duration-300 ${
+        scrolled || isOpen
+          ? "border-border shadow-[0_8px_24px_-16px_color-mix(in_oklab,var(--primary)_45%,transparent)]"
+          : "border-transparent"
+      }`}
+      style={{ backgroundColor: "rgb(255 255 255 / 0.86)" }}
+    >
+      <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-6 px-6 lg:px-10">
         {/* Logo */}
+        <a href="#top" aria-label="Spandhika Orthotics — back to top" className="flex shrink-0 items-center">
+          <Image src="/SO_Logo.png" alt="Spandhika Orthotics" width={48} height={48} className="h-12 w-auto object-contain" priority />
+        </a>
+
+        {/* Desktop links */}
+        <ul className="hidden items-center gap-1 lg:flex">
+          {navLinks.map((link) => {
+            const isActive = active === link.id;
+            return (
+              <li key={link.id}>
+                <a
+                  href={`#${link.id}`}
+                  aria-current={isActive ? "true" : undefined}
+                  className={`rounded-full px-3.5 py-2 text-[14px] font-medium transition-colors xl:px-4 ${
+                    isActive
+                      ? "bg-[var(--primary-soft)] text-primary"
+                      : "text-muted-foreground hover:bg-[color-mix(in_oklab,var(--secondary)_70%,white)] hover:text-primary"
+                  }`}
+                >
+                  {link.name}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Actions */}
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center justify-center">
-            <Image
-              src="/SO_Logo.png"
-              alt="Spandhika Orthotics Logo"
-              width={50}
-              height={50}
-              className="object-contain"
-              priority
-            />
-          </Link>
-        </div>
-
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8 font-medium text-[15px] text-slate-600">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="hover:text-emerald-800 transition-colors"
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Right Side Action Area */}
-        <div className="flex items-center gap-3 sm:gap-4">
-          {/* Waitlist Button */}
           <button
+            type="button"
             onClick={() => {
-              document
-                .getElementById("waitlist-email")
-                ?.scrollIntoView({ behavior: "smooth", block: "center" });
-              setTimeout(
-                () => document.getElementById("waitlist-email")?.focus(),
-                500
-              );
-              setIsOpen(false); // Close menu if it was open
+              setIsOpen(false);
+              goToWaitlist();
             }}
-            className="bg-[#022c22] hover:bg-emerald-950 text-white px-5 py-2.5 rounded-full text-sm sm:text-base font-medium transition-colors shadow-sm cursor-pointer"
+            className="group hidden cursor-pointer items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[14px] font-semibold text-primary-foreground shadow-[0_8px_20px_-10px_color-mix(in_oklab,var(--primary)_80%,transparent)] transition-all hover:-translate-y-0.5 sm:inline-flex"
           >
             Join waitlist
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
           </button>
 
-          {/* Mobile Menu Toggle Button */}
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 -mr-2 text-slate-600 hover:text-emerald-800 transition-colors focus:outline-none"
-            aria-label="Toggle menu"
+            type="button"
+            onClick={() => setIsOpen((o) => !o)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            className="grid h-11 w-11 cursor-pointer place-items-center rounded-full text-primary transition-colors hover:bg-secondary lg:hidden"
           >
-            {/* Hamburger / Close Icon logic */}
-            {isOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 py-4 px-6 flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="text-slate-600 hover:text-emerald-800 font-medium text-base py-2 border-b border-gray-50 last:border-none"
-            >
-              {link.name}
-            </Link>
-          ))}
+        <div id="mobile-menu" className="lv-swap border-t border-border bg-white px-6 pb-6 pt-3 lg:hidden">
+          <ul className="flex flex-col">
+            {navLinks.map((link) => (
+              <li key={link.id}>
+                <a
+                  href={`#${link.id}`}
+                  onClick={() => setIsOpen(false)}
+                  className={`flex items-center justify-between rounded-xl px-3 py-3.5 text-[16px] font-medium transition-colors ${
+                    active === link.id ? "bg-[var(--primary-soft)] text-primary" : "text-foreground hover:bg-secondary"
+                  }`}
+                >
+                  {link.name}
+                  <ArrowRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <button
+            type="button"
+            onClick={() => {
+              setIsOpen(false);
+              goToWaitlist();
+            }}
+            className="mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary py-3.5 text-[15px] font-semibold text-primary-foreground"
+          >
+            Join waitlist
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </button>
         </div>
       )}
     </nav>
