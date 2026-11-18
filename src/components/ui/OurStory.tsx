@@ -41,7 +41,7 @@ export default function OurStory() {
         <div className="text-center">
           <p className="lv-label">Our story</p>
           <h2 className="lv-title mt-3">
-            Every step <span className="text-[color-mix(in_oklab,var(--primary)_60%,white)]">tells a story.</span>
+            Every step tells a story.
           </h2>
         </div>
 
